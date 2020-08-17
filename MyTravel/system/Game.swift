@@ -8,6 +8,7 @@
 
 import SpriteKit
 class Game {
+    static let frame_size = 0.25
     static func start() {
         
     }

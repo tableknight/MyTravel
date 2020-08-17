@@ -24,3 +24,4 @@ func getCross() -> SKSpriteNode {
 //    node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
     return node
 }
+

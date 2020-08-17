@@ -16,26 +16,22 @@ class GameScene: SKScene {
         self.backgroundColor = UIColor.black
         addChild(getCross())
         let s = SKTexture(imageNamed: "Outside")
-        let scene = Scene()
-        for x in 0...Size.default_cell_x_count {
-            for y in 0...Size.default_cell_y_count {
-                scene.addCell(x: x, y: y, item: s.getNode(0, 0))
-            }
-        }
-        scene.addCell(x: 0, y: Size.default_cell_y_count / 2, item: s.getNode(5, 0))
-        scene.addCell(x: 0, y: 0, item: s.getNode(5, 0))
-        scene.addCell(x: Size.default_cell_x_count / 2, y: 0, item: s.getNode(5, 0))
-        scene.addCell(x: Size.default_cell_x_count, y: 0, item: s.getNode(5, 0))
-        scene.addCell(x: Size.default_cell_x_count, y: Size.default_cell_y_count, item: s.getNode(5, 0))
-        scene.addCell(x: Size.default_cell_x_count / 2, y: Size.default_cell_y_count / 2, item: s.getNode(5, 0))
-//        scene.addCell(x: Size.default_cell_x_count / 2 - 1, y: Size.default_cell_y_count / 2, item: s.getNode(0, 0))
-//        scene.addCell(x: Size.default_cell_x_count / 2 - 2, y: Size.default_cell_y_count / 2, item: s.getNode(0, 0))
-//        scene.addCell(x: Size.default_cell_x_count / 2 + 1, y: Size.default_cell_y_count / 2, item: s.getNode(0, 0))
-//        scene.addCell(x: Size.default_cell_x_count / 2 + 2, y: Size.default_cell_y_count / 2, item: s.getNode(0, 0))
+        let scene = TwistedMeadow()
+        scene.addBoundCells()
+        let node = s.getNode(12, 1, 2, 4)
+        scene._groundNode = node
+        scene.create()
         let stage = Stage()
         stage.loadScene(scene: scene)
-        stage.setRole(role: ActionUnit())
+        stage.setRole(ActionUnit())
         addChild(stage)
+        
+//        let node = WallNodeTree()
+//        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+//        addChild(node)
+//        let node1 = EnemyNode()
+//        node1.setRole(node: SKTexture(imageNamed: "green_spirit").getNode(0, 1))
+//        addChild(node1)
     }
     
     
@@ -49,6 +45,10 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        let touchPoint = touches.first?.location(in: self)
+//        print(touchPoint!)
+//        print(touchPoint!.x.toInt() - Size.default_cell_x_count * 18)
+//        print(touchPoint!.y.toInt() + Size.default_cell_y_count * 18)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
