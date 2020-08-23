@@ -43,7 +43,7 @@ class Scene: SKSpriteNode {
         _cellLayer.removeAllChildren()
     }
     
-    func getCell(x: Int, y: Int) -> Int {
+    func getCellType(x: Int, y: Int) -> Int {
         return _mapMatrix[y][x]
     }
     
@@ -51,32 +51,43 @@ class Scene: SKSpriteNode {
         
     }
     
-    func addCell(x:Int, y:Int, item:SKSpriteNode, z:CGFloat = 0) {
-//        let yAnchor = cellSize / item.size.height
+    func addCell(x:Int, y:Int, item:CellNode, z:CGFloat = 0) {
+        //        let yAnchor = cellSize / item.size.height
         item.anchorPoint = CGPoint(x: 0.5, y: 0)
         item.position.x = (-_xSize / 2 + x).toFloat() * cellSize
         item.position.y = (_ySize / 2 - y).toFloat() * cellSize
         if z > 0 {
             item.zPosition = z
         }
-        //        item.name = getItemName(CGPoint(x: x, y: y))
+        item.name = "cell\(y)\(x)"
         _cellLayer.addChild(item)
     }
-    func addBoundCells() {
-        addCell(x: 0, y: 0, item: getBoundCell())
-        addCell(x: _xSize, y: 0, item: getBoundCell())
-        addCell(x: 0, y: _ySize, item: getBoundCell())
-        addCell(x: _xSize, y: _ySize, item: getBoundCell())
+    func addCell(x:Int, y:Int, item:SKSpriteNode) {
+        item.anchorPoint = CGPoint(x: 0.5, y: 0)
+        item.position.x = (-_xSize / 2 + x).toFloat() * cellSize
+        item.position.y = (_ySize / 2 - y).toFloat() * cellSize
+        _cellLayer.addChild(item)
     }
-    private func getBoundCell() -> SKSpriteNode{
-        //        let shape = SKShapeNode(rect: CGRect(x: 0, y: 0, width: cellSize, height: cellSize))
-        //        shape.fillColor = UIColor.white
-        let node = SKSpriteNode()
-        //        node.addChild(shape)
-        node.color = UIColor.white
-        node.size = CGSize(width: cellSize, height: cellSize)
-        return node
+    
+    func getCellNode(x:Int, y:Int) -> CellNode {
+        return childNode(withName: "item\(y)\(x)") as! CellNode
     }
+    
+    //    func addBoundCells() {
+    //        addCell(x: 0, y: 0, item: getBoundCell())
+    //        addCell(x: _xSize, y: 0, item: getBoundCell())
+    //        addCell(x: 0, y: _ySize, item: getBoundCell())
+    //        addCell(x: _xSize, y: _ySize, item: getBoundCell())
+    //    }
+    //    private func getBoundCell() -> SKSpriteNode{
+    //        //        let shape = SKShapeNode(rect: CGRect(x: 0, y: 0, width: cellSize, height: cellSize))
+    //        //        shape.fillColor = UIColor.white
+    //        let node = SKSpriteNode()
+    //        //        node.addChild(shape)
+    //        node.color = UIColor.white
+    //        node.size = CGSize(width: cellSize, height: cellSize)
+    //        return node
+    //    }
     
     internal var _xSize = Size.default_cell_x_count
     internal var _ySize = Size.default_cell_y_count

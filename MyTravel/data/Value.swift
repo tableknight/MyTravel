@@ -38,6 +38,8 @@ struct Cell {
     static let enemy = 12
     static let portal = 13
     static let herb = 14
+    static let chest = 15
+    static let tower = 16
 }
 struct DamageType {
     static let PHYSICAL = 1
@@ -55,6 +57,12 @@ struct Quality {
 }
 struct Value {
     static let village_name = "贝鲁特"
+    static let border_radius:CGFloat = 8
+    static let unselected_stroke_color = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.35)
+    static let selected_stroke_color = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.8)
+    static let selected_stroke_width:CGFloat = 2
+    static let unselected_stroke_width:CGFloat = 1
+    static let background_alpha:CGFloat = 0.65
 }
 struct Direction {
     var north = false

@@ -14,10 +14,10 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         self.backgroundColor = UIColor.black
-        addChild(getCross())
+//        addChild(getCross())
         let s = SKTexture(imageNamed: "Outside")
         let scene = TwistedMeadow()
-        scene.addBoundCells()
+//        scene.addBoundCells()
         let node = s.getNode(12, 1, 2, 4)
         scene._groundNode = node
         scene.create()
@@ -25,6 +25,15 @@ class GameScene: SKScene {
         stage.loadScene(scene: scene)
         stage.setRole(ActionUnit())
         addChild(stage)
+        
+        
+//        let lvWidth = cellSize * 0.5
+//               let lvCircle = LvCircle()
+//               lvCircle.create(radius: lvWidth, value: 12)
+////               lvCircle.position = CGPoint(x: -deviceSize.width * 0.5 + lvWidth * 2, y: deviceSize.height * 0.5 - cellSize * 0.5)
+//               addChild(lvCircle)
+        
+        
         
 //        let node = WallNodeTree()
 //        node.anchorPoint = CGPoint(x: 0.5, y: 0.5)

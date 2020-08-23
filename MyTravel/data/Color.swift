@@ -37,3 +37,10 @@ struct DamageColor {
     static let WATER = UIColor.init(red: 0.2, green: 0.53, blue: 1, alpha: 1)
     static let THUNDER = UIColor.yellow
 }
+
+struct BarColor {
+//    static let hp = UIColor.init(red: 244 / 255, green: 67 / 255, blue: 54 / 255, alpha: 1)
+    static let hp = UIColor.red
+    static let mp = UIColor.init(red: 57 / 255, green: 193 / 255, blue: 255 / 255, alpha: 1)
+    static let exp = UIColor.init(red: 109 / 255, green: 239 / 255, blue: 114 / 255, alpha: 1)
+}

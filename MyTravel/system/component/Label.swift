@@ -36,7 +36,16 @@ class Label: SKSpriteNode {
             _label.text = newValue
         }
         get {
-            return ""
+            return _label.text!
+        }
+    }
+    
+    var width:CGFloat {
+        set {
+            
+        }
+        get {
+            return text.count.toFloat() * _label.fontSize * 0.5
         }
     }
     
@@ -44,10 +53,10 @@ class Label: SKSpriteNode {
     
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
-        for s in UIFont.familyNames {
-            print(s)
-        }
-        print(UIFont.familyNames.count)
+//        for s in UIFont.familyNames {
+//            print(s)
+//        }
+//        print(UIFont.familyNames.count)
         _label = SKLabelNode(fontNamed: "FZFW ZhuZi A YuanS")
         _label.fontColor = UIColor.white
         _label.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left

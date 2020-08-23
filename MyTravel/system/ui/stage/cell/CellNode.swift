@@ -14,11 +14,18 @@ class CellNode: SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    var _key = ""
     internal func setTexture(_ texture:SKTexture) {
         self.texture = texture
-        self.size = texture.size()
+//        self.size = texture.size()
     }
+    internal func setSize(w:CGFloat, h:CGFloat) {
+        self.size = CGSize(width: w * cellSize, height: h * cellSize)
+    }
+    func triggerEvent() {
+        
+    }
+    var _key = ""
+    var _triggered = false
 }
 
 class RoleNode: CellNode {

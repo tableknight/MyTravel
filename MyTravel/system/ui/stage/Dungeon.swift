@@ -80,10 +80,21 @@ class Dungeon: Scene {
             let data = ItemData.data[herb]!
             let t = SKTexture(imageNamed: "Outside_B").getNode(data.imgX, data.imgY).toTexture()
             item.setTexture(t)
-            addCell(x: x, y: y, item: item, z: ZIndex.item)
+            addCell(x: x, y: y, item: item, z: ZIndex.item + y.toFloat() * 100)
             _mapMatrix[y][x] = Cell.herb
             _herbCount += 1
-        }else {
+        } else if sd < 10 && _chestCount < _maxChestCount {
+            let chest = Chest()
+            addCell(x: x, y: y, item: chest, z: ZIndex.item + y.toFloat() * 100)
+            _mapMatrix[y][x] = Cell.chest
+            _chestCount += 1
+        } else if sd < 15 && _towerCount < 2 {
+            let tower = getRandomTower()
+            addCell(x: x, y: y, item: tower, z: ZIndex.item + y.toFloat() * 100)
+            _mapMatrix[y][x] = Cell.tower
+            _towerCount += 1
+        }
+        else {
             addCell(x: x, y: y, item: WallNodeTree())
             _mapMatrix[y][x] = Cell.wall
         }
@@ -102,6 +113,46 @@ class Dungeon: Scene {
         //            addWall(x: x, y: y, item: item)
         //            _mapMatrix[y.toInt()][x.toInt()] = CELL_ITEM
         //        }
+    }
+    
+    internal func getRandomTower() -> Tower {
+//        return FireEnergeTower()
+        let TOWER_FIRE_ENERGE = 200
+        let TOWER_WATER_ENERGE = 201
+        let TOWER_THUNDER_ENERGE = 202
+        let TOWER_TIME_REDUCE = 203
+        let TOWER_PHYSICAL_POWER = 204
+        let TOWER_MAGICAL_POWER = 205
+        let TOWER_ATTACK_POWER = 206
+        let TOWER_DEFENCE_POWER = 207
+        let TOWER_MIND_POWER = 208
+        let TOWER_LUCKY_POWER = 209
+        let TOWER_SPEED_POWER = 210
+        let _towerEnum = [TOWER_MIND_POWER, TOWER_FIRE_ENERGE, TOWER_LUCKY_POWER, TOWER_SPEED_POWER, TOWER_TIME_REDUCE, TOWER_ATTACK_POWER, TOWER_DEFENCE_POWER, TOWER_WATER_ENERGE, TOWER_MAGICAL_POWER, TOWER_PHYSICAL_POWER, TOWER_THUNDER_ENERGE]
+        switch _towerEnum.one() {
+        case TOWER_MIND_POWER:
+            return MindPowerTower()
+        case TOWER_FIRE_ENERGE:
+            return FireEnergeTower()
+        case TOWER_LUCKY_POWER:
+            return LuckyPowerTower()
+        case TOWER_TIME_REDUCE:
+            return TimeReduceTower()
+        case TOWER_ATTACK_POWER:
+            return AttackPowerTower()
+        case TOWER_WATER_ENERGE:
+            return WaterEnergeTower()
+        case TOWER_DEFENCE_POWER:
+            return DefencePowerTower()
+        case TOWER_MAGICAL_POWER:
+            return MagicalPowerTower()
+        case TOWER_PHYSICAL_POWER:
+            return PhysicalPowerTower()
+        case TOWER_THUNDER_ENERGE:
+            return ThunderEnergeTower()
+        default:
+            return FireEnergeTower()
+        }
     }
     
     internal func findVisiblePoints() {
@@ -206,10 +257,15 @@ class Dungeon: Scene {
         addPortalnode()
     }
     internal func addPortalnode() {
-        addCell(x: _portalNext.x.toInt(), y: _portalNext.y.toInt(), item: SKTexture(imageNamed: "tilesets").getNode(5, 2), z: ZIndex.portal)
-        addCell(x: _portalPrev.x.toInt(), y: _portalPrev.y.toInt(), item: SKTexture(imageNamed: "tilesets").getNode(6, 2), z: ZIndex.portal)
+        let texture = SKTexture(imageNamed: "tilesets")
+        let next = texture.getNode(5, 2)
+        next.zPosition = ZIndex.portal
+        let prev = texture.getNode(6, 2)
+        prev.zPosition = ZIndex.portal
+        addCell(x: _portalNext.x.toInt(), y: _portalNext.y.toInt(), item: next)
+        addCell(x: _portalPrev.x.toInt(), y: _portalPrev.y.toInt(), item: prev)
     }
-    internal func getEnemyNode() -> SKSpriteNode {
+    internal func getEnemyNode() -> EnemyNode {
         let node = EnemyNode()
         let data = Minions.data[_enemyType.one()]!
         node.setRole(node: SKTexture(imageNamed: data.imgUrl).getNode(0, seed(max: 3).toFloat()))

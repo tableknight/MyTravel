@@ -44,6 +44,12 @@
 		09D7AC0C24EADC08009BAE5B /* f1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09D7AC0B24EADC04009BAE5B /* f1.ttf */; };
 		09D7AC0F24EADC73009BAE5B /* font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 09D7AC0D24EADC3D009BAE5B /* font.ttf */; };
 		09D7AC1024EADC76009BAE5B /* FZSJ-GUOGPYT.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 09D7AC0E24EADC59009BAE5B /* FZSJ-GUOGPYT.TTF */; };
+		09D7AC1324EC0C77009BAE5B /* Chest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC1224EC0C77009BAE5B /* Chest.swift */; };
+		09D7AC1524EC0EE6009BAE5B /* Tower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC1424EC0EE6009BAE5B /* Tower.swift */; };
+		09D7AC1824EC0FE6009BAE5B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC1724EC0FE6009BAE5B /* Status.swift */; };
+		09D7AC1A24EC1045009BAE5B /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC1924EC1045009BAE5B /* Function.swift */; };
+		09D7AC1C24F218C0009BAE5B /* HBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC1B24F218C0009BAE5B /* HBar.swift */; };
+		09D7AC1E24F25FB6009BAE5B /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC1D24F25FB6009BAE5B /* IconButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +92,12 @@
 		09D7AC0B24EADC04009BAE5B /* f1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = f1.ttf; path = ../../../../Downloads/f1.ttf; sourceTree = "<group>"; };
 		09D7AC0D24EADC3D009BAE5B /* font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = font.ttf; path = ../../../../Downloads/font.ttf; sourceTree = "<group>"; };
 		09D7AC0E24EADC59009BAE5B /* FZSJ-GUOGPYT.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; name = "FZSJ-GUOGPYT.TTF"; path = "../../../../Downloads/FZSJ-GUOGPYT.TTF"; sourceTree = "<group>"; };
+		09D7AC1224EC0C77009BAE5B /* Chest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chest.swift; sourceTree = "<group>"; };
+		09D7AC1424EC0EE6009BAE5B /* Tower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tower.swift; sourceTree = "<group>"; };
+		09D7AC1724EC0FE6009BAE5B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		09D7AC1924EC1045009BAE5B /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
+		09D7AC1B24F218C0009BAE5B /* HBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBar.swift; sourceTree = "<group>"; };
+		09D7AC1D24F25FB6009BAE5B /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +177,7 @@
 		09D7ABC024E38612009BAE5B /* story */ = {
 			isa = PBXGroup;
 			children = (
+				09D7AC1624EC0FD5009BAE5B /* status */,
 				09D7ABF924EA2764009BAE5B /* item */,
 				09D7ABF824EA274E009BAE5B /* unit */,
 				09D7ABF524EA2709009BAE5B /* spell */,
@@ -179,6 +192,7 @@
 				09D7ABD124E38B5D009BAE5B /* Device.swift */,
 				09D7ABDA24E39D11009BAE5B /* Test.swift */,
 				09D7ABDC24E4350D009BAE5B /* GroundSet.swift */,
+				09D7AC1924EC1045009BAE5B /* Function.swift */,
 			);
 			path = tool;
 			sourceTree = "<group>";
@@ -196,8 +210,9 @@
 		09D7ABC524E38664009BAE5B /* component */ = {
 			isa = PBXGroup;
 			children = (
-				09D7ABE924E7F5E6009BAE5B /* CellNode.swift */,
 				09D7ABFC24EA3219009BAE5B /* Label.swift */,
+				09D7AC1B24F218C0009BAE5B /* HBar.swift */,
+				09D7AC1D24F25FB6009BAE5B /* IconButton.swift */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -205,6 +220,7 @@
 		09D7ABCC24E3878F009BAE5B /* stage */ = {
 			isa = PBXGroup;
 			children = (
+				09D7AC1124EC0BEA009BAE5B /* cell */,
 				09D7ABE024E4C21F009BAE5B /* AncientRoad */,
 				09D7ABCD24E387F7009BAE5B /* Stage.swift */,
 				09D7ABD524E395E6009BAE5B /* Scene.swift */,
@@ -254,6 +270,24 @@
 				09D7ABED24E80E2D009BAE5B /* item.swift */,
 			);
 			path = item;
+			sourceTree = "<group>";
+		};
+		09D7AC1124EC0BEA009BAE5B /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				09D7ABE924E7F5E6009BAE5B /* CellNode.swift */,
+				09D7AC1224EC0C77009BAE5B /* Chest.swift */,
+				09D7AC1424EC0EE6009BAE5B /* Tower.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		09D7AC1624EC0FD5009BAE5B /* status */ = {
+			isa = PBXGroup;
+			children = (
+				09D7AC1724EC0FE6009BAE5B /* Status.swift */,
+			);
+			path = status;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,6 +368,7 @@
 			files = (
 				09D7ABF424EA2693009BAE5B /* Creature.swift in Sources */,
 				09D7ABAD24E384C7009BAE5B /* GameScene.swift in Sources */,
+				09D7AC1C24F218C0009BAE5B /* HBar.swift in Sources */,
 				09D7ABD024E3880C009BAE5B /* Game.swift in Sources */,
 				09D7ABC724E3876D009BAE5B /* Size.swift in Sources */,
 				09D7ABDB24E39D11009BAE5B /* Test.swift in Sources */,
@@ -341,7 +376,9 @@
 				09D7ABDD24E4350D009BAE5B /* GroundSet.swift in Sources */,
 				09D7ABEC24E80DB7009BAE5B /* Type.swift in Sources */,
 				09D7ABF724EA2718009BAE5B /* Spell.swift in Sources */,
+				09D7AC1324EC0C77009BAE5B /* Chest.swift in Sources */,
 				09D7ABCE24E387F7009BAE5B /* Stage.swift in Sources */,
+				09D7AC1824EC0FE6009BAE5B /* Status.swift in Sources */,
 				09D7ABE624E4C4C7009BAE5B /* Unit.swift in Sources */,
 				09D7ABE824E4C537009BAE5B /* Structure.swift in Sources */,
 				09D7ABCB24E38784009BAE5B /* Value.swift in Sources */,
@@ -352,6 +389,8 @@
 				09D7ABDF24E4B76A009BAE5B /* Dungeon.swift in Sources */,
 				09D7ABAF24E384C7009BAE5B /* GameViewController.swift in Sources */,
 				09D7ABC224E3862A009BAE5B /* Core.swift in Sources */,
+				09D7AC1E24F25FB6009BAE5B /* IconButton.swift in Sources */,
+				09D7AC1524EC0EE6009BAE5B /* Tower.swift in Sources */,
 				09D7ABD924E39A38009BAE5B /* ActionUnit.swift in Sources */,
 				09D7ABF024E80EC8009BAE5B /* ItemData.swift in Sources */,
 				09D7ABD624E395E6009BAE5B /* Scene.swift in Sources */,
@@ -359,6 +398,7 @@
 				09D7ABEA24E7F5E6009BAE5B /* CellNode.swift in Sources */,
 				09D7ABA724E384C7009BAE5B /* AppDelegate.swift in Sources */,
 				09D7ABC924E3877B009BAE5B /* Color.swift in Sources */,
+				09D7AC1A24EC1045009BAE5B /* Function.swift in Sources */,
 				09D7ABFB24EA27AF009BAE5B /* CreatureData.swift in Sources */,
 				09D7ABD224E38B5D009BAE5B /* Device.swift in Sources */,
 			);

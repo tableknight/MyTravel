@@ -90,4 +90,17 @@ extension SKNode {
         let view = SKView()
         return view.texture(from: self)!
     }
+    func createBackground(width: CGFloat, height: CGFloat, cornerRadius: CGFloat = Value.border_radius) -> SKShapeNode {
+    //    let b = CGRect(x: -width * 0.5, y: -height * 0.5, width: width, height: height)
+    //    let bg = SKShapeNode(rect: b, cornerRadius: cornerRadius)
+        let bg = SKShapeNode(rectOf: CGSize(width: width, height: height), cornerRadius: cornerRadius)
+        bg.fillColor = UIColor.black
+        bg.strokeColor = Value.unselected_stroke_color
+        bg.lineWidth = Value.unselected_stroke_width
+        bg.alpha = Value.background_alpha
+        bg.position.x = 0
+        bg.position.y = 0
+    //    bg.zPosition = zPos
+        return bg
+    }
 }
