@@ -74,6 +74,22 @@ extension SKTexture {
     }
 }
 extension SKNode {
+    var y:CGFloat {
+        set {
+            position.y = newValue
+        }
+        get {
+            return position.y
+        }
+    }
+    var x:CGFloat {
+        set {
+            position.x = newValue
+        }
+        get {
+            return position.x
+        }
+    }
     var cellSize:CGFloat {
         get {
             return 36

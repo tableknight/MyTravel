@@ -50,6 +50,7 @@ class RoleNode: CellNode {
     }
     internal var _roleNode:SKSpriteNode!
     internal var _texture:SKTexture!
+    var _unit:Unit!
 }
 
 class EnemyNode: RoleNode {

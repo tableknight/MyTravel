@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-class Item: Core {
+class Item:NSObject, Codable, Showable {
     static let PRICE_TYPE_GOLD = 1
     static let PRICE_TYPE_TEAR = 2
     

@@ -8,7 +8,7 @@
 
 
 import SpriteKit
-class Spell:Core {
+class Spell:Showable {
     
     static let Cruel = 1001
     static let Bellicose = 1002

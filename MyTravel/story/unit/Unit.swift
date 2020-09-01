@@ -7,79 +7,81 @@
 //
 
 import SpriteKit
-class Unit:Core {
+class Unit:NSObject, Codable {
     override init() {
         super.init()
-        
     }
-    private enum CodingKeys: String, CodingKey {
-        case _main
-        case _extended
-        case _extra
-        case _level
-        case _name
-        case _race
-        case _exp
-        case _spellCount
-        case _leftPoint
-        case _spells
-        case _spellsInuse
-        case _spellsHidden
-        case _imgUrl
-        case _seat
-        case _quality
-        case _NatrualPower
-        case _NatrualResistance
-        case _magical
-        case _Natrual
-        case _physical
+    func seed(min:Int = 0, max:Int = 101) -> Int {
+        return Int(arc4random_uniform(UInt32(max - min))) + min
     }
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        _main = try values.decode(Main.self, forKey: ._main)
-        _extended = try values.decode(Extended.self, forKey: ._extended)
-        _extra = try values.decode(Extra.self, forKey: ._extra)
-        _level = try values.decode(CGFloat.self, forKey: ._level)
-        _name = try values.decode(String.self, forKey: ._name)
-        _race = try values.decode(Int.self, forKey: ._race)
-        _exp = try values.decode(CGFloat.self, forKey: ._exp)
-        _spellCount = try values.decode(Int.self, forKey: ._spellCount)
-        _leftPoint = try values.decode(Int.self, forKey: ._leftPoint)
-        _spells = try values.decode(Array.self, forKey: ._spells)
-        _spellsInuse = try values.decode(Array.self, forKey: ._spellsInuse)
-        _spellsHidden = try values.decode(Array.self, forKey: ._spellsHidden)
-        _imgUrl = try values.decode(String.self, forKey: ._imgUrl)
-        _seat = try values.decode(String.self, forKey: ._seat)
-        _quality = try values.decode(Int.self, forKey: ._quality)
-        _NatrualPower = try values.decode(Natrual.self, forKey: ._NatrualPower)
-        _NatrualResistance = try values.decode(Natrual.self, forKey: ._NatrualResistance)
-        if _imgUrl.isEmpty {
-            _imgUrl = "test_role"
-        }
-        _img = SKTexture(imageNamed: _imgUrl)
-        try super.init(from: decoder)
-    }
-    override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(_main, forKey: ._main)
-        try container.encode(_extended, forKey: ._extended)
-        try container.encode(_extra, forKey: ._extra)
-        try container.encode(_level, forKey: ._level)
-        try container.encode(_name, forKey: ._name)
-        try container.encode(_race, forKey: ._race)
-        try container.encode(_exp, forKey: ._exp)
-        try container.encode(_spellCount, forKey: ._spellCount)
-        try container.encode(_leftPoint, forKey: ._leftPoint)
-        try container.encode(_spells, forKey: ._spells)
-        try container.encode(_spellsInuse, forKey: ._spellsInuse)
-        try container.encode(_spellsHidden, forKey: ._spellsHidden)
-        try container.encode(_imgUrl, forKey: ._imgUrl)
-        try container.encode(_seat, forKey: ._seat)
-        try container.encode(_quality, forKey: ._quality)
-        try container.encode(_NatrualPower, forKey: ._NatrualPower)
-        try container.encode(_NatrualResistance, forKey: ._NatrualResistance)
-        try super.encode(to: encoder)
-    }
+//    private enum CodingKeys: String, CodingKey {
+//        case _main
+//        case _extended
+//        case _extra
+//        case _level
+//        case _name
+//        case _race
+//        case _exp
+//        case _spellCount
+//        case _leftPoint
+//        case _spells
+//        case _spellsInuse
+//        case _spellsHidden
+//        case _imgUrl
+//        case _seat
+//        case _quality
+//        case _NatrualPower
+//        case _NatrualResistance
+//        case _magical
+//        case _Natrual
+//        case _physical
+//    }
+//    required init(from decoder: Decoder) throws {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+//        _main = try values.decode(Main.self, forKey: ._main)
+//        _extended = try values.decode(Extended.self, forKey: ._extended)
+//        _extra = try values.decode(Extra.self, forKey: ._extra)
+//        _level = try values.decode(CGFloat.self, forKey: ._level)
+//        _name = try values.decode(String.self, forKey: ._name)
+//        _race = try values.decode(Int.self, forKey: ._race)
+//        _exp = try values.decode(CGFloat.self, forKey: ._exp)
+//        _spellCount = try values.decode(Int.self, forKey: ._spellCount)
+//        _leftPoint = try values.decode(Int.self, forKey: ._leftPoint)
+//        _spells = try values.decode(Array.self, forKey: ._spells)
+//        _spellsInuse = try values.decode(Array.self, forKey: ._spellsInuse)
+//        _spellsHidden = try values.decode(Array.self, forKey: ._spellsHidden)
+//        _imgUrl = try values.decode(String.self, forKey: ._imgUrl)
+//        _seat = try values.decode(String.self, forKey: ._seat)
+//        _quality = try values.decode(Int.self, forKey: ._quality)
+//        _NatrualPower = try values.decode(Natrual.self, forKey: ._NatrualPower)
+//        _NatrualResistance = try values.decode(Natrual.self, forKey: ._NatrualResistance)
+//        if _imgUrl.isEmpty {
+//            _imgUrl = "test_role"
+//        }
+//        _img = SKTexture(imageNamed: _imgUrl)
+//        try super.init(from: decoder)
+//    }
+//    override func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(_main, forKey: ._main)
+//        try container.encode(_extended, forKey: ._extended)
+//        try container.encode(_extra, forKey: ._extra)
+//        try container.encode(_level, forKey: ._level)
+//        try container.encode(_name, forKey: ._name)
+//        try container.encode(_race, forKey: ._race)
+//        try container.encode(_exp, forKey: ._exp)
+//        try container.encode(_spellCount, forKey: ._spellCount)
+//        try container.encode(_leftPoint, forKey: ._leftPoint)
+//        try container.encode(_spells, forKey: ._spells)
+//        try container.encode(_spellsInuse, forKey: ._spellsInuse)
+//        try container.encode(_spellsHidden, forKey: ._spellsHidden)
+//        try container.encode(_imgUrl, forKey: ._imgUrl)
+//        try container.encode(_seat, forKey: ._seat)
+//        try container.encode(_quality, forKey: ._quality)
+//        try container.encode(_NatrualPower, forKey: ._NatrualPower)
+//        try container.encode(_NatrualResistance, forKey: ._NatrualResistance)
+//        try super.encode(to: encoder)
+//    }
     
     var _main = Main(strength: 0, agility: 0, intellect: 0)
     var _extended = Extended(attack: 40, defence: 20, speed: 0, accuracy: 100, critical: 15, avoid: 20, spirit: 40, hitPoint: 100, hitPointMax: 100, mana: 100, manaMax: 100)
@@ -95,7 +97,7 @@ class Unit:Core {
     var _spellsHidden = Array<Int>()
     
     
-    var _img:SKTexture!
+//    var _img:SKTexture!
     var _imgUrl:String = ""
     
     var _seat = ""

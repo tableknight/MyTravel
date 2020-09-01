@@ -23,12 +23,26 @@ class Label: SKSpriteNode {
             return ""
         }
     }
+    var verticalAlign:String {
+        set {
+            if newValue == "bottom" {
+                _label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.bottom
+            } else if newValue == "baseline" {
+                _label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.baseline
+            } else {
+                _label.verticalAlignmentMode = SKLabelVerticalAlignmentMode.center
+            }
+        }
+        get {
+            return ""
+        }
+    }
     var fontSize: CGFloat {
         set {
             _label.fontSize = newValue
         }
         get {
-            return 1
+            return _label.fontSize
         }
     }
     var text: String {
@@ -46,6 +60,15 @@ class Label: SKSpriteNode {
         }
         get {
             return text.count.toFloat() * _label.fontSize * 0.5
+        }
+    }
+    
+    var fontColor:UIColor {
+        set {
+            _label.fontColor = newValue
+        }
+        get {
+            return _label.fontColor!
         }
     }
     

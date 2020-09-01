@@ -56,7 +56,7 @@ class Creature: Unit {
         _name = md.name
         _race = md.race
         _imgUrl = md.imgUrl
-        _img = SKTexture(imageNamed: _imgUrl)
+//        _img = SKTexture(imageNamed: _imgUrl)
         for s in md.spells {
             _spellsInuse.append(s)
         }

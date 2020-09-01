@@ -17,6 +17,7 @@ struct ZIndex {
     static let item:CGFloat = 100
     static let roof:CGFloat = 2000
     static let ui:CGFloat = 5000
+    static let panel:CGFloat = 15000
 }
 let LandFragment:Array<Array<Int>> = [
     [0,0,1,0,0,2,2,2], // x,y,x,y,x,y,x,y
@@ -58,11 +59,12 @@ struct Quality {
 struct Value {
     static let village_name = "贝鲁特"
     static let border_radius:CGFloat = 8
-    static let unselected_stroke_color = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.35)
+    static let unselected_stroke_color = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.75)
     static let selected_stroke_color = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.8)
     static let selected_stroke_width:CGFloat = 2
-    static let unselected_stroke_width:CGFloat = 1
-    static let background_alpha:CGFloat = 0.65
+    static let unselected_stroke_width:CGFloat = 1.5
+    static let background_alpha:CGFloat = 0.8
+    static let transparent_color = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0)
 }
 struct Direction {
     var north = false

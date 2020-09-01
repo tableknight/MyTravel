@@ -284,6 +284,20 @@ class Stage: SKSpriteNode {
     func addStatus(status:Status) {
         
     }
+    func showPanel(_ panel:Panel) {
+        addChild(panel)
+        hideUI()
+    }
+    func hideUI() {
+        _uiLayer.isHidden = true
+    }
+    func showUI() {
+        _uiLayer.isHidden = false
+    }
+    func removePanel(_ panel:Panel) {
+        panel.removeFromParent()
+        showUI()
+    }
     var _playerUnit:ActionUnit!
     var _curScene:Scene!
     private var _totalStep = 0

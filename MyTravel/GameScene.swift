@@ -22,10 +22,40 @@ class GameScene: SKScene {
         scene._groundNode = node
         scene.create()
         let stage = Stage()
+        Game.curStage = stage
         stage.loadScene(scene: scene)
         stage.setRole(ActionUnit())
-        addChild(stage)
+//        addChild(stage)
+//
+//        let c = Creature()
+//        c.levelTo(level: 10)
+//        c._name = "大黄蜂"
+//
+//        let p = RolePanel()
+//        p.create(unit: c)
+//        stage.showPanel(p)
         
+        let sw = StatusWindow()
+        sw.create(description: "")
+        sw.x = 200
+        addChild(sw)
+        
+        
+//        let i = Icon()
+//        i.iconText = "弓箭"
+//        i.count = 10
+//        i.quality = Quality.SACRED
+//        addChild(i)
+        
+//        let unit = Unit()
+//        unit._name = "艾米丽"
+//        unit._imgUrl = "test_role"
+////        unit._img = SKTexture(imageNamed: "test_role")
+//
+//        let t = Thumb()
+//        t.quality = Quality.SACRED
+//        t.create(unit: unit)
+//        addChild(t)
         
 //        let lvWidth = cellSize * 0.5
 //               let lvCircle = LvCircle()

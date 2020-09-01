@@ -50,6 +50,18 @@
 		09D7AC1A24EC1045009BAE5B /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC1924EC1045009BAE5B /* Function.swift */; };
 		09D7AC1C24F218C0009BAE5B /* HBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC1B24F218C0009BAE5B /* HBar.swift */; };
 		09D7AC1E24F25FB6009BAE5B /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC1D24F25FB6009BAE5B /* IconButton.swift */; };
+		09D7AC2024F7E9DB009BAE5B /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC1F24F7E9DB009BAE5B /* Button.swift */; };
+		09D7AC2224F7EB74009BAE5B /* Panel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC2124F7EB74009BAE5B /* Panel.swift */; };
+		09D7AC2524FB948B009BAE5B /* RolePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC2424FB948B009BAE5B /* RolePanel.swift */; };
+		09D7AC2724FB9589009BAE5B /* Thumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC2624FB9589009BAE5B /* Thumb.swift */; };
+		09D7AC2924FB9592009BAE5B /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC2824FB9592009BAE5B /* Icon.swift */; };
+		09D7AC2B24FBA06F009BAE5B /* QualityNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC2A24FBA06F009BAE5B /* QualityNode.swift */; };
+		09D7AC2E24FBD3BC009BAE5B /* Showable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC2D24FBD3BC009BAE5B /* Showable.swift */; };
+		09D7AC3024FBD9EA009BAE5B /* TradePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC2F24FBD9EA009BAE5B /* TradePanel.swift */; };
+		09D7AC3324FBE1B4009BAE5B /* StatusIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC3224FBE1B4009BAE5B /* StatusIcon.swift */; };
+		09D7AC3524FE9156009BAE5B /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC3424FE9156009BAE5B /* Window.swift */; };
+		09D7AC3824FE9233009BAE5B /* StatusWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC3724FE9233009BAE5B /* StatusWindow.swift */; };
+		09D7AC3A24FE934E009BAE5B /* MultiLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC3924FE934E009BAE5B /* MultiLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +110,18 @@
 		09D7AC1924EC1045009BAE5B /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
 		09D7AC1B24F218C0009BAE5B /* HBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBar.swift; sourceTree = "<group>"; };
 		09D7AC1D24F25FB6009BAE5B /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
+		09D7AC1F24F7E9DB009BAE5B /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		09D7AC2124F7EB74009BAE5B /* Panel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Panel.swift; sourceTree = "<group>"; };
+		09D7AC2424FB948B009BAE5B /* RolePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePanel.swift; sourceTree = "<group>"; };
+		09D7AC2624FB9589009BAE5B /* Thumb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thumb.swift; sourceTree = "<group>"; };
+		09D7AC2824FB9592009BAE5B /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
+		09D7AC2A24FBA06F009BAE5B /* QualityNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityNode.swift; sourceTree = "<group>"; };
+		09D7AC2D24FBD3BC009BAE5B /* Showable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Showable.swift; sourceTree = "<group>"; };
+		09D7AC2F24FBD9EA009BAE5B /* TradePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradePanel.swift; sourceTree = "<group>"; };
+		09D7AC3224FBE1B4009BAE5B /* StatusIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusIcon.swift; sourceTree = "<group>"; };
+		09D7AC3424FE9156009BAE5B /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		09D7AC3724FE9233009BAE5B /* StatusWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusWindow.swift; sourceTree = "<group>"; };
+		09D7AC3924FE934E009BAE5B /* MultiLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +176,7 @@
 		09D7ABBE24E38604009BAE5B /* system */ = {
 			isa = PBXGroup;
 			children = (
+				09D7AC2C24FBD3AE009BAE5B /* interface */,
 				09D7ABCF24E3880C009BAE5B /* Game.swift */,
 				09D7ABC524E38664009BAE5B /* component */,
 				09D7ABC324E38653009BAE5B /* tool */,
@@ -200,6 +225,9 @@
 		09D7ABC424E3865E009BAE5B /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				09D7AC3624FE9226009BAE5B /* window */,
+				09D7AC3124FBE173009BAE5B /* icon */,
+				09D7AC2324FB9477009BAE5B /* panel */,
 				09D7ABD724E39A2D009BAE5B /* action */,
 				09D7ABCC24E3878F009BAE5B /* stage */,
 				09D7ABD324E38EED009BAE5B /* extend.swift */,
@@ -213,6 +241,13 @@
 				09D7ABFC24EA3219009BAE5B /* Label.swift */,
 				09D7AC1B24F218C0009BAE5B /* HBar.swift */,
 				09D7AC1D24F25FB6009BAE5B /* IconButton.swift */,
+				09D7AC1F24F7E9DB009BAE5B /* Button.swift */,
+				09D7AC2124F7EB74009BAE5B /* Panel.swift */,
+				09D7AC2624FB9589009BAE5B /* Thumb.swift */,
+				09D7AC2824FB9592009BAE5B /* Icon.swift */,
+				09D7AC2A24FBA06F009BAE5B /* QualityNode.swift */,
+				09D7AC3424FE9156009BAE5B /* Window.swift */,
+				09D7AC3924FE934E009BAE5B /* MultiLabel.swift */,
 			);
 			path = component;
 			sourceTree = "<group>";
@@ -288,6 +323,39 @@
 				09D7AC1724EC0FE6009BAE5B /* Status.swift */,
 			);
 			path = status;
+			sourceTree = "<group>";
+		};
+		09D7AC2324FB9477009BAE5B /* panel */ = {
+			isa = PBXGroup;
+			children = (
+				09D7AC2424FB948B009BAE5B /* RolePanel.swift */,
+				09D7AC2F24FBD9EA009BAE5B /* TradePanel.swift */,
+			);
+			path = panel;
+			sourceTree = "<group>";
+		};
+		09D7AC2C24FBD3AE009BAE5B /* interface */ = {
+			isa = PBXGroup;
+			children = (
+				09D7AC2D24FBD3BC009BAE5B /* Showable.swift */,
+			);
+			path = interface;
+			sourceTree = "<group>";
+		};
+		09D7AC3124FBE173009BAE5B /* icon */ = {
+			isa = PBXGroup;
+			children = (
+				09D7AC3224FBE1B4009BAE5B /* StatusIcon.swift */,
+			);
+			path = icon;
+			sourceTree = "<group>";
+		};
+		09D7AC3624FE9226009BAE5B /* window */ = {
+			isa = PBXGroup;
+			children = (
+				09D7AC3724FE9233009BAE5B /* StatusWindow.swift */,
+			);
+			path = window;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D7AC3324FBE1B4009BAE5B /* StatusIcon.swift in Sources */,
 				09D7ABF424EA2693009BAE5B /* Creature.swift in Sources */,
 				09D7ABAD24E384C7009BAE5B /* GameScene.swift in Sources */,
 				09D7AC1C24F218C0009BAE5B /* HBar.swift in Sources */,
@@ -373,19 +442,25 @@
 				09D7ABC724E3876D009BAE5B /* Size.swift in Sources */,
 				09D7ABDB24E39D11009BAE5B /* Test.swift in Sources */,
 				09D7ABEE24E80E2D009BAE5B /* item.swift in Sources */,
+				09D7AC2024F7E9DB009BAE5B /* Button.swift in Sources */,
 				09D7ABDD24E4350D009BAE5B /* GroundSet.swift in Sources */,
 				09D7ABEC24E80DB7009BAE5B /* Type.swift in Sources */,
+				09D7AC3524FE9156009BAE5B /* Window.swift in Sources */,
 				09D7ABF724EA2718009BAE5B /* Spell.swift in Sources */,
 				09D7AC1324EC0C77009BAE5B /* Chest.swift in Sources */,
 				09D7ABCE24E387F7009BAE5B /* Stage.swift in Sources */,
 				09D7AC1824EC0FE6009BAE5B /* Status.swift in Sources */,
 				09D7ABE624E4C4C7009BAE5B /* Unit.swift in Sources */,
 				09D7ABE824E4C537009BAE5B /* Structure.swift in Sources */,
+				09D7AC2524FB948B009BAE5B /* RolePanel.swift in Sources */,
 				09D7ABCB24E38784009BAE5B /* Value.swift in Sources */,
 				09D7ABE424E4C317009BAE5B /* TwistedMeadow.swift in Sources */,
 				09D7ABD424E38EED009BAE5B /* extend.swift in Sources */,
+				09D7AC2724FB9589009BAE5B /* Thumb.swift in Sources */,
 				09D7ABFD24EA3219009BAE5B /* Label.swift in Sources */,
+				09D7AC3A24FE934E009BAE5B /* MultiLabel.swift in Sources */,
 				09D7ABE224E4C2AD009BAE5B /* AncientRoad.swift in Sources */,
+				09D7AC2224F7EB74009BAE5B /* Panel.swift in Sources */,
 				09D7ABDF24E4B76A009BAE5B /* Dungeon.swift in Sources */,
 				09D7ABAF24E384C7009BAE5B /* GameViewController.swift in Sources */,
 				09D7ABC224E3862A009BAE5B /* Core.swift in Sources */,
@@ -393,13 +468,18 @@
 				09D7AC1524EC0EE6009BAE5B /* Tower.swift in Sources */,
 				09D7ABD924E39A38009BAE5B /* ActionUnit.swift in Sources */,
 				09D7ABF024E80EC8009BAE5B /* ItemData.swift in Sources */,
+				09D7AC2B24FBA06F009BAE5B /* QualityNode.swift in Sources */,
 				09D7ABD624E395E6009BAE5B /* Scene.swift in Sources */,
 				09D7ABF224E911FD009BAE5B /* BattleUnit.swift in Sources */,
+				09D7AC2E24FBD3BC009BAE5B /* Showable.swift in Sources */,
+				09D7AC3824FE9233009BAE5B /* StatusWindow.swift in Sources */,
 				09D7ABEA24E7F5E6009BAE5B /* CellNode.swift in Sources */,
 				09D7ABA724E384C7009BAE5B /* AppDelegate.swift in Sources */,
 				09D7ABC924E3877B009BAE5B /* Color.swift in Sources */,
 				09D7AC1A24EC1045009BAE5B /* Function.swift in Sources */,
+				09D7AC3024FBD9EA009BAE5B /* TradePanel.swift in Sources */,
 				09D7ABFB24EA27AF009BAE5B /* CreatureData.swift in Sources */,
+				09D7AC2924FB9592009BAE5B /* Icon.swift in Sources */,
 				09D7ABD224E38B5D009BAE5B /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
