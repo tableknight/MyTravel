@@ -23,6 +23,13 @@ extension Array {
         let index = Int(arc4random_uniform(UInt32(self.count)))
         return self[index]
     }
+    func clone() -> Array<Any> {
+        var c = Array<Any>()
+        for n in self {
+            c.append(n)
+        }
+        return c
+    }
     
 }
 extension SKTexture {
@@ -73,6 +80,7 @@ extension SKTexture {
         return node
     }
 }
+
 extension SKNode {
     var y:CGFloat {
         set {

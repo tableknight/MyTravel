@@ -17,15 +17,23 @@ class StatusWindow: Window {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    func create(description:String) {
+    override func create(item:Showable) {
+        let t = item as! StatusDescription
         let ml = MultiLabel()
         ml.lineCharNm = 8
-        ml.text = "繁华不过是红尘背后的一种喧嚣，打败魔王后的生活果然是平淡而又真实。"
-        ml.x = -ml.width * 0.5
-        ml.y = (ml.height - ml.fontSize) / 2
+        ml.text = t._description
+        ml.x = -ml.width * 0.5 - 3
+        ml.y = ml.height / 2
         let gap = ml.fontSize * 2
-        _backgroundNode = createBackground(width: ml.width + gap, height: ml.height + gap * 2)
+        self.width = ml.width + gap + 6
+        self.height = ml.height + gap * 2
+        _backgroundNode = createBackground(width: self.width, height: self.height)
+        _backgroundNode.alpha = 1
         addChild(_backgroundNode)
         addChild(ml)
     }
+}
+
+class StatusDescription: Showable {
+    var _description = ""
 }

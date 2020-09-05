@@ -10,6 +10,8 @@ import SpriteKit
 class Unit:NSObject, Codable {
     override init() {
         super.init()
+        _uid = "u\(Date().timeIntervalSince1970).\(seed(min: 0, max: 10000))"
+        print(_uid)
     }
     func seed(min:Int = 0, max:Int = 101) -> Int {
         return Int(arc4random_uniform(UInt32(max - min))) + min
@@ -85,7 +87,7 @@ class Unit:NSObject, Codable {
     
     var _main = Main(strength: 0, agility: 0, intellect: 0)
     var _extended = Extended(attack: 40, defence: 20, speed: 0, accuracy: 100, critical: 15, avoid: 20, spirit: 40, hitPoint: 100, hitPointMax: 100, mana: 100, manaMax: 100)
-    var _extra = Extra(lucky: 0, pennetrate: 0, revenge: 0, destory: 0, rhythm: 0, power: 0)
+    var _extra = Extra(lucky: 0, pennetrate: 0, revenge: 0, destroy: 0, rhythm: 0, power: 0, sensitive: 0)
     var _level:CGFloat = 1
     var _name:String = ""
     var _race:Int = 0
@@ -95,21 +97,23 @@ class Unit:NSObject, Codable {
     var _spells = Array<Int>()
     var _spellsInuse = Array<Int>()
     var _spellsHidden = Array<Int>()
+    var _uid = ""
     
     
 //    var _img:SKTexture!
     var _imgUrl:String = ""
+    var _faceImage = ""
     
     var _seat = ""
     var _quality:Int = Quality.NORMAL
     
-    var _NatrualPower = Natrual(
+    var _natrualPower = Natrual(
         fire : 0,
         water : 0,
         thunder : 0
     )
     
-    var _NatrualResistance = Natrual(
+    var _natrualResistance = Natrual(
         fire : 0,
         water : 0,
         thunder : 0
@@ -147,14 +151,14 @@ class Unit:NSObject, Codable {
     func strengthChange(value: CGFloat) {
         _main.strength += value
         _extended.attack += value * 2
-        _extended.defence += value * 0
-        _extended.speed += value * 0.5
+        _extended.defence += value * 0.5
+        _extended.speed += value * 0
         _extended.accuracy += value * 0.2
         _extended.avoid += value * 0
         _extended.critical += value * 0.2
-        _extended.spirit += value * -0.6
-        _extended.hitPoint += value * 1
-        _extended.hitPointMax += value * 1
+        _extended.spirit += value * -0.2
+        _extended.hitPoint += value * 6
+        _extended.hitPointMax += value * 6
         _extended.mana += value * 1
         _extended.manaMax += value * 1
         if _extended.hitPoint < 1 {
@@ -166,15 +170,15 @@ class Unit:NSObject, Codable {
     }
     func agilityChange(value: CGFloat) {
         _main.agility += value
-        _extended.attack += value * 0.6
-        _extended.defence += value * 0.1
+        _extended.attack += value * 0.2
+        _extended.defence += value * 0.2
         _extended.speed += value * 2
         _extended.accuracy += value * 0.6
         _extended.avoid += value * 0.9
         _extended.critical += value * 0.3
         _extended.spirit += value * 0
-        _extended.hitPoint += value * 2
-        _extended.hitPointMax += value * 2
+        _extended.hitPoint += value * 1
+        _extended.hitPointMax += value * 1
         _extended.mana += value * 1
         _extended.manaMax += value * 1
         if _extended.hitPoint < 1 {
@@ -186,7 +190,7 @@ class Unit:NSObject, Codable {
     }
     func intellectChange(value: CGFloat) {
         _main.intellect += value
-        _extended.attack += value * -0.5
+        _extended.attack += value * 0
         _extended.defence += value * 0.2
         _extended.speed += value * 0.2
         _extended.accuracy += value * 0

@@ -17,6 +17,41 @@ class Stage: SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if cancelTouch {
+            return
+        }
+        let tp = touches.first?.location(in: self)
+        if _charButton.contains(tp!) {
+            let p = RolePanel()
+            p.create(unit: Game.curChar)
+            showPanel(p)
+            return
+        }
+        if _armorButton.contains(tp!) {
+            let p = ArmorPanel()
+            p.create()
+            showPanel(p)
+            return
+        }
+        if _minionButton.contains(tp!) {
+            if Game.curChar._minions.count < 1 {
+                let alert = Alert()
+                alert.show(title: "没有随从可以展示！")
+                return
+            }
+            let p = RolePanel()
+            p.create(unit: Game.curChar._minions[0])
+            showPanel(p)
+            return
+        }
+        if _fieldButton.contains(tp!) {
+            let p = FieldPanel()
+            p.create()
+            showPanel(p)
+            return
+        }
+    }
     func loadScene(scene:Scene) {
         addChild(scene)
         _curScene = scene
@@ -122,10 +157,6 @@ class Stage: SKSpriteNode {
         }
         return point
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touchPoint = touches.first?.location(in: self)
-        touchAction(touchPoint!)
-    }
     private func calTotalStep() {
         let px = _roleX.toFloat() * cellSize
         let py = _roleY.toFloat() * cellSize
@@ -206,7 +237,7 @@ class Stage: SKSpriteNode {
         _expBar.position.y = _mpBar.position.y - cellSize * 0.25 + 1
         _uiLayer.addChild(_expBar)
         
-        let startX = -(Size.default_cell_x_count - 2).toFloat() * 0.5 * cellSize
+        let startX = -(Size.default_cell_x_count + 1).toFloat() * 0.5 * cellSize
         let startY = -(Size.default_cell_y_count + 4).toFloat() * cellSize * 0.5
         let startYIcon = startY + cellSize * 0.55
         
@@ -225,37 +256,42 @@ class Stage: SKSpriteNode {
         _armorButton.position.y = startYIcon
         _buttonLayer.addChild(_armorButton)
         
+        _fieldButton.create(index: 0, text: "星图")
+        _fieldButton.position.x = startX + gap
+        _fieldButton.position.y = startYIcon
+        _buttonLayer.addChild(_fieldButton)
+        
         _minionButton.create(index: 2, text: "随从")
-        _minionButton.position.x = startX + gap
+        _minionButton.position.x = startX + gap * 2
         _minionButton.position.y = startYIcon
         _buttonLayer.addChild(_minionButton)
         
         _spellButton.create(index: 5, text: "法术")
-        _spellButton.position.x = startX + gap * 2
+        _spellButton.position.x = startX + gap * 3
         _spellButton.position.y = startYIcon
         _buttonLayer.addChild(_spellButton)
         
         _itemButton.create(index: 1, text: "道具")
-        _itemButton.position.x = startX + gap * 3
+        _itemButton.position.x = startX + gap * 4
         _itemButton.position.y = startYIcon
         _buttonLayer.addChild(_itemButton)
         
         _charButton.create(index: 6, text: "角色")
-        _charButton.position.x = startX + gap * 4
+        _charButton.position.x = startX + gap * 5
         _charButton.position.y = startYIcon
         _buttonLayer.addChild(_charButton)
         
-        let fairy = SKSpriteNode(texture: SKTexture(imageNamed: "Fairy"))
-        fairy.position.y = startY + cellSize * 1
-        fairy.position.x = startX - cellSize * 3
-        fairy.size = CGSize(width: cellSize * 1.75, height: cellSize * 3)
-        _uiLayer.addChild(fairy)
-        
-        let imp = SKSpriteNode(texture: SKTexture(imageNamed: "Imp"))
-        imp.position.y = startY + cellSize * 0.5
-        imp.position.x = -fairy.position.x
-        imp.size = CGSize(width: cellSize * 1.75, height: cellSize * 3)
-        _uiLayer.addChild(imp)
+//        let fairy = SKSpriteNode(texture: SKTexture(imageNamed: "Fairy"))
+//        fairy.position.y = startY + cellSize * 1
+//        fairy.position.x = startX - cellSize * 3
+//        fairy.size = CGSize(width: cellSize * 1.75, height: cellSize * 3)
+//        _uiLayer.addChild(fairy)
+//        
+//        let imp = SKSpriteNode(texture: SKTexture(imageNamed: "Imp"))
+//        imp.position.y = startY + cellSize * 0.5
+//        imp.position.x = -fairy.position.x
+//        imp.size = CGSize(width: cellSize * 1.75, height: cellSize * 3)
+//        _uiLayer.addChild(imp)
         
         let tear = SKTexture(imageNamed: "icons").getNode(3, 0)
         tear.size = CGSize(width: cellSize * 0.5, height: cellSize * 0.5)
@@ -285,6 +321,7 @@ class Stage: SKSpriteNode {
         
     }
     func showPanel(_ panel:Panel) {
+        cancelTouch = true
         addChild(panel)
         hideUI()
     }
@@ -295,11 +332,13 @@ class Stage: SKSpriteNode {
         _uiLayer.isHidden = false
     }
     func removePanel(_ panel:Panel) {
+        cancelTouch = false
         panel.removeFromParent()
         showUI()
     }
     var _playerUnit:ActionUnit!
     var _curScene:Scene!
+    var cancelTouch = false
     private var _totalStep = 0
     private var _roleX = 0
     private var _roleY = 0
@@ -317,8 +356,12 @@ class Stage: SKSpriteNode {
     private var _spellButton = IconButton()
     private var _itemButton = IconButton()
     private var _minionButton = IconButton()
+    private var _fieldButton = IconButton()
     private var _tearCount = Label()
     private var _goldCount = Label()
+    
+    
+//    private var _showingPanel:Panel!
 }
 
 class LvCircle: SKSpriteNode {

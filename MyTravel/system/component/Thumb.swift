@@ -12,9 +12,6 @@ class Thumb: QualityNode {
         super.init(texture: texture, color: color, size: size)
         _height = cellSize * 1.5
         _width = cellSize * 4
-        _backgroundNode = createBackground(width: _width, height: _height)
-        _backgroundNode.fillColor = Value.transparent_color
-        addChild(_backgroundNode)
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -22,6 +19,9 @@ class Thumb: QualityNode {
     
     func create(unit:Unit) {
         _unit = unit
+        _backgroundNode = createBackground(width: _width, height: _height)
+        _backgroundNode.fillColor = Value.transparent_color
+        addChild(_backgroundNode)
         let gap = _height * 0.125
         let startX = -_width * 0.5 + gap
         let startY = _height * 0.5 - gap
@@ -59,7 +59,16 @@ class Thumb: QualityNode {
         
     }
     
-    internal var _unit:Unit!
+    var width:CGFloat {
+        set {
+            _width = newValue
+        }
+        get {
+            return _width
+        }
+    }
+    
+    var _unit:Unit!
     internal var _width:CGFloat = 0
     internal var _height:CGFloat = 0
     private var _hpbar = HBar()

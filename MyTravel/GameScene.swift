@@ -25,20 +25,46 @@ class GameScene: SKScene {
         Game.curStage = stage
         stage.loadScene(scene: scene)
         stage.setRole(ActionUnit())
-//        addChild(stage)
-//
-//        let c = Creature()
+        addChild(stage)
+
+        let c = Character()
 //        c.levelTo(level: 10)
-//        c._name = "大黄蜂"
-//
-//        let p = RolePanel()
-//        p.create(unit: c)
+        c._name = "大黄蜂"
+        Game.curChar = c
+        
+//        let b = Battle()
+//        b.start()
+        
+//        let panel = FieldConfigPanel()
+//        panel.create(field: Field(name: "Sagittarius"))
+//        stage.showPanel(panel)
+        
+        
+        
+//        let p = RoleSelectPanel()
+//        p.create()
 //        stage.showPanel(p)
         
-        let sw = StatusWindow()
-        sw.create(description: "")
-        sw.x = 200
-        addChild(sw)
+//        let armor = Armor(Armor.Bow)
+//        armor.create(level: 10)
+//        armor._description = "上帝赐予的害怕的"
+//
+//        let w = ArmorWindow()
+//        w.create(item: armor)
+//        stage.addChild(w)
+//
+//        let p = ArmorPanel()
+//        p.create()
+//        stage.showPanel(p)
+//
+//        let sword = Armor(Armor.Sword)
+//        sword.create(level: 10)
+//        print(sword)
+//
+//        let sw = StatusWindow()
+//        sw.create(description: "")
+//        sw.x = 200
+//        addChild(sw)
         
         
 //        let i = Icon()

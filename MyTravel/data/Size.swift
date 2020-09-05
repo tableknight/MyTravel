@@ -10,5 +10,6 @@ import SpriteKit
 struct Size {
     static let default_cell_x_count = 14 //0 is start
     static let default_cell_y_count = 5 // 0 is start
-    static let texture_cell_size = 48
+    static let texture_cell_size:CGFloat = 48
+    static let display_cell_size:CGFloat = 36
 }

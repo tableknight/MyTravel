@@ -16,7 +16,7 @@ class QualityNode: SKSpriteNode {
         super.init(coder: aDecoder)
     }
     
-    private var _selected = false
+    internal var _selected = false
     var selected:Bool {
         set {
             _selected = newValue

@@ -81,6 +81,43 @@ class Icon: QualityNode {
         }
     }
     
+    func showWIndow(pos:String = "right") {
+        if _content == nil {
+            return
+        }
+        let w:Window!
+        if _content is StatusDescription {
+            w = StatusWindow()
+            w.create(item: _content)
+        } else if _content is Armor {
+            w = ArmorWindow()
+            w.create(item: _content)
+        } else {
+            w = Window()
+        }
+        if "right" == pos {
+            w.x = (self._width + w.width) * 0.5 + 2
+            w.y = (self._height - w.height) * 0.5
+        } else if "left" == pos {
+            w.x = (-w.width - self._width) * 0.5 - 2
+            w.y = (self._height - w.height) * 0.5
+        } else if "leftTop" == pos {
+            w.x = (-w.width - self._width) * 0.5 - 2
+            w.y = (-self._height + w.height) * 0.5 + 2
+        } else if "rightTop" == pos {
+            w.y = (-self._height + w.height) * 0.5 + 2
+            w.x = (self._width + w.width) * 0.5 + 2
+        }
+        addChild(w)
+        _window = w
+    }
+    
+    func removeWindow() {
+        if nil != _window {
+            _window.removeFromParent()
+        }
+    }
+    
     var mustShowCount = false
     var _width:CGFloat = 0
     var _height:CGFloat = 0
@@ -88,4 +125,5 @@ class Icon: QualityNode {
     var _content:Showable!
     private var _count = 0
     private var _countLabel = Label()
+    private var _window:Window!
 }

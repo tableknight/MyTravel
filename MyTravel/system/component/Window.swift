@@ -13,6 +13,7 @@ class Window: SKSpriteNode {
 //        _backgroundNode = createBackground(width: _width, height: _height)
 //        _backgroundNode.fillColor = Value.transparent_color
 //        addChild(_backgroundNode)
+        self.zPosition = ZIndex.window
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -20,5 +21,7 @@ class Window: SKSpriteNode {
     func create(item:Showable) {
         
     }
+    var width:CGFloat = 0
+    var height:CGFloat = 0
     internal var _backgroundNode: SKShapeNode!
 }

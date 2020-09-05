@@ -17,6 +17,7 @@ class Button:SKSpriteNode {
         _label.position.y = -cellSize * 0.125
         _label.fontSize = 12
         _label.align = "center"
+        _label.zPosition = self.zPosition + 100
         addChild(_label)
     }
     private var _node = SKSpriteNode()
@@ -52,10 +53,10 @@ class Button:SKSpriteNode {
     
     var width:CGFloat {
         set {
-            _backgroundNode.removeFromParent()
-            _backgroundNode = createBackground(width: newValue, height: cellSize * 0.75)
-            addChild(_backgroundNode)
             _width = newValue
+            _backgroundNode.removeFromParent()
+            _backgroundNode = createBackground(width: _width, height: cellSize * 0.6)
+            addChild(_backgroundNode)
         }
         get {
             return _width

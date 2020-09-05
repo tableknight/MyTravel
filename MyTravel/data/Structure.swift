@@ -30,12 +30,16 @@ struct Extra:Codable {
     var lucky:CGFloat
     var pennetrate:CGFloat
     var revenge:CGFloat
-    var destory:CGFloat
+    var destroy:CGFloat
     var rhythm:CGFloat
     var power:CGFloat
+    var sensitive:CGFloat
 }
 struct Natrual:Codable {
     var fire:CGFloat
     var water:CGFloat
     var thunder:CGFloat
+}
+struct Other:Codable {
+    var magicPower:CGFloat
 }

@@ -9,6 +9,7 @@
 import SpriteKit
 class Game {
     static var curStage:Stage!
+    static var curChar:Character!
     static let frame_size = 0.25
     static func start() {
         

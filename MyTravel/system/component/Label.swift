@@ -50,6 +50,9 @@ class Label: SKSpriteNode {
             _label.text = newValue
         }
         get {
+            if nil == _label || nil == _label.text {
+                return ""
+            }
             return _label.text!
         }
     }

@@ -18,6 +18,10 @@ struct ZIndex {
     static let roof:CGFloat = 2000
     static let ui:CGFloat = 5000
     static let panel:CGFloat = 15000
+    static let sub_panel_mask:CGFloat = 18000
+    static let sub_panel:CGFloat = 20000
+    static let window:CGFloat = 25000
+    static let confirm:CGFloat = 55000
 }
 let LandFragment:Array<Array<Int>> = [
     [0,0,1,0,0,2,2,2], // x,y,x,y,x,y,x,y
@@ -62,7 +66,7 @@ struct Value {
     static let unselected_stroke_color = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.75)
     static let selected_stroke_color = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.8)
     static let selected_stroke_width:CGFloat = 2
-    static let unselected_stroke_width:CGFloat = 1.5
+    static let unselected_stroke_width:CGFloat = 1
     static let background_alpha:CGFloat = 0.8
     static let transparent_color = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0)
 }

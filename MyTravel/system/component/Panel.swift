@@ -89,6 +89,21 @@ class Panel:SKSpriteNode {
     internal func close() {
         Game.curStage.removePanel(self)
     }
+    func show() {
+        Game.curStage.showPanel(self)
+    }
+    internal func getSelectedIcons(node:SKSpriteNode) -> Array<Icon> {
+        var icons = Array<Icon>()
+        for c in node.children {
+            if c is Icon {
+                let i = c as! Icon
+                if i.selected {
+                    icons.append(i)
+                }
+            }
+        }
+        return icons
+    }
   
 
     
@@ -101,6 +116,7 @@ class Panel:SKSpriteNode {
     internal var _pageSize = 20
     internal var _curPage = 1
     internal var _buttonGap:CGFloat =  0
+    internal var _clickedNode:QualityNode!
     
     var isChild = false
     required init?(coder aDecoder: NSCoder) {
