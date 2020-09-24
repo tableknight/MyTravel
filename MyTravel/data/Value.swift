@@ -22,6 +22,7 @@ struct ZIndex {
     static let sub_panel:CGFloat = 20000
     static let window:CGFloat = 25000
     static let confirm:CGFloat = 55000
+    static let topest:CGFloat = 155000
 }
 let LandFragment:Array<Array<Int>> = [
     [0,0,1,0,0,2,2,2], // x,y,x,y,x,y,x,y
@@ -46,14 +47,14 @@ struct Cell {
     static let chest = 15
     static let tower = 16
 }
-struct DamageType {
-    static let PHYSICAL = 1
-    static let MAGICAL = 2
-    static let FIRE = 3
-    static let WATER = 4
-    static let THUNDER = 5
-    static let FWMIXED = 34 //冰火混合
-}
+//struct DamageType {
+//    static let PHYSICAL = 1
+//    static let MAGICAL = 2
+//    static let FIRE = 3
+//    static let WATER = 4
+//    static let THUNDER = 5
+//    static let FWMIXED = 34 //冰火混合
+//}
 struct Quality {
     static let NORMAL = 1
     static let GOOD = 2

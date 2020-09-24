@@ -33,9 +33,11 @@ class FieldSlot: Icon {
     }
     var image:String {
         set {
+            if nil != _imageUnit {
+                _imageUnit.removeFromParent()
+            }
             if "star" == newValue {
                 _imageStar.isHidden = false
-                _imageUnit.removeFromParent()
             } else {
                 _imageStar.isHidden = true
                 _imageUnit = SKTexture(imageNamed: newValue).getNode(1, 0)

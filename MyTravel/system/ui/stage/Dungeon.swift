@@ -80,17 +80,18 @@ class Dungeon: Scene {
             let data = ItemData.data[herb]!
             let t = SKTexture(imageNamed: "Outside_B").getNode(data.imgX, data.imgY).toTexture()
             item.setTexture(t)
-            addCell(x: x, y: y, item: item, z: ZIndex.item + y.toFloat() * 100)
+            item.setSize(w: 1, h: 1)
+            addCell(x: x, y: y, item: item, z: ZIndex.role + y.toFloat() * 100)
             _mapMatrix[y][x] = Cell.herb
             _herbCount += 1
         } else if sd < 10 && _chestCount < _maxChestCount {
             let chest = Chest()
-            addCell(x: x, y: y, item: chest, z: ZIndex.item + y.toFloat() * 100)
+            addCell(x: x, y: y, item: chest, z: ZIndex.role + y.toFloat() * 100)
             _mapMatrix[y][x] = Cell.chest
             _chestCount += 1
         } else if sd < 15 && _towerCount < 2 {
             let tower = getRandomTower()
-            addCell(x: x, y: y, item: tower, z: ZIndex.item + y.toFloat() * 100)
+            addCell(x: x, y: y, item: tower, z: ZIndex.role + y.toFloat() * 100)
             _mapMatrix[y][x] = Cell.tower
             _towerCount += 1
         }
@@ -277,6 +278,7 @@ class Dungeon: Scene {
     internal var _enemyCount = 10
     internal var _visiblePoints = Array<CGPoint>()
     internal var _wallPoints = Array<CGPoint>()
-    internal var _enemyType:Array<String> = []
+    var _level = 1
+    var _enemyType:Array<String> = []
     var _herbs = [Item.Caesalpinia, Item.Curium, Item.DragonRoot, Item.SkyAroma, Item.PanGrass]
 }

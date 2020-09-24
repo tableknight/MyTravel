@@ -22,7 +22,7 @@ class Creature: Unit {
         _natural = try values.decode(Main.self, forKey: ._natural)
         _birth = try values.decode(Main.self, forKey: ._birth)
         _growth = try values.decode(Main.self, forKey: ._growth)
-        _sensitive = try values.decode(Int.self, forKey: ._sensitive)
+//        _sensitive = try values.decode(Int.self, forKey: ._sensitive)
         _type = try values.decode(String.self, forKey: ._type)
         try super.init(from: decoder)
     }
@@ -32,7 +32,7 @@ class Creature: Unit {
         try container.encode(_growth, forKey: ._growth)
         try container.encode(_natural, forKey: ._natural)
         try container.encode(_birth, forKey: ._birth)
-        try container.encode(_sensitive, forKey: ._sensitive)
+//        try container.encode(_sensitive, forKey: ._sensitive)
         try container.encode(_type, forKey: ._type)
         try super.encode(to: encoder)
     }
@@ -47,9 +47,11 @@ class Creature: Unit {
             return
         }
         let md = Minions.data[type]!
+        _stars.stamina = md.settingGrowth.stamina
         _stars.strength = md.settingGrowth.strength
         _stars.agility = md.settingGrowth.agility
         _stars.intellect = md.settingGrowth.intellect
+        _natural.stamina = md.settingValue.stamina
         _natural.strength = md.settingValue.strength
         _natural.agility = md.settingValue.agility
         _natural.intellect = md.settingValue.intellect
@@ -68,10 +70,10 @@ class Creature: Unit {
         
     }
     
-    var _stars:Main = Main(strength: 0, agility: 0, intellect: 0)
-    var _growth:Main = Main(strength: 0, agility: 0, intellect: 0)
-    var _birth = Main(strength: 0, agility: 0, intellect: 0)
-    var _natural = Main(strength: 20, agility: 20, intellect: 20)
+    var _stars:Main = Main(stamina:0, strength: 0, agility: 0, intellect: 0)
+    var _growth:Main = Main(stamina:0, strength: 0, agility: 0, intellect: 0)
+    var _birth = Main(stamina:0, strength: 0, agility: 0, intellect: 0)
+    var _natural = Main(stamina:0, strength: 0, agility: 0, intellect: 0)
     var _sensitive = 33
     var _type = ""
     
@@ -106,11 +108,13 @@ class Creature: Unit {
         }
     }
     func createBirthValue() {
+        _birth.stamina = extraProperty(value: _natural.stamina)
         _birth.strength = extraProperty(value: _natural.strength)
         _birth.agility = extraProperty(value: _natural.agility)
         _birth.intellect = extraProperty(value: _natural.intellect)
     }
     func createGrowthValue() {
+        _growth.stamina = extraProperty(value: _stars.stamina)
         _growth.strength = extraProperty(value: _stars.strength)
         _growth.agility = extraProperty(value: _stars.agility)
         _growth.intellect = extraProperty(value: _stars.intellect)
@@ -184,9 +188,10 @@ class Creature: Unit {
 //        }
     }
     func createSensitive() {
-        _sensitive = seed(min: 15, max: 56)
+        _extra.sensitive = seed(min: 15, max: 56).toFloat()
     }
     func levelTo(level:CGFloat) {
+        staminaChange(value: (level - 1) * _growth.stamina + _birth.stamina)
         strengthChange(value: (level - 1) * _growth.strength + _birth.strength)
         agilityChange(value: (level - 1) * _growth.agility + _birth.agility)
         intellectChange(value: (level - 1) * _growth.intellect + _birth.intellect)
@@ -207,6 +212,7 @@ class Creature: Unit {
         if _level >= 40 {
             return
         }
+        staminaChange(value: _growth.stamina)
         strengthChange(value: _growth.strength)
         agilityChange(value: _growth.agility)
         intellectChange(value: _growth.intellect)

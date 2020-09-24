@@ -66,11 +66,16 @@ class Scene: SKSpriteNode {
         item.anchorPoint = CGPoint(x: 0.5, y: 0)
         item.position.x = (-_xSize / 2 + x).toFloat() * cellSize
         item.position.y = (_ySize / 2 - y).toFloat() * cellSize
+        item.name = "cell\(y)\(x)"
         _cellLayer.addChild(item)
     }
     
+    func setCellValue(x:Int, y:Int, value:Int) {
+        _mapMatrix[y][x] = value
+    }
+    
     func getCellNode(x:Int, y:Int) -> CellNode {
-        return childNode(withName: "item\(y)\(x)") as! CellNode
+        return _cellLayer.childNode(withName: "cell\(y)\(x)") as! CellNode
     }
     
     //    func addBoundCells() {

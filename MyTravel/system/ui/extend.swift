@@ -23,6 +23,10 @@ extension Array {
         let index = Int(arc4random_uniform(UInt32(self.count)))
         return self[index]
     }
+    func random() -> Int {
+        let index = Int(arc4random_uniform(UInt32(self.count)))
+        return index
+    }
     func clone() -> Array<Any> {
         var c = Array<Any>()
         for n in self {

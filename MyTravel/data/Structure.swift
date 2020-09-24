@@ -8,6 +8,7 @@
 
 import SpriteKit
 struct Main:Codable {
+    var stamina:CGFloat = 0
     var strength:CGFloat = 0
     var agility:CGFloat = 0
     var intellect:CGFloat = 0
@@ -42,4 +43,9 @@ struct Natrual:Codable {
 }
 struct Other:Codable {
     var magicPower:CGFloat
+    var magicReduceByValue:CGFloat
+    var magicReduceByPercent:CGFloat
+    var physicalReduceByValue:CGFloat
+    var physicalReduceByPercent:CGFloat
+    var elementalReduceByPercent:CGFloat
 }

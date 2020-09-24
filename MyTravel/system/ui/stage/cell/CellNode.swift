@@ -21,7 +21,7 @@ class CellNode: SKSpriteNode {
     internal func setSize(w:CGFloat, h:CGFloat) {
         self.size = CGSize(width: w * cellSize, height: h * cellSize)
     }
-    func triggerEvent() {
+    func triggerEvent(completion:@escaping () -> Void = {}) {
         
     }
     var _key = ""
@@ -48,19 +48,22 @@ class RoleNode: CellNode {
         shadow.zPosition = ZIndex.shadow
         _roleNode.addChild(shadow)
     }
-    internal var _roleNode:SKSpriteNode!
+    var unit:Unit {
+        set {
+            _unit = newValue
+            _texture = SKTexture(imageNamed: newValue._imgUrl)
+            setRole(node: _texture.getNode(1, 0))
+        }
+        get {
+            return _unit
+        }
+    }
+    var _roleNode:SKSpriteNode!
     internal var _texture:SKTexture!
     var _unit:Unit!
 }
 
-class EnemyNode: RoleNode {
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: texture, color: color, size: size)
-    }
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-}
+
 
 class WallNode:CellNode {
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {

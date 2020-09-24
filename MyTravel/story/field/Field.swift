@@ -31,8 +31,8 @@ class Field: NSObject, Codable {
     private func createSeat(index:Int, x:CGFloat, y:CGFloat) -> FieldSeat {
         let fs = FieldSeat()
         fs._index = index
-//        fs._x = x
-//        fs._y = y
+        fs._x = x
+        fs._y = y
         return fs
     }
     
@@ -47,5 +47,7 @@ class FieldSeat: NSObject, Codable {
         super.init()
     }
     var _index = 0
+    var _x:CGFloat = 0
+    var _y:CGFloat = 0
     var _uid = ""
 }

@@ -28,6 +28,7 @@ class MultiLabel:SKSpriteNode {
     private var _lineHeight:CGFloat = 0
     var height:CGFloat = 0
     var width:CGFloat = 0
+    var fontColor = UIColor.white
     private var _text:String = ""
     var text:String {
         set {
@@ -56,6 +57,7 @@ class MultiLabel:SKSpriteNode {
                 label.text = str
                 label.position.y -= i.toFloat() * _lineHeight
                 label.fontSize = fontSize
+                label.fontColor = self.fontColor
 //                label.align = "center"
                 addChild(label)
             }

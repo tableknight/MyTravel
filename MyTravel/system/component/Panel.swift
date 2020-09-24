@@ -88,6 +88,7 @@ class Panel:SKSpriteNode {
     
     internal func close() {
         Game.curStage.removePanel(self)
+        closeAction()
     }
     func show() {
         Game.curStage.showPanel(self)
@@ -117,7 +118,7 @@ class Panel:SKSpriteNode {
     internal var _curPage = 1
     internal var _buttonGap:CGFloat =  0
     internal var _clickedNode:QualityNode!
-    
+    var closeAction = {}
     var isChild = false
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

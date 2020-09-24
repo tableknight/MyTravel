@@ -17,6 +17,16 @@ class FieldPanel: Panel {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         let tp = touches.first?.location(in: self)
+        if nil != _clickedNode && _clickedNode.contains(tp!) {
+            let configPanel = FieldConfigPanel()
+            configPanel.create(field: (_clickedNode as! FieldThumb)._field)
+            configPanel.show()
+            self.isHidden = true
+            configPanel.closeAction = {
+                self.isHidden = false
+            }
+            return
+        }
         for c in children {
             if c is FieldThumb && c.contains(tp!) {
                 let t = c as! FieldThumb
@@ -30,6 +40,28 @@ class FieldPanel: Panel {
             configPanel.create(field: (_clickedNode as! FieldThumb)._field)
             configPanel.show()
             self.removeFromParent()
+            return
+        }
+        if _setButton.contains(tp!) && nil != _clickedNode {
+            let field = (_clickedNode as! FieldThumb)._field!
+            var hasChar = false
+            for s in field._fieldSeats {
+                if !s._uid.isEmpty {
+                    let unit = Game.curChar.getUnitById(id: s._uid)
+                    if unit is Character {
+                        hasChar = true
+                        break
+                    }
+                }
+            }
+            if !hasChar {
+                let alert = Alert()
+                alert.show(title: "星图必须配置主要角色！")
+                return
+            }
+            Game.curChar._selectedField = field
+            let alert = Alert()
+            alert.show(title: "使用\(field._name)星图进行战斗")
             return
         }
     }

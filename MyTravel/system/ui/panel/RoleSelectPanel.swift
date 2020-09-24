@@ -17,10 +17,16 @@ class RoleSelectPanel: SubPanel {
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        let tp = touches.first?.location(in: self)
+        if nil != _clickedThumb && _clickedThumb.contains(tp!) {
+            close()
+            confirmed()
+            return
+            
+        }
         if nil != _clickedThumb {
             _clickedThumb.selected = false
         }
-        let tp = touches.first?.location(in: self)
         for c in _minionBox.children {
             if c.contains(tp!) {
                 let t = c as! Thumb
@@ -68,7 +74,7 @@ class RoleSelectPanel: SubPanel {
             let y = i / 3
             let x = i % 3
             let t = Thumb()
-//            t.width = cellSize * 4.5
+            //            t.width = cellSize * 4.5
             t.create(unit: minions[i])
             t.quality = minions[i]._quality
             t.x = startX + x.toFloat() * gapX

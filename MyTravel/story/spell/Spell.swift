@@ -8,7 +8,124 @@
 
 
 import SpriteKit
-class Spell:Showable {
+class Spell:NSObject,Showable,Castable {
+    var castSelf: Bool = false
+    
+    var autoCast: Bool = false
+    
+    override init() {
+        super.init()
+    }
+    var isBeforeMove = false
+    var isAfterMove = false
+    func cast(completion:@escaping () -> Void) {
+        completion()
+    }
+    var _targets = Array<BattleUnit>()
+    func findTarget() {
+//        Game.curBattle._targets.removeAll()
+        _targets.append(findTargetRandom())
+    }
+    func findTargetRandom() -> BattleUnit {
+        let b = Game.curBattle!
+        let c = b._curUnit!
+        var parts = Array<BattleUnit>()
+        if c.isEnemy {
+            parts = b._playerPart
+        } else {
+            parts = b._enemyPart
+        }
+        return parts.one()
+    }
+    func findTargetByOrder() -> BattleUnit {
+        let b = Game.curBattle!
+        let c = b._curUnit!
+        var parts = Array<BattleUnit>()
+        if c.isEnemy {
+            parts = b._playerPart
+        } else {
+            parts = b._enemyPart
+        }
+        let target = find(index: 1, parts: parts)
+        if target == nil {
+            debug("target not found!")
+            return BattleUnit()
+        }
+        return target!
+    }
+    private func find(index:Int, parts:Array<BattleUnit>) -> BattleUnit? {
+        if index > 7 {
+            return nil
+        }
+        var findedUnit:BattleUnit!
+        for p in parts {
+            if p._index == index {
+                findedUnit = p
+                break
+            }
+        }
+        if nil != findedUnit {
+            return findedUnit
+        }
+        return find(index: index + 1, parts: parts)
+    }
+    
+    internal func getPhysicalDamageValue(source:BattleUnit, target:BattleUnit) -> CGFloat {
+        let attack = source.getAttack()
+        let value = attack * (1 - getDefence(source: source, target: target))
+        return floatValue(value: value)
+    }
+    
+    internal func getPhysicalDamage(source:BattleUnit, target:BattleUnit) -> Damage {
+        let dmg = Damage()
+        dmg._source = source
+        dmg._target = target
+        dmg._value = getPhysicalDamageValue(source: source, target: target)
+        return dmg
+    }
+    
+    internal func getFireDamage(source:BattleUnit, target:BattleUnit) -> Damage {
+        let dmg = Damage()
+        dmg._source = source
+        dmg._target = target
+        dmg._type = Damage.type_fire
+        let enhance = (1 + source.getMagicPower() * 0.01)
+        let power = source.getSpirit()
+        dmg._value = 20
+        return dmg
+    }
+    
+    internal func floatValue(value:CGFloat) -> CGFloat {
+        let min = value * 8
+        let max = value * 12
+        let value = seed(min: min.toInt(), max: max.toInt()).toFloat() / 10
+        if value < 5 {
+            return seed(min: 1, max: 5).toFloat()
+        }
+        return value
+    }
+    
+    internal func getDefence(source:BattleUnit, target:BattleUnit) -> CGFloat {
+        let lv = source._unit._level - target._unit._level
+        let offset:CGFloat = 25
+        var value = target.getDefence() / ((offset + target._unit._level + lv) * 4)
+        debug("defence value \(value)")
+        if value > 0.9 {
+            value = 0.9
+        }
+        return value
+    }
+    
+    var  _id = 0
+    var _costRate:CGFloat = 1.4
+    var _cd = 0
+    var _timeleft = 0
+    var _name:String = ""
+    var _description = ""
+    var _rate:CGFloat = 1
+    var _quality = Quality.NORMAL
+    var _level:CGFloat = 1
+    var _manaCost:CGFloat = 0
     
     static let Cruel = 1001
     static let Bellicose = 1002
@@ -20,7 +137,7 @@ class Spell:Showable {
     static let Strong = 1008
     static let Energetic = 1009
     static let ThunderAttack = 1010
-    static let LowlevelFlame = 1011
+    static let LowerFlame = 1011
     static let BreakDefence = 1012
     static let AttackHard = 1013
     static let ScreamLoud = 1014
@@ -33,8 +150,8 @@ class Spell:Showable {
     static let PoisonCurse = 1021
     static let ColdWind = 1022
     static let Heal = 1023
-
-
+    
+    
     static let BloodThirsty = 2001
     static let LineAttack = 2002
     static let FireFist = 2003
@@ -63,7 +180,7 @@ class Spell:Showable {
     static let AsShadow = 2026
     static let Predict = 2027
     static let Combustion = 2028
-
+    
     
     static let Lighting = 3001
     static let LeeAttack = 3002

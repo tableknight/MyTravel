@@ -19,7 +19,7 @@ class Chest:CellNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
 //        if _triggered {
 //            return
 //        }

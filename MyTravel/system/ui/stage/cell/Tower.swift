@@ -16,36 +16,7 @@ class Tower:CellNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
-//        if _triggered {
-//            return
-//        }
-//        _triggered = true
-//        let item = _pictureChest.getCell(_x.toFloat(), 3)
-//        setTexture(item)
-//        Sound.play(node: Game.curStage, fileName: "chest")
-//        if Core().d4() {
-//            let b = MimicBattle()
-//            b._level = Game.curStage._curScene._level
-//            b.setEnemyPart(minions: Array<Creature>())
-//            let char = _char!
-//            let cs:Array<Unit> = [char] + char.getReadyMinions()
-//            b.setPlayerPart(roles: cs)
-//            Game.curStage.addBattle(b)
-//            b.battleStart()
-//
-//            b.victoryAction = {
-//                let l = Loot()
-//                let roles = b._playerPart
-//                for c in roles {
-//                    let exp = l.getExp(selfUnit: c, enemyLevel: Game.curStage._curScene._level) * 10
-//                    c._unit.expUp(up: exp)
-//                }
-//            }
-//            return
-//        }
-//
-//        loot()
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         
     }
     var _text = ""
@@ -80,7 +51,7 @@ class FireEnergeTower:Tower {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         if !_triggered {
             _triggered = true
             let s = _status!
@@ -114,7 +85,7 @@ class WaterEnergeTower:Tower {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         if !_triggered {
             _triggered = true
             let s = _status!
@@ -149,7 +120,7 @@ class ThunderEnergeTower:Tower {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         if !_triggered {
             _triggered = true
             let s = _status!
@@ -183,7 +154,7 @@ class TimeReduceTower:Tower {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         if !_triggered {
             _triggered = true
             let s = _status!
@@ -217,7 +188,7 @@ class PhysicalPowerTower:Tower {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         if !_triggered {
             _triggered = true
             let s = PhysicalPower()
@@ -251,7 +222,7 @@ class MagicalPowerTower:Tower {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         if !_triggered {
             _triggered = true
             let s = MagicalPower()
@@ -285,7 +256,7 @@ class AttackPowerTower:Tower {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         if !_triggered {
             _triggered = true
             let s = AttackPower()
@@ -319,7 +290,7 @@ class DefencePowerTower:Tower {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         if !_triggered {
             _triggered = true
             let s = DefencePower()
@@ -353,7 +324,7 @@ class MindPowerTower:Tower {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         if !_triggered {
             _triggered = true
             let s = MindPower()
@@ -388,7 +359,7 @@ class LuckyPowerTower:Tower {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func triggerEvent() {
+    override func triggerEvent(completion: @escaping () -> Void = {}) {
         if !_triggered {
             _triggered = true
             let s = LuckyPower()

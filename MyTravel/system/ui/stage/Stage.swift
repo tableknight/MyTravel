@@ -34,6 +34,12 @@ class Stage: SKSpriteNode {
             showPanel(p)
             return
         }
+        if _itemButton.contains(tp!) {
+            let p = ItemPanel()
+            p.create()
+            showPanel(p)
+            return
+        }
         if _minionButton.contains(tp!) {
             if Game.curChar._minions.count < 1 {
                 let alert = Alert()
@@ -51,14 +57,19 @@ class Stage: SKSpriteNode {
             showPanel(p)
             return
         }
+        if _spellButton.contains(tp!) {
+            return
+        }
+        touchAction(tp!)
     }
     func loadScene(scene:Scene) {
         addChild(scene)
         _curScene = scene
-        _areaNameLabel.text = scene._name
+//        _areaNameLabel.text = scene._name
     }
     func setRole(_ role:ActionUnit) {
         //        role.anchorPoint = CGPoint(x: 0, y: 0)
+        role._roleNode.y = cellSize * 0.125
         role.zPosition = 1000
         role.anchorPoint = CGPoint(x: 0.5, y: 0)
         _roleX = _curScene._portalPrev.x.toInt()
@@ -67,9 +78,12 @@ class Stage: SKSpriteNode {
         role.position.y = (_curScene._ySize / 2 - _roleY).toFloat() * cellSize
 //        role.position.x = (-_curScene._xSize / 2 + 0).toFloat() * cellSize
 //        role.position.y = (_curScene._ySize / 2 - 0).toFloat() * cellSize
-        
+        showCood()
         addChild(role)
         _playerUnit = role
+    }
+    private func showCood() {
+        _areaNameLabel.text = "\(_curScene._name)(\(_roleX),\(_roleY))"
     }
     private func touchAction(_ point:CGPoint) {
         _targetPoint = point
@@ -88,6 +102,22 @@ class Stage: SKSpriteNode {
             } else {
                 _playerUnit.faceEast()
             }
+//            let point = getNextPoint()
+//            let cell = _curScene.getCellType(x: point.x.toInt(), y: point.y.toInt())
+//
+//            let px = _roleX.toFloat() * cellSize
+//            let py = _roleY.toFloat() * cellSize
+//            let tx = _targetPoint.x + _curScene._xSize.toFloat() * 0.5 * cellSize
+//            let ty = -_targetPoint.y + _curScene._ySize.toFloat() * 0.5 * cellSize
+//            print("target x,y is \(tx),\(ty)")
+//            print("role x,y is \(px),\(py)")
+                    
+//                    if px == point.x && py == point.y && cell == Cell.enemy {
+//                        let node = _curScene.getCellNode(x: point.x.toInt(), y: point.y.toInt())
+//                        node.triggerEvent()
+//                        return true
+//                    }
+            
             return
         }
         _moving = true
@@ -117,6 +147,7 @@ class Stage: SKSpriteNode {
         _moving = false
         move()
         _totalStep -= 1
+        showCood()
     }
     private func shouldStop() -> Bool {
         if _moving {
@@ -124,21 +155,63 @@ class Stage: SKSpriteNode {
         }
         let px = _roleX.toFloat() * cellSize
         let py = _roleY.toFloat() * cellSize
-        let x = _targetPoint.x + _curScene._xSize.toFloat() * 0.5 * cellSize
-        let y = -_targetPoint.y + _curScene._ySize.toFloat() * 0.5 * cellSize
+        let tx = _targetPoint.x + _curScene._xSize.toFloat() * 0.5 * cellSize
+        let ty = -_targetPoint.y + _curScene._ySize.toFloat() * 0.5 * cellSize
         
-        if abs(px - x) <= cellSize * 0.5 && abs(py - y) <= cellSize * 0.5 {
+//        print("target y is \(y)")
+//        print("role y is \(py)")
+//
+//        if px == point.x && py == point.y && cell == Cell.enemy {
+//            let node = _curScene.getCellNode(x: point.x.toInt(), y: point.y.toInt())
+//            node.triggerEvent()
+//            return true
+//        }
+        
+        
+        if (_direction.west && _roleX < 1) || (_direction.east && _roleX >= _curScene._xSize) || (_direction.north && _roleY < 1) || (_direction.south && _roleY >= _curScene._ySize) {
             return true
+        }
+        
+        let point = getNextPoint()
+        let cell = _curScene.getCellType(x: point.x.toInt(), y: point.y.toInt())
+        
+//        for n in _curScene._cellLayer.children {
+//            if n.contains(_targetPoint) && (abs(_playerUnit.x - n.x) <= cellSize || abs(_playerUnit.y - n.x) <= cellSize) {
+//                if n is EnemyNode {
+//                    let node = n as! EnemyNode
+//                    node.triggerEvent() {
+//                        self._curScene.setCellValue(x: point.x.toInt(), y: point.y.toInt(), value: Cell.empty)
+//                        node.actionDead {
+//                            node.removeFromParent()
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        
+        let size = cellSize * 1.25
+        if abs(px - tx) < size && abs(py - ty) < size {
+            if cell == Cell.enemy {
+                let node = _curScene.getCellNode(x: point.x.toInt(), y: point.y.toInt()) as! EnemyNode
+                if node.contains(_targetPoint) {
+                    node.triggerEvent() {
+                        self._curScene.setCellValue(x: point.x.toInt(), y: point.y.toInt(), value: Cell.empty)
+                        node.actionDead {
+                            node.removeFromParent()
+                        }
+                    }
+                }
+            }
         }
         
         if _totalStep < 1 {
             return true
         }
-        if (_direction.west && _roleX < 1) || (_direction.east && _roleX >= _curScene._xSize) || (_direction.north && _roleY < 1) || (_direction.south && _roleY >= _curScene._ySize) {
+        
+        if abs(px - tx) <= cellSize * 0.5 && abs(py - ty) <= cellSize * 0.5 {
             return true
         }
-        let point = getNextPoint()
-        let cell = _curScene.getCellType(x: point.x.toInt(), y: point.y.toInt())
+        
         if cell != Cell.empty && cell != Cell.portal {
             return true
         }
@@ -281,6 +354,20 @@ class Stage: SKSpriteNode {
         _charButton.position.y = startYIcon
         _buttonLayer.addChild(_charButton)
         
+        let d = Device.getDeviceSize()
+        
+        _settingButton.create(index: 5, text: "设置", line: 1)
+        _settingButton.position.x = d.width / 2 - cellSize * 2
+        _settingButton.position.y = d.height / 2 - cellSize
+        _buttonLayer.addChild(_settingButton)
+        
+        _mapButton.create(index: 4, text: "地图", line: 1)
+        _mapButton.position.x = _settingButton.x - cellSize * 1.25
+        _mapButton.position.y = _settingButton.y
+        _buttonLayer.addChild(_mapButton)
+        
+        
+        
 //        let fairy = SKSpriteNode(texture: SKTexture(imageNamed: "Fairy"))
 //        fairy.position.y = startY + cellSize * 1
 //        fairy.position.x = startX - cellSize * 3
@@ -357,6 +444,8 @@ class Stage: SKSpriteNode {
     private var _itemButton = IconButton()
     private var _minionButton = IconButton()
     private var _fieldButton = IconButton()
+    private var _settingButton = IconButton()
+    private var _mapButton = IconButton()
     private var _tearCount = Label()
     private var _goldCount = Label()
     

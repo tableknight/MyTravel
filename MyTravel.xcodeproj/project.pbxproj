@@ -84,6 +84,26 @@
 		09D7AC6625037C03009BAE5B /* BattleUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC6525037C03009BAE5B /* BattleUnit.swift */; };
 		09D7AC68250389E4009BAE5B /* SubPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC67250389E4009BAE5B /* SubPanel.swift */; };
 		09D7AC6A2503940F009BAE5B /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC692503940F009BAE5B /* Alert.swift */; };
+		09D7AC6C2503D8F2009BAE5B /* ValueUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC6B2503D8F2009BAE5B /* ValueUnit.swift */; };
+		09D7AC6E25047EEE009BAE5B /* Attack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC6D25047EEE009BAE5B /* Attack.swift */; };
+		09D7AC7025049C94009BAE5B /* Damage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC6F25049C94009BAE5B /* Damage.swift */; };
+		09D7AC722504DE7A009BAE5B /* BlackCat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC712504DE7A009BAE5B /* BlackCat.swift */; };
+		09D7AC742504DEED009BAE5B /* AFu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC732504DEED009BAE5B /* AFu.swift */; };
+		09D7AC76250518AB009BAE5B /* EnemyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC75250518AB009BAE5B /* EnemyNode.swift */; };
+		09D7AC782507C16E009BAE5B /* UnitIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC772507C16E009BAE5B /* UnitIcon.swift */; };
+		09D7AC7A25091989009BAE5B /* ActionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC7925091989009BAE5B /* ActionIcon.swift */; };
+		09D7AC7C25091D3F009BAE5B /* Defend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC7B25091D3F009BAE5B /* Defend.swift */; };
+		09D7AC7E250E4B42009BAE5B /* UseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC7D250E4B42009BAE5B /* UseItem.swift */; };
+		09D7AC80250E4B5D009BAE5B /* Summon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC7F250E4B5C009BAE5B /* Summon.swift */; };
+		09D7AC82250E4BCA009BAE5B /* Withdraw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC81250E4BCA009BAE5B /* Withdraw.swift */; };
+		09D7AC85250E4D4E009BAE5B /* Cancel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC84250E4D4E009BAE5B /* Cancel.swift */; };
+		09D7AC87250FAFCD009BAE5B /* ItemPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC86250FAFCD009BAE5B /* ItemPanel.swift */; };
+		09D7AC89250FB0B7009BAE5B /* ItemSelectPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC88250FB0B7009BAE5B /* ItemSelectPanel.swift */; };
+		09D7AC8B250FB2FD009BAE5B /* Castable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC8A250FB2FD009BAE5B /* Castable.swift */; };
+		09D7AC8D25123645009BAE5B /* ItemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC8C25123645009BAE5B /* ItemIcon.swift */; };
+		09D7AC8F251242ED009BAE5B /* ItemWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC8E251242ED009BAE5B /* ItemWindow.swift */; };
+		09D7AC92251249FD009BAE5B /* LowerFlame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC91251249FD009BAE5B /* LowerFlame.swift */; };
+		09D7AC9425124CD1009BAE5B /* AnimationOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC9325124CD1009BAE5B /* AnimationOption.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -166,6 +186,26 @@
 		09D7AC6525037C03009BAE5B /* BattleUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleUnit.swift; sourceTree = "<group>"; };
 		09D7AC67250389E4009BAE5B /* SubPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubPanel.swift; sourceTree = "<group>"; };
 		09D7AC692503940F009BAE5B /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		09D7AC6B2503D8F2009BAE5B /* ValueUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueUnit.swift; sourceTree = "<group>"; };
+		09D7AC6D25047EEE009BAE5B /* Attack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attack.swift; sourceTree = "<group>"; };
+		09D7AC6F25049C94009BAE5B /* Damage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Damage.swift; sourceTree = "<group>"; };
+		09D7AC712504DE7A009BAE5B /* BlackCat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackCat.swift; sourceTree = "<group>"; };
+		09D7AC732504DEED009BAE5B /* AFu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFu.swift; sourceTree = "<group>"; };
+		09D7AC75250518AB009BAE5B /* EnemyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyNode.swift; sourceTree = "<group>"; };
+		09D7AC772507C16E009BAE5B /* UnitIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitIcon.swift; sourceTree = "<group>"; };
+		09D7AC7925091989009BAE5B /* ActionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionIcon.swift; sourceTree = "<group>"; };
+		09D7AC7B25091D3F009BAE5B /* Defend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defend.swift; sourceTree = "<group>"; };
+		09D7AC7D250E4B42009BAE5B /* UseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseItem.swift; sourceTree = "<group>"; };
+		09D7AC7F250E4B5C009BAE5B /* Summon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summon.swift; sourceTree = "<group>"; };
+		09D7AC81250E4BCA009BAE5B /* Withdraw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Withdraw.swift; sourceTree = "<group>"; };
+		09D7AC84250E4D4E009BAE5B /* Cancel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancel.swift; sourceTree = "<group>"; };
+		09D7AC86250FAFCD009BAE5B /* ItemPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemPanel.swift; sourceTree = "<group>"; };
+		09D7AC88250FB0B7009BAE5B /* ItemSelectPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSelectPanel.swift; sourceTree = "<group>"; };
+		09D7AC8A250FB2FD009BAE5B /* Castable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Castable.swift; sourceTree = "<group>"; };
+		09D7AC8C25123645009BAE5B /* ItemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemIcon.swift; sourceTree = "<group>"; };
+		09D7AC8E251242ED009BAE5B /* ItemWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemWindow.swift; sourceTree = "<group>"; };
+		09D7AC91251249FD009BAE5B /* LowerFlame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerFlame.swift; sourceTree = "<group>"; };
+		09D7AC9325124CD1009BAE5B /* AnimationOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationOption.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,7 +360,6 @@
 		09D7ABD724E39A2D009BAE5B /* action */ = {
 			isa = PBXGroup;
 			children = (
-				09D7ABD824E39A38009BAE5B /* ActionUnit.swift */,
 			);
 			path = action;
 			sourceTree = "<group>";
@@ -337,7 +376,10 @@
 		09D7ABF524EA2709009BAE5B /* spell */ = {
 			isa = PBXGroup;
 			children = (
+				09D7AC90251249EF009BAE5B /* normal */,
 				09D7ABF624EA2718009BAE5B /* Spell.swift */,
+				09D7AC6D25047EEE009BAE5B /* Attack.swift */,
+				09D7AC6F25049C94009BAE5B /* Damage.swift */,
 			);
 			path = spell;
 			sourceTree = "<group>";
@@ -348,6 +390,8 @@
 				09D7ABE524E4C4C7009BAE5B /* Unit.swift */,
 				09D7ABF324EA2693009BAE5B /* Creature.swift */,
 				09D7AC4525020041009BAE5B /* Character.swift */,
+				09D7AC712504DE7A009BAE5B /* BlackCat.swift */,
+				09D7AC732504DEED009BAE5B /* AFu.swift */,
 			);
 			path = unit;
 			sourceTree = "<group>";
@@ -368,6 +412,7 @@
 				09D7ABE924E7F5E6009BAE5B /* CellNode.swift */,
 				09D7AC1224EC0C77009BAE5B /* Chest.swift */,
 				09D7AC1424EC0EE6009BAE5B /* Tower.swift */,
+				09D7AC75250518AB009BAE5B /* EnemyNode.swift */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -390,6 +435,7 @@
 				09D7AC5625032C60009BAE5B /* FieldPanel.swift */,
 				09D7AC5E250331E0009BAE5B /* FieldConfigPanel.swift */,
 				09D7AC6225035FD1009BAE5B /* RoleSelectPanel.swift */,
+				09D7AC86250FAFCD009BAE5B /* ItemPanel.swift */,
 			);
 			path = panel;
 			sourceTree = "<group>";
@@ -398,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				09D7AC2D24FBD3BC009BAE5B /* Showable.swift */,
+				09D7AC8A250FB2FD009BAE5B /* Castable.swift */,
 			);
 			path = interface;
 			sourceTree = "<group>";
@@ -409,6 +456,7 @@
 				09D7AC3224FBE1B4009BAE5B /* StatusIcon.swift */,
 				09D7AC4725020828009BAE5B /* ArmorSlot.swift */,
 				09D7AC4925020DA4009BAE5B /* ArmorIcon.swift */,
+				09D7AC8C25123645009BAE5B /* ItemIcon.swift */,
 			);
 			path = icon;
 			sourceTree = "<group>";
@@ -418,6 +466,7 @@
 			children = (
 				09D7AC3724FE9233009BAE5B /* StatusWindow.swift */,
 				09D7AC4B25020FEE009BAE5B /* ArmorWindow.swift */,
+				09D7AC8E251242ED009BAE5B /* ItemWindow.swift */,
 			);
 			path = window;
 			sourceTree = "<group>";
@@ -434,10 +483,37 @@
 		09D7AC6425037AEA009BAE5B /* battle */ = {
 			isa = PBXGroup;
 			children = (
+				09D7AC83250E4D25009BAE5B /* action */,
 				09D7AC5425028DD8009BAE5B /* Battle.swift */,
 				09D7AC6525037C03009BAE5B /* BattleUnit.swift */,
+				09D7AC6B2503D8F2009BAE5B /* ValueUnit.swift */,
+				09D7ABD824E39A38009BAE5B /* ActionUnit.swift */,
+				09D7AC772507C16E009BAE5B /* UnitIcon.swift */,
+				09D7AC7925091989009BAE5B /* ActionIcon.swift */,
+				09D7AC88250FB0B7009BAE5B /* ItemSelectPanel.swift */,
+				09D7AC9325124CD1009BAE5B /* AnimationOption.swift */,
 			);
 			path = battle;
+			sourceTree = "<group>";
+		};
+		09D7AC83250E4D25009BAE5B /* action */ = {
+			isa = PBXGroup;
+			children = (
+				09D7AC7F250E4B5C009BAE5B /* Summon.swift */,
+				09D7AC81250E4BCA009BAE5B /* Withdraw.swift */,
+				09D7AC7B25091D3F009BAE5B /* Defend.swift */,
+				09D7AC7D250E4B42009BAE5B /* UseItem.swift */,
+				09D7AC84250E4D4E009BAE5B /* Cancel.swift */,
+			);
+			path = action;
+			sourceTree = "<group>";
+		};
+		09D7AC90251249EF009BAE5B /* normal */ = {
+			isa = PBXGroup;
+			children = (
+				09D7AC91251249FD009BAE5B /* LowerFlame.swift */,
+			);
+			path = normal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -521,21 +597,28 @@
 				09D7ABF424EA2693009BAE5B /* Creature.swift in Sources */,
 				09D7AC6A2503940F009BAE5B /* Alert.swift in Sources */,
 				09D7ABAD24E384C7009BAE5B /* GameScene.swift in Sources */,
+				09D7AC9425124CD1009BAE5B /* AnimationOption.swift in Sources */,
+				09D7AC6E25047EEE009BAE5B /* Attack.swift in Sources */,
 				09D7AC1C24F218C0009BAE5B /* HBar.swift in Sources */,
 				09D7ABD024E3880C009BAE5B /* Game.swift in Sources */,
+				09D7AC82250E4BCA009BAE5B /* Withdraw.swift in Sources */,
 				09D7AC4C25020FEE009BAE5B /* ArmorWindow.swift in Sources */,
 				09D7ABC724E3876D009BAE5B /* Size.swift in Sources */,
+				09D7AC76250518AB009BAE5B /* EnemyNode.swift in Sources */,
 				09D7ABDB24E39D11009BAE5B /* Test.swift in Sources */,
 				09D7AC5725032C60009BAE5B /* FieldPanel.swift in Sources */,
 				09D7ABEE24E80E2D009BAE5B /* item.swift in Sources */,
 				09D7AC2024F7E9DB009BAE5B /* Button.swift in Sources */,
+				09D7AC87250FAFCD009BAE5B /* ItemPanel.swift in Sources */,
 				09D7AC5025028677009BAE5B /* MinionPanel.swift in Sources */,
 				09D7ABDD24E4350D009BAE5B /* GroundSet.swift in Sources */,
 				09D7AC4E25027F8E009BAE5B /* Confirm.swift in Sources */,
 				09D7AC6625037C03009BAE5B /* BattleUnit.swift in Sources */,
 				09D7ABEC24E80DB7009BAE5B /* Type.swift in Sources */,
+				09D7AC7C25091D3F009BAE5B /* Defend.swift in Sources */,
 				09D7AC3524FE9156009BAE5B /* Window.swift in Sources */,
 				09D7AC4A25020DA4009BAE5B /* ArmorIcon.swift in Sources */,
+				09D7AC92251249FD009BAE5B /* LowerFlame.swift in Sources */,
 				09D7AC442501FFD1009BAE5B /* ArmorPanel.swift in Sources */,
 				09D7ABF724EA2718009BAE5B /* Spell.swift in Sources */,
 				09D7AC1324EC0C77009BAE5B /* Chest.swift in Sources */,
@@ -547,11 +630,13 @@
 				09D7AC5525028DD8009BAE5B /* Battle.swift in Sources */,
 				09D7AC2524FB948B009BAE5B /* RolePanel.swift in Sources */,
 				09D7ABCB24E38784009BAE5B /* Value.swift in Sources */,
+				09D7AC742504DEED009BAE5B /* AFu.swift in Sources */,
 				09D7ABE424E4C317009BAE5B /* TwistedMeadow.swift in Sources */,
 				09D7AC612503443E009BAE5B /* FieldData.swift in Sources */,
 				09D7ABD424E38EED009BAE5B /* extend.swift in Sources */,
 				09D7AC4625020041009BAE5B /* Character.swift in Sources */,
 				09D7AC2724FB9589009BAE5B /* Thumb.swift in Sources */,
+				09D7AC8B250FB2FD009BAE5B /* Castable.swift in Sources */,
 				09D7ABFD24EA3219009BAE5B /* Label.swift in Sources */,
 				09D7AC3A24FE934E009BAE5B /* MultiLabel.swift in Sources */,
 				09D7ABE224E4C2AD009BAE5B /* AncientRoad.swift in Sources */,
@@ -559,15 +644,22 @@
 				09D7AC68250389E4009BAE5B /* SubPanel.swift in Sources */,
 				09D7AC6325035FD1009BAE5B /* RoleSelectPanel.swift in Sources */,
 				09D7ABDF24E4B76A009BAE5B /* Dungeon.swift in Sources */,
+				09D7AC7E250E4B42009BAE5B /* UseItem.swift in Sources */,
+				09D7AC8D25123645009BAE5B /* ItemIcon.swift in Sources */,
+				09D7AC782507C16E009BAE5B /* UnitIcon.swift in Sources */,
 				09D7ABAF24E384C7009BAE5B /* GameViewController.swift in Sources */,
+				09D7AC8F251242ED009BAE5B /* ItemWindow.swift in Sources */,
 				09D7ABC224E3862A009BAE5B /* Core.swift in Sources */,
 				09D7AC3C2500E8CB009BAE5B /* Attribute.swift in Sources */,
 				09D7AC1E24F25FB6009BAE5B /* IconButton.swift in Sources */,
 				09D7AC5925032CCA009BAE5B /* FieldThumb.swift in Sources */,
+				09D7AC80250E4B5D009BAE5B /* Summon.swift in Sources */,
 				09D7AC1524EC0EE6009BAE5B /* Tower.swift in Sources */,
 				09D7ABD924E39A38009BAE5B /* ActionUnit.swift in Sources */,
 				09D7ABF024E80EC8009BAE5B /* ItemData.swift in Sources */,
 				09D7AC2B24FBA06F009BAE5B /* QualityNode.swift in Sources */,
+				09D7AC7A25091989009BAE5B /* ActionIcon.swift in Sources */,
+				09D7AC85250E4D4E009BAE5B /* Cancel.swift in Sources */,
 				09D7ABD624E395E6009BAE5B /* Scene.swift in Sources */,
 				09D7AC4825020828009BAE5B /* ArmorSlot.swift in Sources */,
 				09D7AC2E24FBD3BC009BAE5B /* Showable.swift in Sources */,
@@ -576,14 +668,18 @@
 				09D7ABA724E384C7009BAE5B /* AppDelegate.swift in Sources */,
 				09D7ABC924E3877B009BAE5B /* Color.swift in Sources */,
 				09D7AC1A24EC1045009BAE5B /* Function.swift in Sources */,
+				09D7AC89250FB0B7009BAE5B /* ItemSelectPanel.swift in Sources */,
 				09D7AC3024FBD9EA009BAE5B /* TradePanel.swift in Sources */,
+				09D7AC7025049C94009BAE5B /* Damage.swift in Sources */,
 				09D7AC5F250331E0009BAE5B /* FieldConfigPanel.swift in Sources */,
 				09D7AC422500F1FC009BAE5B /* Armor.swift in Sources */,
 				09D7AC5325028D72009BAE5B /* Field.swift in Sources */,
 				09D7AC3E2500ECCC009BAE5B /* ArmorData.swift in Sources */,
 				09D7ABFB24EA27AF009BAE5B /* CreatureData.swift in Sources */,
 				09D7AC2924FB9592009BAE5B /* Icon.swift in Sources */,
+				09D7AC6C2503D8F2009BAE5B /* ValueUnit.swift in Sources */,
 				09D7ABD224E38B5D009BAE5B /* Device.swift in Sources */,
+				09D7AC722504DE7A009BAE5B /* BlackCat.swift in Sources */,
 				09D7AC402500ED52009BAE5B /* SacredData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

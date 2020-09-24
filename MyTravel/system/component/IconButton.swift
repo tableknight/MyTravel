@@ -16,14 +16,15 @@ class IconButton:SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    func create(index:CGFloat, text:String) {
-        let icon = SKTexture(imageNamed: "icons").getNode(index, 0)
+    func create(index:CGFloat, text:String, line:CGFloat = 0) {
+        let icon = SKTexture(imageNamed: "icons").getNode(index, line)
         addChild(icon)
         let label = Label()
         label.text = text
         label.position.y = -cellSize * 0.75
         label.fontSize = 12
         label.align = "center"
+        label.x = -1
         addChild(label)
     }
 }

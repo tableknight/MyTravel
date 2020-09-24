@@ -7,7 +7,29 @@
 //
 
 import SpriteKit
-class Item:NSObject, Codable, Showable {
+class Item:NSObject, Codable, Showable, Castable {
+    var autoCast: Bool {
+        get {
+            if [Item.TownScroll, Item.GodTownScroll, Item.PsychicScroll, Item.DeathTownScroll].contains(_type) {
+                return true
+            }
+            return false
+        }
+    }
+    
+    var castSelf: Bool {
+        get {
+            if [Item.Potion, Item.GiantPotion, Item.LittlePotion].contains(_type) {
+                return true
+            }
+            
+            return false
+        }
+    }
+    func cast(completion: @escaping () -> Void) {
+        completion()
+    }
+    
     
     override init() {
         
@@ -33,13 +55,13 @@ class Item:NSObject, Codable, Showable {
         _value = data.value
         _price = data.price
         _priceType = data.priceType
-        autoCast = data.autoCast
+        _autoCast = data.autoCast
         usable = data.usable
         castable = data.castable
         self.stackable = data.stackable
 
         if _type == Item.SealScroll {
-            targetEnemy = true
+//            _castSelf = true
         } else if _type == Item.MagicSyrup {
             _reserveBool = seed() < 50
             _description = "法术敏感\(_reserveBool ? "提升" : "降低")1"
@@ -70,12 +92,12 @@ class Item:NSObject, Codable, Showable {
         }
     }
     
-    var targetAll: Bool = false
-    var canBeTargetSelf: Bool = false
-    var targetEnemy: Bool = false
-    var isClose: Bool = false
-    var autoCast: Bool = false
-    var canBeTargetSummonUnit: Bool = false
+//    var targetAll: Bool = false
+//    var canBeTargetSelf: Bool = false
+//    var _castSelf: Bool = false
+//    var isClose: Bool = false
+    private var _autoCast: Bool = false
+//    var canBeTargetSummonUnit: Bool = false
     var showCount = true
     var stackable = true
     var usable = false

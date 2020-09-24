@@ -10,11 +10,7 @@ import SpriteKit
 class Icon: QualityNode {
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
-        _height = cellSize
-        _width = cellSize
-        _backgroundNode = createBackground(width: _width, height: _height)
-        _backgroundNode.fillColor = Value.transparent_color
-        addChild(_backgroundNode)
+        createBackgroundNode()
         
         _label.fontSize = cellSize * 0.5
         _label.align = "center"
@@ -26,6 +22,13 @@ class Icon: QualityNode {
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    internal func createBackgroundNode() {
+        _height = cellSize
+        _width = cellSize
+        _backgroundNode = createBackground(width: _width, height: _height)
+        _backgroundNode.fillColor = Value.transparent_color
+        addChild(_backgroundNode)
     }
     
     var iconText:String {
@@ -91,6 +94,9 @@ class Icon: QualityNode {
             w.create(item: _content)
         } else if _content is Armor {
             w = ArmorWindow()
+            w.create(item: _content)
+        } else if _content is Item {
+            w = ItemWindow()
             w.create(item: _content)
         } else {
             w = Window()

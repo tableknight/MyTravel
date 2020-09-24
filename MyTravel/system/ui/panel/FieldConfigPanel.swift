@@ -16,16 +16,22 @@ class FieldConfigPanel: Panel {
     }
     override func close() {
         self.removeFromParent()
-        let p = FieldPanel()
-        p.create()
-        p.show()
+        closeAction()
+//        let p = FieldPanel()
+//        p.create()
+//        p.show()
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
+        let tp = touches.first?.location(in: self)
+        if nil != _clickedNode && _clickedNode.contains(tp!) {
+            editSlot()
+            return
+        }
         if _clickedNode != nil {
             _clickedNode.selected = false
         }
-        let tp = touches.first?.location(in: self)
+        
         for s in _slots {
             if s.contains(tp!) {
                 s.selected = true
@@ -34,30 +40,8 @@ class FieldConfigPanel: Panel {
             }
         }
         if _nextButton.contains(tp!) && nil != _clickedNode {
-            let readyUnits = getReadyUnits()
-            if readyUnits.count >= Game.curChar._minionCount + 1 {
-                let alert = Alert()
-                alert.show(title: "星图承载力已达上限！")
-                return 
-            }
-//            isHidden = true
-            let p = RoleSelectPanel()
-            let list = [Game.curChar] + Game.curChar._minions
-            p.create(list: list as! Array<Unit>)
-            Game.curStage.showPanel(p)
-            p.confirmed = {
-//                self.isHidden = false
-                let thumb = p._clickedThumb
-                let unit = thumb!._unit!
-                let clickedField = self._clickedNode as! FieldSlot
-                clickedField.quality = unit._quality
-                clickedField.image = unit._imgUrl
-                clickedField._fieldSeat._uid = unit._uid
-//                clickedField.
-            }
-            p.canceled = {
-//                self.isHidden = false
-            }
+            editSlot()
+            return
         }
     }
     func create(field:Field) {
@@ -71,13 +55,47 @@ class FieldConfigPanel: Panel {
         _nextButton.y = _closeButton.y
         _prevButton.x = _nextButton.x - _nextButton.width - _buttonGap
         _prevButton.y = _nextButton.y
-//        _prevButton.x = -_nextButton.x
+        //        _prevButton.x = -_nextButton.x
         createLabel()
         createField()
         _label.text = "当前星图承载力：\(Game.curChar._minionCount + 1)（可配置作战单位数量上限）"
     }
+    private func editSlot() {
+        let readyUnits = getReadyUnits()
+        if readyUnits.count >= Game.curChar._minionCount + 1 {
+            let alert = Alert()
+            alert.show(title: "星图承载力已达上限！")
+            return
+        }
+        //            isHidden = true
+        let p = RoleSelectPanel()
+        let list = [Game.curChar] + Game.curChar._minions
+        p.create(list: list as! Array<Unit>)
+        Game.curStage.showPanel(p)
+        p.confirmed = {
+            //                self.isHidden = false
+            let thumb = p._clickedThumb
+            let unit = thumb!._unit!
+            for s in self._slots {
+                if s._fieldSeat._uid == unit._uid {
+                    s.image = "star"
+                    s._fieldSeat._uid = ""
+                    break
+                }
+            }
+            let clickedField = self._clickedNode as! FieldSlot
+            clickedField.quality = unit._quality
+            clickedField.image = unit._imgUrl
+            clickedField._fieldSeat._uid = unit._uid
+            
+            //                clickedField.
+        }
+        p.canceled = {
+            //                self.isHidden = false
+        }
+    }
     private func createField() {
-        let offset = cellSize * 2
+        let offset = cellSize * 3
         let img = SKSpriteNode(texture: SKTexture(imageNamed: _field._type))
         img.size = CGSize(width: _panelHeight - cellSize * 0.5, height: _panelHeight - cellSize * 0.5)
         img.x = offset
@@ -95,11 +113,17 @@ class FieldConfigPanel: Panel {
             slot.starName = seatData.starName
             slot._fieldSeat = seat
             if !seat._uid.isEmpty {
-                slot.image = Game.curChar.getUnitById(id: seat._uid)!._imgUrl
+                let unit = Game.curChar.getUnitById(id: seat._uid)
+                if nil != unit {
+                    slot.image = unit!._imgUrl
+                    slot.quality = unit!._quality
+                } else {
+                    debug("星图读取角色错误：角色不存在！")
+                }
             }
             addChild(slot)
             let label = Label()
-            label.text = "\(seatData.starName)：\(seatData.desc)"
+            label.text = "\(seatData.index)号位，\(seatData.starName)：\(seatData.desc)"
             label.fontSize = cellSize / 3
             label.x = startX
             label.y = startY - gap * i.toFloat()
@@ -119,5 +143,6 @@ class FieldConfigPanel: Panel {
     }
     private var _field:Field!
     private var _slots = Array<FieldSlot>()
+    
 }
 

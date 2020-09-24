@@ -21,11 +21,14 @@ class HBar:SKSpriteNode {
     private var _radius:CGFloat = 3
     func setValue(value:CGFloat = 1) {
         _bar?.removeFromParent()
-        var v = value
+        var value = value
         if value > 1 {
-            v = 1
+            value = 1
         }
-        let width = _width * v
+        if value < 0 {
+            value = 0
+        }
+        let width = _width * value
         _bar = createBackground(width: width, height: _height, cornerRadius: _radius)
         _bar.fillColor = _color
         _bar.position.x = width * 0.5

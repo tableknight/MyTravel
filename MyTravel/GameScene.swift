@@ -14,6 +14,15 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         self.backgroundColor = UIColor.black
+//        let c1 = Character()
+//                c1._name = "大黄蜂"
+//        let bu = BattleUnit()
+//        bu.create(unit: c1)
+//        setTimeout(delay: 2, completion: {
+//            bu.hitFire()
+//        })
+//        addChild(bu)
+//        return
 //        addChild(getCross())
         let s = SKTexture(imageNamed: "Outside")
         let scene = TwistedMeadow()
@@ -24,16 +33,37 @@ class GameScene: SKScene {
         let stage = Stage()
         Game.curStage = stage
         stage.loadScene(scene: scene)
-        stage.setRole(ActionUnit())
-        addChild(stage)
-
+        let role = ActionUnit()
         let c = Character()
 //        c.levelTo(level: 10)
         c._name = "大黄蜂"
+        c._spellsInuse.append(Spell.LowerFlame)
+        role.unit = c
         Game.curChar = c
+        stage.setRole(role)
+        addChild(stage)
+        
+        var p = Item(Item.Potion)
+        p._count = 5
+        c.addItem(p)
+        p = Item(Item.LittlePotion)
+        p._count = 5
+        c.addItem(p)
+        p = Item(Item.GiantPotion)
+        p._count = 5
+        c.addItem(p)
+        p = Item(Item.SealScroll)
+        p._count = 5
+        c.addItem(p)
+
+        
         
 //        let b = Battle()
 //        b.start()
+//        
+//        let bu = BattleUnit()
+//        bu.create(unit: c)
+//        b.addChild(bu)
         
 //        let panel = FieldConfigPanel()
 //        panel.create(field: Field(name: "Sagittarius"))
