@@ -55,6 +55,11 @@ class GameScene: SKScene {
         p = Item(Item.SealScroll)
         p._count = 5
         c.addItem(p)
+        
+//        let rt = RoleThumb()
+//        rt.zPosition = ZIndex.topest
+//        rt.create(unit: c._minions[0])
+//        stage.addChild(rt)
 
         
         

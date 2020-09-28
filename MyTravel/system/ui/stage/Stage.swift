@@ -23,38 +23,48 @@ class Stage: SKSpriteNode {
         }
         let tp = touches.first?.location(in: self)
         if _charButton.contains(tp!) {
-            let p = RolePanel()
-            p.create(unit: Game.curChar)
-            showPanel(p)
+            hideUI {
+                let p = RolePanel()
+                p.create(unit: Game.curChar)
+                self.showPanel(p)
+            }
             return
         }
         if _armorButton.contains(tp!) {
-            let p = ArmorPanel()
-            p.create()
-            showPanel(p)
+            hideUI {
+                let p = ArmorPanel()
+                p.create()
+                self.showPanel(p)
+            }
             return
         }
         if _itemButton.contains(tp!) {
-            let p = ItemPanel()
-            p.create()
-            showPanel(p)
+            hideUI {
+                let p = ItemPanel()
+                p.create()
+                self.showPanel(p)
+            }
             return
         }
         if _minionButton.contains(tp!) {
-            if Game.curChar._minions.count < 1 {
-                let alert = Alert()
-                alert.show(title: "没有随从可以展示！")
-                return
+//            if Game.curChar._minions.count < 1 {
+//                let alert = Alert()
+//                alert.show(title: "没有随从可以展示！")
+//                return
+//            }
+            hideUI {
+                let p = MinionsPanel()
+                p.create()
+                p.show()
             }
-            let p = RolePanel()
-            p.create(unit: Game.curChar._minions[0])
-            showPanel(p)
             return
         }
         if _fieldButton.contains(tp!) {
-            let p = FieldPanel()
-            p.create()
-            showPanel(p)
+            hideUI {
+                let p = FieldPanel()
+                p.create()
+                self.showPanel(p)
+            }
             return
         }
         if _spellButton.contains(tp!) {
@@ -278,6 +288,9 @@ class Stage: SKSpriteNode {
         return d
     }
     private func createUI() {
+        _uiLayer.addChild(_topButtonLayer)
+        _uiLayer.addChild(_infoLayer)
+        _uiLayer.addChild(_buttonLayer)
 //        let deviceSize = Device.getDeviceSize()
         _uiLayer.zPosition = ZIndex.ui
         _areaNameLabel.align = "center"
@@ -291,24 +304,24 @@ class Stage: SKSpriteNode {
         lvCircle.create(radius: lvWidth, value: 12)
         lvCircle.position.x = -cellSize * (Size.default_cell_x_count + 5).toFloat() * 0.5
         lvCircle.position.y = cellSize * (Size.default_cell_y_count + 3).toFloat() * 0.5
-        _uiLayer.addChild(lvCircle)
+        _infoLayer.addChild(lvCircle)
         
         let offset:CGFloat = 1
         let barWidth = cellSize * 2.5
         _hpBar.create(width: barWidth, height: cellSize / 6, value: 0.76, color: BarColor.hp, cornerRadius: 3)
         _hpBar.position.x = lvCircle.position.x + lvWidth - 1 + offset
         _hpBar.position.y = lvCircle.position.y + lvWidth * 0.75
-        _uiLayer.addChild(_hpBar)
+        _infoLayer.addChild(_hpBar)
         
         _mpBar.create(width: barWidth * 0.8, height: cellSize / 8, value: 0.89, color: BarColor.mp, cornerRadius: 2)
         _mpBar.position.x = _hpBar.position.x + 2 + offset
         _mpBar.position.y = _hpBar.position.y - cellSize * 0.25
-        _uiLayer.addChild(_mpBar)
+        _infoLayer.addChild(_mpBar)
         
         _expBar.create(width: barWidth * 0.75, height: cellSize / 8, value: 0.89, color: BarColor.exp, cornerRadius: 2)
         _expBar.position.x = _hpBar.position.x + 2 + offset
         _expBar.position.y = _mpBar.position.y - cellSize * 0.25 + 1
-        _uiLayer.addChild(_expBar)
+        _infoLayer.addChild(_expBar)
         
         let startX = -(Size.default_cell_x_count + 1).toFloat() * 0.5 * cellSize
         let startY = -(Size.default_cell_y_count + 4).toFloat() * cellSize * 0.5
@@ -319,7 +332,7 @@ class Stage: SKSpriteNode {
         buttonBg.strokeColor = UIColor.white
 //        buttonBg.lineWidth = 1.5
         _buttonLayer.addChild(buttonBg)
-        _uiLayer.addChild(_buttonLayer)
+        
         addChild(_uiLayer)
         
         let gap = cellSize * 3
@@ -359,12 +372,12 @@ class Stage: SKSpriteNode {
         _settingButton.create(index: 5, text: "设置", line: 1)
         _settingButton.position.x = d.width / 2 - cellSize * 2
         _settingButton.position.y = d.height / 2 - cellSize
-        _buttonLayer.addChild(_settingButton)
+        _topButtonLayer.addChild(_settingButton)
         
         _mapButton.create(index: 4, text: "地图", line: 1)
         _mapButton.position.x = _settingButton.x - cellSize * 1.25
         _mapButton.position.y = _settingButton.y
-        _buttonLayer.addChild(_mapButton)
+        _topButtonLayer.addChild(_mapButton)
         
         
         
@@ -384,25 +397,25 @@ class Stage: SKSpriteNode {
         tear.size = CGSize(width: cellSize * 0.5, height: cellSize * 0.5)
         tear.position.x = _expBar.position.x + 4
         tear.position.y = _expBar.position.y - 9
-        _uiLayer.addChild(tear)
+        _infoLayer.addChild(tear)
         
         _tearCount.text = "123"
         _tearCount.position.x = tear.position.x + cellSize * 0.25
         _tearCount.position.y = tear.position.y - 6
         _tearCount.fontSize = 11
-        _uiLayer.addChild(_tearCount)
+        _infoLayer.addChild(_tearCount)
         
         let gold = SKTexture(imageNamed: "icons").getNode(4, 0)
         gold.size = CGSize(width: cellSize * 0.5, height: cellSize * 0.5)
         gold.position.x = _tearCount.position.x + cellSize * 0.5 + _tearCount.width
         gold.position.y = tear.position.y
-        _uiLayer.addChild(gold)
+        _infoLayer.addChild(gold)
         
         _goldCount.text = "2354"
         _goldCount.position.x = gold.position.x + cellSize * 0.25
         _goldCount.position.y = _tearCount.position.y
         _goldCount.fontSize = 11
-        _uiLayer.addChild(_goldCount)
+        _infoLayer.addChild(_goldCount)
     }
     func addStatus(status:Status) {
         
@@ -410,18 +423,44 @@ class Stage: SKSpriteNode {
     func showPanel(_ panel:Panel) {
         cancelTouch = true
         addChild(panel)
-        hideUI()
+//        hideUI()
     }
-    func hideUI() {
-        _uiLayer.isHidden = true
+    func hideUI(completion: @escaping () -> Void) {
+        let t = TimeInterval(Value.ui_animate_time)
+        let p = cellSize * 5
+        let top = SKAction.move(by: CGVector(dx: 0, dy: p), duration: t)
+        let bottom = SKAction.move(by: CGVector(dx: 0, dy: -p), duration: t)
+        let left = SKAction.move(by: CGVector(dx: -p, dy: 0), duration: t)
+        let right = SKAction.move(by: CGVector(dx: p, dy: 0), duration: t)
+        _areaNameLabel.run(top) {
+            self._uiLayer.isHidden = true
+            completion()
+        }
+        _topButtonLayer.run(right)
+        _infoLayer.run(left)
+        _buttonLayer.run(bottom)
     }
-    func showUI() {
-        _uiLayer.isHidden = false
+    func showUI(completion: @escaping () -> Void) {
+        let t = TimeInterval(Value.ui_animate_time)
+        let p = cellSize * 5
+        let top = SKAction.move(by: CGVector(dx: 0, dy: -p), duration: t)
+        let bottom = SKAction.move(by: CGVector(dx: 0, dy: p), duration: t)
+        let left = SKAction.move(by: CGVector(dx: p, dy: 0), duration: t)
+        let right = SKAction.move(by: CGVector(dx: -p, dy: 0), duration: t)
+        self._uiLayer.isHidden = false
+        _areaNameLabel.run(top) {
+            completion()
+        }
+        _topButtonLayer.run(right)
+        _infoLayer.run(left)
+        _buttonLayer.run(bottom)
     }
     func removePanel(_ panel:Panel) {
         cancelTouch = false
         panel.removeFromParent()
-        showUI()
+        showUI() {
+            
+        }
     }
     var _playerUnit:ActionUnit!
     var _curScene:Scene!
@@ -434,6 +473,8 @@ class Stage: SKSpriteNode {
     private var _targetPoint = CGPoint()
     private var _uiLayer = SKSpriteNode()
     private var _areaNameLabel = Label()
+    private var _infoLayer = SKSpriteNode()
+    private var _topButtonLayer = SKSpriteNode()
     private var _hpBar = HBar()
     private var _mpBar = HBar()
     private var _expBar = HBar()

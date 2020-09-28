@@ -25,6 +25,12 @@ class Field: NSObject, Codable {
                 _fieldSeats.append(createSeat(index: s.index, x: s.displayX, y: s.displayY))
             }
             _name = "人马座"
+        } else if Field.Libra == type {
+            let data = FieldData.data[_type]!
+            for s in data {
+                _fieldSeats.append(createSeat(index: s.index, x: s.displayX, y: s.displayY))
+            }
+            _name = "天秤座"
         }
     }
     
@@ -41,6 +47,7 @@ class Field: NSObject, Codable {
     var _type = ""
     static let Hexagram = "Hexagram"
     static let Sagittarius = "Sagittarius"
+    static let Libra = "Libra"
 }
 class FieldSeat: NSObject, Codable {
     override init() {

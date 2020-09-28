@@ -38,6 +38,17 @@ class Panel:SKSpriteNode {
         _backgroundNode = createBackground(width: _panelWidth, height: _panelHeight)
         _backgroundNode.position = CGPoint(x: 0, y: 0)
         addChild(_backgroundNode)
+        _backgroundNode.x = -_panelWidth
+//        let v = CGVector(dx: _panelWidth, dy: 0)
+//        let action = SKAction.fadeIn(withDuration: TimeInterval(Value.ui_animate_time))
+        let action = SKAction.moveBy(x: _panelWidth, y: 0, duration: TimeInterval(Value.ui_animate_time))
+        _backgroundNode.run(action)
+    }
+    
+    internal func bgNodeOut() {
+        let action = SKAction.moveBy(x: _panelWidth, y: 0, duration: TimeInterval(Value.ui_animate_time))
+        _backgroundNode.run(action)
+        _listLayer.run(action)
     }
     
     func create() {
@@ -45,6 +56,7 @@ class Panel:SKSpriteNode {
         createLabel()
         createCloseButton()
         createPageButtons()
+        addChild(_listLayer)
     }
     
     func createCloseButton() {
@@ -118,8 +130,10 @@ class Panel:SKSpriteNode {
     internal var _curPage = 1
     internal var _buttonGap:CGFloat =  0
     internal var _clickedNode:QualityNode!
+    internal var _listLayer = SKSpriteNode()
     var closeAction = {}
     var isChild = false
+    var cancelTouch = false
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

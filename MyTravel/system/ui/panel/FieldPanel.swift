@@ -15,19 +15,26 @@ class FieldPanel: Panel {
         super.init(coder: aDecoder)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
+//        super.touchesBegan(touches, with: event)
         let tp = touches.first?.location(in: self)
         if nil != _clickedNode && _clickedNode.contains(tp!) {
-            let configPanel = FieldConfigPanel()
-            configPanel.create(field: (_clickedNode as! FieldThumb)._field)
-            configPanel.show()
-            self.isHidden = true
-            configPanel.closeAction = {
-                self.isHidden = false
+            buttonOut {
+                let configPanel = FieldConfigPanel()
+                configPanel.create(field: (self._clickedNode as! FieldThumb)._field)
+                configPanel.show()
+                self.removeFromParent()
+                configPanel.closeAction = {
+//                    self.isHidden = false
+                }
+                return
             }
+            
             return
         }
-        for c in children {
+        if nil != _clickedNode {
+            _clickedNode.selected = false
+        }
+        for c in _fieldLayer.children {
             if c is FieldThumb && c.contains(tp!) {
                 let t = c as! FieldThumb
                 t.selected = true
@@ -35,12 +42,20 @@ class FieldPanel: Panel {
                 return
             }
         }
-        if _editButton.contains(tp!) && nil != _clickedNode {
-            let configPanel = FieldConfigPanel()
-            configPanel.create(field: (_clickedNode as! FieldThumb)._field)
-            configPanel.show()
-            self.removeFromParent()
+        if _closeButton.contains(tp!) {
+            buttonOut {
+                self.close()
+            }
             return
+        }
+        if _editButton.contains(tp!) && nil != _clickedNode {
+            buttonOut {
+                let configPanel = FieldConfigPanel()
+                configPanel.create(field: (self._clickedNode as! FieldThumb)._field)
+                configPanel.show()
+                self.removeFromParent()
+                return
+            }
         }
         if _setButton.contains(tp!) && nil != _clickedNode {
             let field = (_clickedNode as! FieldThumb)._field!
@@ -77,8 +92,10 @@ class FieldPanel: Panel {
         _editButton.x = _setButton.x - (_setButton.width + _closeButton.width) / 2  - _buttonGap
         _editButton.y = _setButton.y
         addChild(_editButton)
+        addChild(_fieldLayer)
         showFields()
         
+        buttonIn()
     }
     private func showFields() {
         let fields = Game.curChar._fields
@@ -102,10 +119,48 @@ class FieldPanel: Panel {
                 t.create(field: fields[i])
                 t.y = startY - gap * y.toFloat()
                 t.x = startX + gap * x.toFloat()
-                addChild(t)
+                setTimeout(delay: (i + 1).toFloat() * (Value.ui_animate_time * 2), completion: {
+                    self._fieldLayer.addChild(t)
+                })
             }
         }
     }
+    private func buttonIn() {
+        let y = _panelHeight / 4
+        _editButton.y += y
+        _setButton.y += y
+        _closeButton.y += y
+        _label.y += y
+        _nextButton.y -= y
+        _prevButton.y -= y
+        let t = TimeInterval(Value.ui_animate_time)
+//        _prevButton.y += y
+//        _closeButton.y += y
+        let top = SKAction.move(by: CGVector(dx: 0, dy: -y), duration: t)
+        let bottom = SKAction.move(by: CGVector(dx: 0, dy: y), duration: t)
+        _setButton.run(top)
+        _editButton.run(top)
+        _closeButton.run(top)
+        _prevButton.run(bottom)
+        _nextButton.run(bottom)
+        _label.run(top)
+    }
+    private func buttonOut(completion: @escaping () -> Void) {
+        let t = TimeInterval(Value.ui_animate_time)
+        let y = _panelHeight / 4
+        let top = SKAction.move(by: CGVector(dx: 0, dy: y), duration: t)
+        let bottom = SKAction.move(by: CGVector(dx: 0, dy: -y), duration: t)
+        _setButton.run(top)
+        _editButton.run(top)
+        _closeButton.run(top)
+        _prevButton.run(bottom)
+        _nextButton.run(bottom)
+        let action = SKAction.moveBy(x: _panelWidth, y: 0, duration: TimeInterval(Value.ui_animate_time))
+        _backgroundNode.run(action)
+        _fieldLayer.run(action)
+        _label.run(top, completion: completion)
+    }
     private var _setButton = Button()
     private var _editButton = Button()
+    private var _fieldLayer = SKSpriteNode()
 }

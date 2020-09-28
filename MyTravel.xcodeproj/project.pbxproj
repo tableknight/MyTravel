@@ -71,7 +71,7 @@
 		09D7AC4A25020DA4009BAE5B /* ArmorIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC4925020DA4009BAE5B /* ArmorIcon.swift */; };
 		09D7AC4C25020FEE009BAE5B /* ArmorWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC4B25020FEE009BAE5B /* ArmorWindow.swift */; };
 		09D7AC4E25027F8E009BAE5B /* Confirm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC4D25027F8E009BAE5B /* Confirm.swift */; };
-		09D7AC5025028677009BAE5B /* MinionPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC4F25028677009BAE5B /* MinionPanel.swift */; };
+		09D7AC5025028677009BAE5B /* MinionPanel_bf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC4F25028677009BAE5B /* MinionPanel_bf.swift */; };
 		09D7AC5325028D72009BAE5B /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC5225028D72009BAE5B /* Field.swift */; };
 		09D7AC5525028DD8009BAE5B /* Battle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC5425028DD8009BAE5B /* Battle.swift */; };
 		09D7AC5725032C60009BAE5B /* FieldPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC5625032C60009BAE5B /* FieldPanel.swift */; };
@@ -104,6 +104,8 @@
 		09D7AC8F251242ED009BAE5B /* ItemWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC8E251242ED009BAE5B /* ItemWindow.swift */; };
 		09D7AC92251249FD009BAE5B /* LowerFlame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC91251249FD009BAE5B /* LowerFlame.swift */; };
 		09D7AC9425124CD1009BAE5B /* AnimationOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC9325124CD1009BAE5B /* AnimationOption.swift */; };
+		09D7AC9625220434009BAE5B /* RoleThumb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC9525220434009BAE5B /* RoleThumb.swift */; };
+		09D7AC9825220EFC009BAE5B /* MinionsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7AC9725220EFC009BAE5B /* MinionsPanel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -173,7 +175,7 @@
 		09D7AC4925020DA4009BAE5B /* ArmorIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorIcon.swift; sourceTree = "<group>"; };
 		09D7AC4B25020FEE009BAE5B /* ArmorWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArmorWindow.swift; sourceTree = "<group>"; };
 		09D7AC4D25027F8E009BAE5B /* Confirm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Confirm.swift; sourceTree = "<group>"; };
-		09D7AC4F25028677009BAE5B /* MinionPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinionPanel.swift; sourceTree = "<group>"; };
+		09D7AC4F25028677009BAE5B /* MinionPanel_bf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinionPanel_bf.swift; sourceTree = "<group>"; };
 		09D7AC5225028D72009BAE5B /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		09D7AC5425028DD8009BAE5B /* Battle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Battle.swift; sourceTree = "<group>"; };
 		09D7AC5625032C60009BAE5B /* FieldPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldPanel.swift; sourceTree = "<group>"; };
@@ -206,6 +208,8 @@
 		09D7AC8E251242ED009BAE5B /* ItemWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemWindow.swift; sourceTree = "<group>"; };
 		09D7AC91251249FD009BAE5B /* LowerFlame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LowerFlame.swift; sourceTree = "<group>"; };
 		09D7AC9325124CD1009BAE5B /* AnimationOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationOption.swift; sourceTree = "<group>"; };
+		09D7AC9525220434009BAE5B /* RoleThumb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoleThumb.swift; sourceTree = "<group>"; };
+		09D7AC9725220EFC009BAE5B /* MinionsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinionsPanel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -431,11 +435,12 @@
 				09D7AC2424FB948B009BAE5B /* RolePanel.swift */,
 				09D7AC2F24FBD9EA009BAE5B /* TradePanel.swift */,
 				09D7AC432501FFD1009BAE5B /* ArmorPanel.swift */,
-				09D7AC4F25028677009BAE5B /* MinionPanel.swift */,
+				09D7AC4F25028677009BAE5B /* MinionPanel_bf.swift */,
 				09D7AC5625032C60009BAE5B /* FieldPanel.swift */,
 				09D7AC5E250331E0009BAE5B /* FieldConfigPanel.swift */,
 				09D7AC6225035FD1009BAE5B /* RoleSelectPanel.swift */,
 				09D7AC86250FAFCD009BAE5B /* ItemPanel.swift */,
+				09D7AC9725220EFC009BAE5B /* MinionsPanel.swift */,
 			);
 			path = panel;
 			sourceTree = "<group>";
@@ -457,6 +462,7 @@
 				09D7AC4725020828009BAE5B /* ArmorSlot.swift */,
 				09D7AC4925020DA4009BAE5B /* ArmorIcon.swift */,
 				09D7AC8C25123645009BAE5B /* ItemIcon.swift */,
+				09D7AC9525220434009BAE5B /* RoleThumb.swift */,
 			);
 			path = icon;
 			sourceTree = "<group>";
@@ -610,11 +616,12 @@
 				09D7ABEE24E80E2D009BAE5B /* item.swift in Sources */,
 				09D7AC2024F7E9DB009BAE5B /* Button.swift in Sources */,
 				09D7AC87250FAFCD009BAE5B /* ItemPanel.swift in Sources */,
-				09D7AC5025028677009BAE5B /* MinionPanel.swift in Sources */,
+				09D7AC5025028677009BAE5B /* MinionPanel_bf.swift in Sources */,
 				09D7ABDD24E4350D009BAE5B /* GroundSet.swift in Sources */,
 				09D7AC4E25027F8E009BAE5B /* Confirm.swift in Sources */,
 				09D7AC6625037C03009BAE5B /* BattleUnit.swift in Sources */,
 				09D7ABEC24E80DB7009BAE5B /* Type.swift in Sources */,
+				09D7AC9825220EFC009BAE5B /* MinionsPanel.swift in Sources */,
 				09D7AC7C25091D3F009BAE5B /* Defend.swift in Sources */,
 				09D7AC3524FE9156009BAE5B /* Window.swift in Sources */,
 				09D7AC4A25020DA4009BAE5B /* ArmorIcon.swift in Sources */,
@@ -630,6 +637,7 @@
 				09D7AC5525028DD8009BAE5B /* Battle.swift in Sources */,
 				09D7AC2524FB948B009BAE5B /* RolePanel.swift in Sources */,
 				09D7ABCB24E38784009BAE5B /* Value.swift in Sources */,
+				09D7AC9625220434009BAE5B /* RoleThumb.swift in Sources */,
 				09D7AC742504DEED009BAE5B /* AFu.swift in Sources */,
 				09D7ABE424E4C317009BAE5B /* TwistedMeadow.swift in Sources */,
 				09D7AC612503443E009BAE5B /* FieldData.swift in Sources */,

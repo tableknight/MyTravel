@@ -33,6 +33,9 @@ class Character: Unit {
         m.create(level: 1)
         _minions.append(m)
         
+        let libra = Field(type: Field.Libra)
+        _fields.append(libra)
+        
     }
     private enum CodingKeys: String, CodingKey {
         case _birth

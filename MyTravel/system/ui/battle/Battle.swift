@@ -179,7 +179,9 @@ class Battle: SKSpriteNode {
     func start() {
         Game.curStage.cancelTouch = true
         Game.curBattle = self
-        Game.curStage.hideUI()
+        Game.curStage.hideUI() {
+            
+        }
         Game.curStage.addChild(self)
         addPlayerUnits()
         setTimeout(delay: 2) {
@@ -194,7 +196,9 @@ class Battle: SKSpriteNode {
         self.run(fadeOut) {
             Game.curStage.cancelTouch = false
             Game.curBattle = nil
-            Game.curStage.showUI()
+            Game.curStage.showUI() {
+                
+            }
             self.removeFromParent()
         }
     }
@@ -547,7 +551,7 @@ class Battle: SKSpriteNode {
     }
     func battleDefeat() {
         end()
-        defeatAction()
+        victoryAction()
     }
     func battleFailed() {
         end()
@@ -565,7 +569,7 @@ class Battle: SKSpriteNode {
     //    private var _speedLine:CGFloat = 0
     var _roundUnits = Array<BattleUnit>()
     var _curUnit:BattleUnit!
-    var defeatAction = {}
+    var victoryAction = {}
     var failedAction = {}
     private var _unitIconBox = SKSpriteNode()
     var _cancelAction = ActionIcon()

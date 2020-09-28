@@ -70,6 +70,7 @@ struct Value {
     static let unselected_stroke_width:CGFloat = 1
     static let background_alpha:CGFloat = 0.8
     static let transparent_color = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0)
+    static let ui_animate_time:CGFloat = 0.15
 }
 struct Direction {
     var north = false

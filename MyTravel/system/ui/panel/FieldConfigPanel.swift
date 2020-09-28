@@ -14,16 +14,16 @@ class FieldConfigPanel: Panel {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    override func close() {
-        self.removeFromParent()
-        closeAction()
-//        let p = FieldPanel()
-//        p.create()
-//        p.show()
-    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
         let tp = touches.first?.location(in: self)
+        if _closeButton.contains(tp!) {
+            bgNodeOut()
+            buttonMove(pos: -1) {
+                self.close()
+                self.closeAction()
+            }
+            return
+        }
         if nil != _clickedNode && _clickedNode.contains(tp!) {
             editSlot()
             return
@@ -57,8 +57,33 @@ class FieldConfigPanel: Panel {
         _prevButton.y = _nextButton.y
         //        _prevButton.x = -_nextButton.x
         createLabel()
-        createField()
+//        createField()
         _label.text = "当前星图承载力：\(Game.curChar._minionCount + 1)（可配置作战单位数量上限）"
+        let y = _panelHeight / 4
+        _nextButton.y += y
+        _prevButton.y += y
+        _closeButton.y += y
+        _label.y += y
+        addChild(_listLayer)
+        buttonMove() {
+            self.createField()
+        }
+    }
+    private func buttonMove(pos:CGFloat = 1, completion: @escaping () -> Void) {
+        let y = _panelHeight / 4
+//        _nextButton.y += y
+//        _prevButton.y += y
+//        _closeButton.y += y
+//        _label.y += y
+        let t = TimeInterval(Value.ui_animate_time)
+        //        _prevButton.y += y
+        //        _closeButton.y += y
+        let top = SKAction.move(by: CGVector(dx: 0, dy: -y * pos), duration: t)
+//        let bottom = SKAction.move(by: CGVector(dx: 0, dy: y), duration: t)
+        _prevButton.run(top)
+        _nextButton.run(top)
+        _closeButton.run(top)
+        _label.run(top, completion: completion)
     }
     private func editSlot() {
         let readyUnits = getReadyUnits()
@@ -99,7 +124,7 @@ class FieldConfigPanel: Panel {
         let img = SKSpriteNode(texture: SKTexture(imageNamed: _field._type))
         img.size = CGSize(width: _panelHeight - cellSize * 0.5, height: _panelHeight - cellSize * 0.5)
         img.x = offset
-        addChild(img)
+        _listLayer.addChild(img)
         let startX = -(_panelWidth) / 2 + cellSize * 0.5
         let startY = (_panelHeight) / 2 - cellSize * 0.75
         let data = FieldData.data[_field._type]!
@@ -121,13 +146,14 @@ class FieldConfigPanel: Panel {
                     debug("星图读取角色错误：角色不存在！")
                 }
             }
-            addChild(slot)
+            _listLayer.addChild(slot)
             let label = Label()
             label.text = "\(seatData.index)号位，\(seatData.starName)：\(seatData.desc)"
             label.fontSize = cellSize / 3
             label.x = startX
             label.y = startY - gap * i.toFloat()
-            addChild(label)
+            
+            _listLayer.addChild(label)
             _slots.append(slot)
         }
     }

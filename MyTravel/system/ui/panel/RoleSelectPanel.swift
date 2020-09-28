@@ -62,7 +62,11 @@ class RoleSelectPanel: SubPanel {
         _selectButton.position.y = -_prevButton.position.y
         addChild(_selectButton)
     }
-    
+    override func createPanelbackground() {
+        _backgroundNode = createBackground(width: _panelWidth, height: _panelHeight)
+        _backgroundNode.position = CGPoint(x: 0, y: 0)
+        addChild(_backgroundNode)
+    }
     private func showMinions() {
         let minions = _list
         let gapX = cellSize * 4.5

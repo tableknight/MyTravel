@@ -33,7 +33,7 @@ class EnemyNode: ActionUnit {
         }
         b.setEnemies(parts: es)
         b.start()
-        b.defeatAction = {
+        b.victoryAction = {
             completion()
         }
     }
