@@ -35,5 +35,12 @@ class StatusWindow: Window {
 }
 
 class StatusDescription: Showable {
+    var quality: Int {
+        get {
+            return 1
+        }
+    }
+    
     var _description = ""
+    
 }

@@ -15,14 +15,29 @@ class RolePanel: Panel {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+    private func closeAnimate(completion: @escaping () -> Void) {
+        let y = _panelHeight / 4
+        let t = TimeInterval(Value.ui_animate_time)
+        let top = SKAction.move(by: CGVector(dx: 0, dy: y), duration: t)
+        let bottom = SKAction.move(by: CGVector(dx: 0, dy: -y), duration: t)
+        _closeButton.run(top)
+        _label.run(top) {
+            completion()
+        }
+        if _unit is Creature {
+            _prevButton.run(bottom)
+            _nextButton.run(bottom)
+            _discardButton.run(top)
+        }
+        bgNodeOut()
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
+//        super.touchesBegan(touches, with: event)
         let tp = touches.first?.location(in: self)
         if _clickedNode != nil {
             (_clickedNode as! Icon).removeWindow()
         }
-        for c in children {
+        for c in _listLayer.children {
             if c.contains(tp!) {
                 if c is Icon {
                     let icon = c as! Icon
@@ -30,6 +45,11 @@ class RolePanel: Panel {
                     _clickedNode = icon
                     break
                 }
+            }
+        }
+        if _closeButton.contains(tp!) {
+            closeAnimate() {
+                self.close()
             }
         }
         if _discardButton.contains(tp!) {
@@ -47,11 +67,13 @@ class RolePanel: Panel {
             } else {
                 index = 0
             }
-            close()
-            let panel = RolePanel()
-            panel._index = index
-            panel.create(unit: Game.curChar._minions[panel._index])
-            panel.show()
+            closeAnimate {
+                self.removeFromParent()
+                let panel = RolePanel()
+                panel._index = index
+                panel.create(unit: Game.curChar._minions[panel._index])
+                panel.show()
+            }
             return
         }
         if _prevButton.contains(tp!) {
@@ -61,22 +83,22 @@ class RolePanel: Panel {
             } else {
                 index = Game.curChar._minions.count - 1
             }
-            close()
-            let panel = RolePanel()
-            panel._index = _index - 1
-            panel.create(unit: Game.curChar._minions[panel._index])
-            panel.show()
+            closeAnimate {
+                self.removeFromParent()
+                let panel = RolePanel()
+                panel._index = index
+                panel.create(unit: Game.curChar._minions[panel._index])
+                panel.show()
+            }
             return
         }
         if nil != _fieldThumb && _fieldThumb.contains(tp!) {
-            let configPanel = FieldConfigPanel()
-            configPanel.create(field: _fieldThumb!._field)
-            configPanel.show()
-            self.isHidden = true
-            configPanel.closeAction = {
-                self.isHidden = false
+            closeAnimate {
+                self.removeFromParent()
+                let configPanel = FieldConfigPanel()
+                configPanel.create(field: self._fieldThumb!._field)
+                configPanel.show()
             }
-            return
         }
         if _unit._leftPoint > 0 {
             if _stamina.contains(tp!) {
@@ -104,7 +126,17 @@ class RolePanel: Panel {
         createPanelbackground()
         createLabel()
         createCloseButton()
-        createStatus()
+        addChild(_listLayer)
+        setTimeout(delay: Value.ui_animate_time * 2, completion: createStatus)
+        let y = _panelHeight / 4
+        _closeButton.y += y
+        _label.y += y
+        
+        let t = TimeInterval(Value.ui_animate_time)
+        let top = SKAction.move(by: CGVector(dx: 0, dy: -y), duration: t)
+        let bottom = SKAction.move(by: CGVector(dx: 0, dy: y), duration: t)
+        _closeButton.run(top)
+        _label.run(top)
         if unit is Creature {
             createPageButtons()
             _nextButton.text = "下一个"
@@ -113,6 +145,12 @@ class RolePanel: Panel {
             _discardButton.x = _closeButton.x - _closeButton.width - _buttonGap
             _discardButton.y = _closeButton.y
             addChild(_discardButton)
+//            _nextButton.y -= y
+//            _prevButton.y -= y
+//            _discardButton.y += y
+            _prevButton.run(bottom)
+            _nextButton.run(bottom)
+            _discardButton.run(top)
         }
     }
     private var hpbarValueText = Label()
@@ -124,7 +162,7 @@ class RolePanel: Panel {
         image.x = (-_panelWidth + imageSize) * 0.5 + gap
         image.y = (_panelHeight - imageSize) * 0.5 - gap
         image.size = CGSize(width: imageSize, height: imageSize)
-        addChild(image)
+        _listLayer.addChild(image)
         let u = _unit!
         let vu = ValueUnit()
         vu._unit = u
@@ -135,7 +173,7 @@ class RolePanel: Panel {
         name.fontColor = QualityColor.getColor(u._quality)
         name.x = image.x + imageSize * 0.5 + gap
         name.y = image.y + imageSize * 0.25
-        addChild(name)
+        _listLayer.addChild(name)
         
         let hpbar = HBar()
         let barGap = cellSize * 0.125
@@ -144,17 +182,17 @@ class RolePanel: Panel {
         hpbar.create(width: barWidth, height: barHeight, value: u._extended.hitPoint / u._extended.hitPointMax, color: BarColor.hp)
         hpbar.x = name.x
         hpbar.y = name.y - name.fontSize - barGap
-        addChild(hpbar)
+        _listLayer.addChild(hpbar)
         let mpbar = HBar()
         mpbar.create(width: barWidth, height: barHeight, value: u._extended.mana / u._extended.manaMax, color: BarColor.mp)
         mpbar.x = name.x
         mpbar.y = hpbar.y - barHeight - barGap
-        addChild(mpbar)
+        _listLayer.addChild(mpbar)
         let expbar = HBar()
         expbar.create(width: barWidth, height: barHeight, value: u._exp / u.expNext(), color: BarColor.exp)
         expbar.x = name.x
         expbar.y = mpbar.y - barHeight - barGap
-        addChild(expbar)
+        _listLayer.addChild(expbar)
         
         let barFontSize:CGFloat = cellSize / 4
         hpbarValueText.text = "\(u._extended.hitPoint.toInt())/\(u._extended.hitPointMax.toInt())"
@@ -162,14 +200,14 @@ class RolePanel: Panel {
         hpbarValueText.y = hpbar.y - barFontSize / 2
         hpbarValueText.fontSize = barFontSize
         hpbarValueText.verticalAlign = "baseline"
-        addChild(hpbarValueText)
+        _listLayer.addChild(hpbarValueText)
         
         mpbarValueText.text = "\(u._extended.mana.toInt())/\(u._extended.manaMax.toInt())"
         mpbarValueText.x = hpbar.x + barWidth + 6
         mpbarValueText.y = mpbar.y - barFontSize / 2
         mpbarValueText.fontSize = barFontSize
         mpbarValueText.verticalAlign = "baseline"
-        addChild(mpbarValueText)
+        _listLayer.addChild(mpbarValueText)
         
         let expbarValueText = Label()
         expbarValueText.text = "\(u._exp.toInt())/\(u.expNext().toInt())"
@@ -177,7 +215,7 @@ class RolePanel: Panel {
         expbarValueText.y = expbar.y - barFontSize / 2
         expbarValueText.fontSize = barFontSize
         expbarValueText.verticalAlign = "baseline"
-        addChild(expbarValueText)
+        _listLayer.addChild(expbarValueText)
         
         let sGap = gap + _strength._width
         
@@ -188,7 +226,7 @@ class RolePanel: Panel {
         _strength.count = u._main.strength.toInt()
         _strength.x = image.x - _strength._width * 0.25
         _strength.y = image.y - imageSize * 0.5 - gap - _strength._height * 0.5
-        addChild(_strength)
+        _listLayer.addChild(_strength)
         var desc = StatusDescription()
         desc._description = "力量：大幅提升攻击，中幅提升生命，护甲，小幅提升命中、必杀，小幅降低精神"
         _strength._content = desc
@@ -200,7 +238,7 @@ class RolePanel: Panel {
         _stamina.count = u._main.stamina.toInt()
         _stamina.x = _strength.x + sGap
         _stamina.y = _strength.y
-        addChild(_stamina)
+        _listLayer.addChild(_stamina)
         desc = StatusDescription()
         desc._description = "耐力：大幅提升生命，中幅提护甲，小幅降低精神"
         _stamina._content = desc
@@ -212,7 +250,7 @@ class RolePanel: Panel {
         _agility.count = u._main.agility.toInt()
         _agility.x = _stamina.x + sGap
         _agility.y = _strength.y
-        addChild(_agility)
+        _listLayer.addChild(_agility)
         desc = StatusDescription()
         desc._description = "敏捷：大幅提升速度，中幅提升必杀、闪避、命中"
         _agility._content = desc
@@ -224,7 +262,7 @@ class RolePanel: Panel {
         _intellect.count = u._main.intellect.toInt()
         _intellect.x = _agility.x + sGap
         _intellect.y = _strength.y
-        addChild(_intellect)
+        _listLayer.addChild(_intellect)
         
         desc = StatusDescription()
         desc._description = "智力：大幅提升精神、法力，中幅提升闪避，小幅提升速度"
@@ -235,7 +273,7 @@ class RolePanel: Panel {
             _leftPoint.count = u._leftPoint
             _leftPoint.x = _intellect.x + sGap
             _leftPoint.y = _strength.y
-            addChild(_leftPoint)
+            _listLayer.addChild(_leftPoint)
             desc = StatusDescription()
             desc._description = "未分配：剩余的可分配属性点"
             _leftPoint._content = desc
@@ -245,7 +283,7 @@ class RolePanel: Panel {
         _attack.count = u._extended.attack.toInt()
         _attack.x = _strength.x
         _attack.y = _strength.y - sGap
-        addChild(_attack)
+        _listLayer.addChild(_attack)
         desc = StatusDescription()
         desc._description = "攻击：影响物理攻击力"
         _attack._content = desc
@@ -254,7 +292,7 @@ class RolePanel: Panel {
         _defence.count = u._extended.defence.toInt()
         _defence.x = _stamina.x
         _defence.y = _attack.y
-        addChild(_defence)
+        _listLayer.addChild(_defence)
         desc = StatusDescription()
         desc._description = "护甲：影响物理防御"
         _defence._content = desc
@@ -263,7 +301,7 @@ class RolePanel: Panel {
         _avoid.count = u._extended.avoid.toInt()
         _avoid.x = _agility.x
         _avoid.y = _attack.y
-        addChild(_avoid)
+        _listLayer.addChild(_avoid)
         desc = StatusDescription()
         desc._description = "闪避：影响躲闪物理攻击成功率"
         _avoid._content = desc
@@ -272,7 +310,7 @@ class RolePanel: Panel {
         _accuracy.count = u._extended.accuracy.toInt()
         _accuracy.x = _avoid.x + sGap
         _accuracy.y = _attack.y
-        addChild(_accuracy)
+        _listLayer.addChild(_accuracy)
         desc = StatusDescription()
         desc._description = "命中：影响物理攻击命中率"
         _accuracy._content = desc
@@ -281,7 +319,7 @@ class RolePanel: Panel {
         _critical.count = u._extended.critical.toInt()
         _critical.x = _accuracy.x + sGap
         _critical.y = _attack.y
-        addChild(_critical)
+        _listLayer.addChild(_critical)
         desc = StatusDescription()
         desc._description = "必杀：影响物理攻击暴击率"
         _critical._content = desc
@@ -290,7 +328,7 @@ class RolePanel: Panel {
         _spirit.count = u._extended.spirit.toInt()
         _spirit.x = _critical.x + sGap
         _spirit.y = _attack.y
-        addChild(_spirit)
+        _listLayer.addChild(_spirit)
         desc = StatusDescription()
         desc._description = "精神：影响魔法攻击力和防御力"
         _spirit._content = desc
@@ -299,7 +337,7 @@ class RolePanel: Panel {
         _speed.count = vu.getSpeed().toInt()
         _speed.x = _strength.x
         _speed.y = _attack.y - sGap
-        addChild(_speed)
+        _listLayer.addChild(_speed)
         desc = StatusDescription()
         desc._description = "速度：提升行动力"
         _speed._content = desc
@@ -308,7 +346,7 @@ class RolePanel: Panel {
         _lucky.count = u._extra.lucky.toInt()
         _lucky.x = _stamina.x
         _lucky.y = _attack.y - sGap
-        addChild(_lucky)
+        _listLayer.addChild(_lucky)
         desc = StatusDescription()
         desc._description = "幸运：提升获取的物品品质和数量，并提升命中、闪避、必杀几率"
         _lucky._content = desc
@@ -317,7 +355,7 @@ class RolePanel: Panel {
         _pennetrate.count = u._extra.pennetrate.toInt()
         _pennetrate.x = _avoid.x
         _pennetrate.y = _lucky.y
-        addChild(_pennetrate)
+        _listLayer.addChild(_pennetrate)
         desc = StatusDescription()
         desc._description = "破甲：降低目标护甲"
         _pennetrate._content = desc
@@ -326,7 +364,7 @@ class RolePanel: Panel {
         _revenge.count = u._extra.revenge.toInt()
         _revenge.x = _accuracy.x
         _revenge.y = _lucky.y
-        addChild(_revenge)
+        _listLayer.addChild(_revenge)
         desc = StatusDescription()
         desc._description = "复仇：闪避后有一定几率反击"
         _revenge._content = desc
@@ -335,7 +373,7 @@ class RolePanel: Panel {
         _rhythm.count = u._extra.rhythm.toInt()
         _rhythm.x = _critical.x
         _rhythm.y = _lucky.y
-        addChild(_rhythm)
+        _listLayer.addChild(_rhythm)
         desc = StatusDescription()
         desc._description = "律动：高速度单位在行动之后有几率可以立即再次行动"
         _rhythm._content = desc
@@ -344,7 +382,7 @@ class RolePanel: Panel {
         _water.countText = "\(u._natrualPower.water.toInt())/\(u._natrualResistance.water.toInt())"
         _water.x = _spirit.x + sGap
         _water.y = _strength.y
-        addChild(_water)
+        _listLayer.addChild(_water)
         desc = StatusDescription()
         desc._description = "冰系魔法的攻击力提升\(u._natrualPower.water.toInt())%，受到的冰冷伤害降低\(u._natrualResistance.water.toInt())%"
         _water._content = desc
@@ -353,7 +391,7 @@ class RolePanel: Panel {
         _fire.countText = "\(u._natrualPower.fire.toInt())/\(u._natrualResistance.fire.toInt())"
         _fire.x = _water.x
         _fire.y = _attack.y
-        addChild(_fire)
+        _listLayer.addChild(_fire)
         desc = StatusDescription()
         desc._description = "火系魔法的攻击力提升\(u._natrualPower.fire.toInt())%，受到的火焰伤害降低\(u._natrualResistance.fire.toInt())%"
         _fire._content = desc
@@ -362,7 +400,7 @@ class RolePanel: Panel {
         _thunder.countText = "\(u._natrualPower.thunder.toInt())/\(u._natrualResistance.thunder.toInt())"
         _thunder.x = _spirit.x + sGap
         _thunder.y = _lucky.y
-        addChild(_thunder)
+        _listLayer.addChild(_thunder)
         desc = StatusDescription()
         desc._description = "雷系魔法的攻击力提升\(u._natrualPower.thunder.toInt())%，受到的雷电伤害降低\(u._natrualResistance.thunder.toInt())%"
         _thunder._content = desc
@@ -373,7 +411,7 @@ class RolePanel: Panel {
             sensitive.count = u._extra.sensitive.toInt()
             sensitive.x = _rhythm.x + sGap
             sensitive.y = _lucky.y
-            addChild(sensitive)
+            _listLayer.addChild(sensitive)
             desc = StatusDescription()
             desc._description = "提升单位使用法术的几率"
             sensitive._content = desc
@@ -385,29 +423,29 @@ class RolePanel: Panel {
             let c = u as! Creature
             
             let staminaStar = createColumn(value: c._stars.stamina, x: startXs, color: QualityColor.GOOD)
-            addChild(staminaStar)
+            _listLayer.addChild(staminaStar)
             let staminaGrow = createColumn(value: c._growth.stamina, x: startXg, color: QualityColor.RARE)
-            addChild(staminaGrow)
+            _listLayer.addChild(staminaGrow)
             
             let strenghStar = createColumn(value: c._stars.strength, x: startXs + gapC, color: QualityColor.GOOD)
-            addChild(strenghStar)
+            _listLayer.addChild(strenghStar)
             let strenghGrow = createColumn(value: c._growth.strength, x: startXg + gapC, color: QualityColor.RARE)
-            addChild(strenghGrow)
+            _listLayer.addChild(strenghGrow)
             
             let agilityStar = createColumn(value: c._stars.agility, x: startXs + gapC * 2, color: QualityColor.GOOD)
-            addChild(agilityStar)
+            _listLayer.addChild(agilityStar)
             let agilityGrow = createColumn(value: c._growth.agility, x: startXg + gapC * 2, color: QualityColor.RARE)
-            addChild(agilityGrow)
+            _listLayer.addChild(agilityGrow)
             
             let intStar = createColumn(value: c._stars.intellect, x: startXs + gapC * 3, color: QualityColor.GOOD)
-            addChild(intStar)
+            _listLayer.addChild(intStar)
             let intGrow = createColumn(value: c._growth.intellect, x: startXg + gapC * 3, color: QualityColor.RARE)
-            addChild(intGrow)
+            _listLayer.addChild(intGrow)
             
             let line = SKShapeNode(rect: CGRect(x: _thunder.x + cellSize, y: _thunder.y, width: cellSize * 5.5, height: 2))
             line.lineWidth = 0
             line.fillColor = UIColor.white
-            addChild(line)
+            _listLayer.addChild(line)
             
             let staLabel = Label()
             staLabel.fontSize = cellSize / 3
@@ -415,7 +453,7 @@ class RolePanel: Panel {
             staLabel.x = startXs
             staLabel.verticalAlign = "center"
             staLabel.y = _thunder.y - staLabel.fontSize
-            addChild(staLabel)
+            _listLayer.addChild(staLabel)
             
             let strLabel = Label()
             strLabel.fontSize = cellSize / 3
@@ -423,7 +461,7 @@ class RolePanel: Panel {
             strLabel.x = startXs + gapC
             strLabel.verticalAlign = "center"
             strLabel.y = staLabel.y
-            addChild(strLabel)
+            _listLayer.addChild(strLabel)
             
             let aglLabel = Label()
             aglLabel.fontSize = cellSize / 3
@@ -431,7 +469,7 @@ class RolePanel: Panel {
             aglLabel.x = startXs + gapC * 2
             aglLabel.verticalAlign = "center"
             aglLabel.y = staLabel.y
-            addChild(aglLabel)
+            _listLayer.addChild(aglLabel)
             
             let intLabel = Label()
             intLabel.fontSize = cellSize / 3
@@ -439,7 +477,7 @@ class RolePanel: Panel {
             intLabel.x = startXs + gapC * 3
             intLabel.verticalAlign = "center"
             intLabel.y = staLabel.y
-            addChild(intLabel)
+            _listLayer.addChild(intLabel)
             
         }
         
@@ -448,12 +486,12 @@ class RolePanel: Panel {
             t.create(field: Game.curChar._selectedField, width: cellSize * 4, height: cellSize * 4)
             t.y = _fire.y + cellSize / 2
             t.x = _fire.x + cellSize * 4
-            addChild(t)
+            _listLayer.addChild(t)
             _fieldThumb = t
         }
         
 //        _unit._spellCount = 3
-        addChild(_spellNode)
+        _listLayer.addChild(_spellNode)
         showSpells()
 //        _strength.x
     }

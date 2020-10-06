@@ -38,11 +38,13 @@ class UnitIcon: Icon {
         set {
             _selected = newValue
             if newValue {
-                _backgroundNode.lineWidth = Value.unselected_stroke_width
-                _backgroundNode.strokeColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.9)
+                _backgroundNode.fillColor = QualityColor.GOOD
+//                _backgroundNode.lineWidth = Value.unselected_stroke_width
+//                _backgroundNode.strokeColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.9)
             } else {
-                _backgroundNode.lineWidth = Value.unselected_stroke_width
-                _backgroundNode.strokeColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.5)
+                _backgroundNode.fillColor = UIColor.white
+//                _backgroundNode.lineWidth = Value.unselected_stroke_width
+//                _backgroundNode.strokeColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.5)
             }
         }
         get {

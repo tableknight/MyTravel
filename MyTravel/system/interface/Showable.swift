@@ -8,5 +8,7 @@
 
 import SpriteKit
 protocol Showable {
-    
+    var quality:Int {
+        get
+    }
 }

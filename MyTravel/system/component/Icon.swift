@@ -118,9 +118,35 @@ class Icon: QualityNode {
         _window = w
     }
     
+    override var selected:Bool {
+        set {
+            _selected = newValue
+            if newValue {
+                _backgroundNode.fillColor = UIColor.white
+                _label.fontColor = UIColor.black
+            } else {
+                _backgroundNode.fillColor = UIColor.black
+                _label.fontColor = UIColor.white
+            }
+        }
+        get {
+            return _selected
+        }
+    }
+    
     func removeWindow() {
         if nil != _window {
             _window.removeFromParent()
+        }
+    }
+    
+    var content:Showable {
+        set {
+            _content = newValue
+            quality = newValue.quality
+        }
+        get {
+            return _content
         }
     }
     

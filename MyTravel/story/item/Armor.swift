@@ -7,7 +7,13 @@
 //
 
 import SpriteKit
-class Armor:NSObject, Codable, Showable {
+class Armor:NSObject, Codable, Showable, Stackable {
+    var quality: Int {
+        get {
+            return _quality
+        }
+    }
+    
     
     override init() {
         super.init()
@@ -46,6 +52,7 @@ class Armor:NSObject, Codable, Showable {
             _level = level
         }
         createQuality()
+//        _description = "这个是什么玩意"
         if _type == Armor.Instrument || _type == Armor.MagicMark {
             createSpell()
         } else if _type == Armor.Wand {
@@ -67,6 +74,9 @@ class Armor:NSObject, Codable, Showable {
 //        } else {
 //            _spell = Loot.getRandomSacredSpellId()
 //        }
+        _spell = Spell.LowerFlame
+        let spell = Core.getSpellById(id: _spell)
+        _description = "[\(spell._name)]"
     }
     private func sacredAttrCount() {
         _quality = Quality.SACRED
@@ -149,149 +159,158 @@ class Armor:NSObject, Codable, Showable {
         }
     }
     func on() {
-//        let char = Game.instance.char!
-//        for a in _attrs {
-//            a.on(unit: char)
-//        }
-//
-//        if _type == Outfit.SoulStone {
-//            _reserveInt = char._race
-//            char._race = _race
-//        }
-//
-//        if _type == Outfit.MagicMark || _type == Outfit.Instrument ||  _effection == Sacred.PandoraHeart {
-//            if _effection == Sacred.TheMonatNotes {
-//                if char.hasSpell(id: _spell) {
-//                    char._spells.append(_spell)
-//                    _reserveInt = 1
-//                } else {
-//                    char._spells.append(_spell)
-//                    char._spells.append(_spell)
-//                    _reserveInt = 2
-//                }
-//            } else {
-//                if !(char.hasSpell(id: _spell)) {
-//                    char._spells.append(_spell)
-//                    _reserveBool = true
-//                }
-//            }
-//        }
-//        if _effection == Sacred.RingOfReborn {
-//            char._spellsHidden.append(_spell)
-//            _reserveBool = true
-//        } else if _effection == Sacred.Faceless {
-//            char._spellsHidden.append(Spell.FacelessSpell)
-//        }
-//        //
-//        if _effection == Sacred.TrueLie || _effection == Sacred.TheEye {
-//            char._spellCount += 1
-//        } else if _effection == Sacred.PuppetMark {
-//            char._spellCount -= 1
-//            if char._spellsInuse.count > char._spellCount {
-//                let spell = char._spellsInuse.popLast()!
-//                char._spells.append(spell)
-//            }
-//            char._minionsCount += 1
-//        } else if _effection == Sacred.IdlirWeddingRing {
-//            _reserveStr = Game.instance.char._imgUrl
+        let char = Game.curChar!
+        for a in _attrs {
+            a.on(unit: char)
+        }
+
+        if _type == Armor.SoulStone {
+            _reserveInt = char._race
+            char._race = _race
+        }
+
+        if _type == Armor.MagicMark || _type == Armor.Instrument ||  _effection == Sacred.PandoraHeart {
+            if _effection == Sacred.TheMonatNotes {
+                if char.hasSpell(id: _spell) {
+                    char._spells.append(_spell)
+                    _reserveInt = 1
+                } else {
+                    char._spells.append(_spell)
+                    char._spells.append(_spell)
+                    _reserveInt = 2
+                }
+            } else {
+                if !(char.hasSpell(id: _spell)) {
+                    char._spells.append(_spell)
+                    _reserveBool = true
+                }
+            }
+        }
+        if _effection == Sacred.RingOfReborn {
+            char._spellsHidden.append(_spell)
+            _reserveBool = true
+        } else if _effection == Sacred.Faceless {
+            char._spellsHidden.append(Spell.FacelessSpell)
+        }
+        //
+        if _effection == Sacred.TrueLie || _effection == Sacred.TheEye {
+            char._spellCount += 1
+        } else if _effection == Sacred.PuppetMark {
+            char._spellCount -= 1
+            if char._spellsInuse.count > char._spellCount {
+                let spell = char._spellsInuse.popLast()!
+                char._spells.append(spell)
+            }
+            char._minionCount += 1
+        } else if _effection == Sacred.IdlirWeddingRing {
+//            _reserveStr = char._imgUrl
 //            let t = SKTexture(imageNamed: "idlir_bride.png")
 //            char._img = t
 //            Game.instance.curStage._curScene._role._charTexture = t
-//        } else if _effection == Sacred.RingOfDead {
-//            char._race = EvilType.RISEN
-//        } else if _effection == Sacred.PuppetMaster {
-//            char._minionsCount += 1
-//        } else if _effection == Sacred.ElementalSword {
-//            var hasSpell = false
-//            let sps = char._spellsInuse + char._spellsHidden
-//            for s in sps {
-//                if s == Spell.ElementMaster {
-//                    hasSpell = true
-//                }
-//            }
-//            if !hasSpell {
-//                char._spellsHidden.append(Spell.ElementMaster)
-//                _reserveBool = true
-//            }
-//        }
+        } else if _effection == Sacred.RingOfDead {
+            char._race = EvilType.RISEN
+        } else if _effection == Sacred.PuppetMaster {
+            char._minionCount += 1
+        } else if _effection == Sacred.ElementalSword {
+            var hasSpell = false
+            let sps = char._spellsInuse + char._spellsHidden
+            for s in sps {
+                if s == Spell.ElementMaster {
+                    hasSpell = true
+                }
+            }
+            if !hasSpell {
+                char._spellsHidden.append(Spell.ElementMaster)
+                _reserveBool = true
+            }
+        }
 //        Sound.play(node:Game.instance.curStage, fileName: "off")
-//    }
-//    func off() {
-//        let c = Game.instance.char!
-//        for a in _attrs {
-//            a.off(unit: c)
-//        }
-//
-//        if _type == Outfit.SoulStone {
-//            c._race = _reserveInt
-//        } else if _type == Outfit.MagicMark || _type == Outfit.Instrument || _effection == Sacred.PandoraHeart {
-//
-//            if _effection == Sacred.TheMonatNotes {
-//                if _reserveInt == 1 {
-//                    c.removeSpell(id: _spell)
-//                    _reserveInt = 0
-//                } else if _reserveInt == 2 {
-//                    c.removeSpell(id: _spell)
-//                    c.removeSpell(id: _spell)
-//                    _reserveInt = 0
-//                }
-//            } else {
-//                if _reserveBool {
-//                    c.removeSpell(id: _spell)
-//                    _reserveBool = false
-//                }
-//            }
-//        }
-//        if _effection == Sacred.RingOfReborn {
-//            _reserveBool = false
-//            let index = c._spellsHidden.firstIndex(of: _spell)
-//            c._spellsHidden.remove(at: index!)
-//        } else if _effection == Sacred.Faceless {
-//            _reserveBool = false
-//            let index = c._spellsHidden.firstIndex(of: _spell)
-//            c._spellsHidden.remove(at: index!)
-//        } else if _effection == Sacred.ElementalSword {
-//            if _reserveBool {
-//                _reserveBool = false
-//                let index = c._spellsHidden.firstIndex(of: Spell.ElementMaster)
-//                c._spellsHidden.remove(at: index!)
-//            }
-//        } else if _effection == Sacred.TrueLie || _effection == Sacred.TheEye {
-//            if c._spellsInuse.count >= c._spellCount {
-//                let last = c._spellsInuse.popLast()
-//                c._spells.append(last!)
-//            }
-//            c._spellCount -= 1
-//        } else if _effection == Sacred.PuppetMark {
-//            c._minionsCount -= 1
+    }
+    func off() {
+        let c = Game.curChar!
+        for a in _attrs {
+            a.off(unit: c)
+        }
+
+        if _type == Armor.SoulStone {
+            c._race = _reserveInt
+        } else if _type == Armor.MagicMark || _type == Armor.Instrument || _effection == Sacred.PandoraHeart {
+
+            if _effection == Sacred.TheMonatNotes {
+                if _reserveInt == 1 {
+                    c.removeSpell(id: _spell)
+                    _reserveInt = 0
+                } else if _reserveInt == 2 {
+                    c.removeSpell(id: _spell)
+                    c.removeSpell(id: _spell)
+                    _reserveInt = 0
+                }
+            } else {
+                if _reserveBool {
+                    c.removeSpell(id: _spell)
+                    _reserveBool = false
+                }
+            }
+        }
+        if _effection == Sacred.RingOfReborn {
+            _reserveBool = false
+            let index = c._spellsHidden.firstIndex(of: _spell)
+            c._spellsHidden.remove(at: index!)
+        } else if _effection == Sacred.Faceless {
+            _reserveBool = false
+            let index = c._spellsHidden.firstIndex(of: _spell)
+            c._spellsHidden.remove(at: index!)
+        } else if _effection == Sacred.ElementalSword {
+            if _reserveBool {
+                _reserveBool = false
+                let index = c._spellsHidden.firstIndex(of: Spell.ElementMaster)
+                c._spellsHidden.remove(at: index!)
+            }
+        } else if _effection == Sacred.TrueLie || _effection == Sacred.TheEye {
+            if c._spellsInuse.count >= c._spellCount {
+                let last = c._spellsInuse.popLast()
+                c._spells.append(last!)
+            }
+            c._spellCount -= 1
+        } else if _effection == Sacred.PuppetMark {
+//            c._minionCount -= 1
 //            let minions = c.getReadyMinions()
-//            if minions.count > c._minionsCount {
+//            if minions.count > c._minionCount {
 //                minions[0]._seat = BUnit.STAND_BY
 //            }
 //            c._spellCount += 1
-//        } else if _effection == Sacred.IdlirWeddingRing {
+        } else if _effection == Sacred.IdlirWeddingRing {
 //            let t = SKTexture(imageNamed: _reserveStr)
 //            c._img = t
 //            Game.instance.curStage._curScene._role._charTexture = t
-//        } else if _effection == Sacred.RingOfDead {
-//            if nil != c._soulStone {
-//                c._race = c._soulStone!._race
-//            } else {
-//                c._race = EvilType.MAN
-//            }
-//        } else if _effection == Sacred.PuppetMaster {
-//            c._minionsCount -= 1
+        } else if _effection == Sacred.RingOfDead {
+            if nil != c._soulStone {
+                c._race = c._soulStone!._race
+            } else {
+                c._race = EvilType.MAN
+            }
+        } else if _effection == Sacred.PuppetMaster {
+            c._minionCount -= 1
 //            let minions = c.getReadyMinions()
-//            if minions.count > c._minionsCount {
+//            if minions.count > c._minionCount {
 //                minions[0]._seat = BUnit.STAND_BY
 //            }
-//        } else if _effection == Sacred.TheMonatNotes {
+        } else if _effection == Sacred.TheMonatNotes {
 //            if _reserveBool && getSpellFromMonatNotes().count > 1 {
 //                c.removeSpell(id: _spell)
 //                _reserveBool = false
 //            }
-//        }
+        }
         
+    }
+    
+    func isWeapon() -> Bool {
+        let ts = [Armor.Sword, Armor.Bow, Armor.Blunt, Armor.Dagger, Armor.Instrument, Armor.Fist, Armor.Wand]
+        if ts.firstIndex(of: _type) != nil {
+            return true
+        }
+        
+        return false
     }
     
     var _attrs = Array<Attribute>()
@@ -307,11 +326,13 @@ class Armor:NSObject, Codable, Showable {
     var _reserveInt = -1
     var _showingText = ""
     var _spell = 0
+    var _spellText = ""
     var _quality = 0
     var _level = 1
     var _type = ""
     var _price = 0
     var _description = ""
+    var stackable: Bool = false
     internal var _attrCount:Int = 0
     private var listStatus = Array<Int>()
     

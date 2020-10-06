@@ -38,15 +38,16 @@ class Panel:SKSpriteNode {
         _backgroundNode = createBackground(width: _panelWidth, height: _panelHeight)
         _backgroundNode.position = CGPoint(x: 0, y: 0)
         addChild(_backgroundNode)
-        _backgroundNode.x = -_panelWidth
+//        _backgroundNode.x = -_panelWidth
 //        let v = CGVector(dx: _panelWidth, dy: 0)
 //        let action = SKAction.fadeIn(withDuration: TimeInterval(Value.ui_animate_time))
-        let action = SKAction.moveBy(x: _panelWidth, y: 0, duration: TimeInterval(Value.ui_animate_time))
-        _backgroundNode.run(action)
+//        let action = SKAction.moveBy(x: _panelWidth, y: 0, duration: TimeInterval(Value.ui_animate_time))
+//        _backgroundNode.run(action)
     }
     
     internal func bgNodeOut() {
-        let action = SKAction.moveBy(x: _panelWidth, y: 0, duration: TimeInterval(Value.ui_animate_time))
+//        let action = SKAction.moveBy(x: _panelWidth, y: 0, duration: TimeInterval(Value.ui_animate_time))
+        let action = SKAction.fadeOut(withDuration: TimeInterval(Value.ui_animate_time))
         _backgroundNode.run(action)
         _listLayer.run(action)
     }

@@ -93,7 +93,7 @@ class RoleThumb: QualityNode {
             return _width
         }
     }
-    
+    var _index = 0
     var _unit:Unit!
     internal var _width:CGFloat = 0
     internal var _height:CGFloat = 0

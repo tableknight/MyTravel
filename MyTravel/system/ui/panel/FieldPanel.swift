@@ -154,11 +154,13 @@ class FieldPanel: Panel {
         _editButton.run(top)
         _closeButton.run(top)
         _prevButton.run(bottom)
-        _nextButton.run(bottom)
-        let action = SKAction.moveBy(x: _panelWidth, y: 0, duration: TimeInterval(Value.ui_animate_time))
-        _backgroundNode.run(action)
-        _fieldLayer.run(action)
-        _label.run(top, completion: completion)
+        _nextButton.run(bottom) {
+            completion()
+        }
+//        let action = SKAction.moveBy(x: _panelWidth, y: 0, duration: TimeInterval(Value.ui_animate_time))
+//        _backgroundNode.run(action)
+//        _fieldLayer.run(action)
+//        _label.run(top, completion: completion)
     }
     private var _setButton = Button()
     private var _editButton = Button()

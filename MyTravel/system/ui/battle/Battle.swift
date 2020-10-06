@@ -17,21 +17,21 @@ class Battle: SKSpriteNode {
         if cancelTouch {
             return
         }
+        
         let tp = touches.first?.location(in: self)
+        if _autoAction.contains(tp!) {
+            if Game.curChar.autoAction {
+                Game.curChar.autoAction = false
+            } else {
+                Game.curChar.autoAction = true
+                if _curUnit.isChar {
+                    createAction()
+                }
+            }
+            _autoAction.selected = Game.curChar.autoAction
+            return
+        }
         if _curUnit.isChar {
-            //            for c in _infoSquare.children {
-            //                if c.contains(tp!) {
-            //                    let action = (c as! ActionIcon)._spell!
-            //                    if action.autoCast {
-            //                        action.cast {
-            //                            self.afterMove()
-            //                        }
-            //                    } else {
-            //
-            //                    }
-            //
-            //                }
-            //            }
             for i in 0..._infoSquare.children.count - 1 {
                 if _infoSquare.children[i].contains(tp!) {
                     let action = _infoSquare.children[i] as! ActionIcon
@@ -123,6 +123,7 @@ class Battle: SKSpriteNode {
             clearUnitModeAll()
             return
         }
+        
     }
     private func hideActions() {
         _infoSquare.isHidden = true
@@ -171,7 +172,7 @@ class Battle: SKSpriteNode {
         addChild(_playerNode)
         addChild(_enemyNode)
         addChild(_unitIconBox)
-        addInfoSquare()
+        addBaseUI()
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -202,8 +203,8 @@ class Battle: SKSpriteNode {
             self.removeFromParent()
         }
     }
-    private func addInfoSquare() {
-        let width = Device.getDeviceSize().width - cellSize * 3
+    private func addBaseUI() {
+        let width = Device.getDeviceSize().width
         let square = createBackground(width: width, height: 2)
         square.lineWidth = 0
         square.fillColor = UIColor.init(red: 1, green: 1, blue: 1, alpha: 0.8)
@@ -215,6 +216,16 @@ class Battle: SKSpriteNode {
         addChild(bgNode)
         addChild(square)
         addChild(_infoSquare)
+        let iconTexture = SKTexture(imageNamed: "icons")
+        _autoAction.x = Device.getDeviceSize().width / 2 - cellSize * 2
+        _autoAction.y = cellSize * 4
+        _autoAction.image = iconTexture.getNode(5, 3)
+        _autoAction.actionName = "自动"
+        _autoAction._spell = Cancel()
+        addChild(_autoAction)
+        if Game.curChar.autoAction {
+            _autoAction.selected = true
+        }
     }
     private func roundStart() {
         //        calSpeedLine()
@@ -231,7 +242,6 @@ class Battle: SKSpriteNode {
         for u in all {
             if u._speedCursor >= _speedLine {
                 _curUnit = u
-                orderUnit(units: all)
                 u._speedCursor = u._speedCursor - _speedLine
                 return
             }
@@ -242,7 +252,7 @@ class Battle: SKSpriteNode {
         _unitIconBox.removeAllChildren()
         let device = Device.getDeviceSize()
         let y = -cellSize * 2.5 - 1
-        let startX:CGFloat = -device.width / 2 + cellSize * 2
+        let startX:CGFloat = -device.width / 2 + cellSize * 1.75
         let gap = cellSize * 0.75 + 3
         var i:CGFloat = 0
         for u in _roundUnits {
@@ -280,6 +290,8 @@ class Battle: SKSpriteNode {
     private func beforeMove() {
         _roundUnits.removeAll()
         findNextUnit()
+        orderUnit(units: _playerPart + _enemyPart)
+        _roundUnits.insert(_curUnit, at: 0)
         addUnitIcon()
         setIconSelected(bu:_curUnit)
         createActionOptions()
@@ -309,7 +321,7 @@ class Battle: SKSpriteNode {
     }
     
     private func moveStart() {
-        if _curUnit._unit is Character {
+        if _curUnit._unit is Character && !Game.curChar.autoAction {
             
         } else {
             createAction()
@@ -318,14 +330,32 @@ class Battle: SKSpriteNode {
     
     private func createAction() {
         var spellIcons = Array<ActionIcon>()
-        for c in _infoSquare.children{
-            if c is ActionIcon {
-                let icon = c as! ActionIcon
-                icon.selected = false
-                spellIcons.append(icon)
+        let attackIcon = _infoSquare.children[0] as! ActionIcon
+        let defendIcon = _infoSquare.children[1] as! ActionIcon
+        if _infoSquare.children.count > 2 {
+            for i in 2..._infoSquare.children.count - 1 {
+                let c = _infoSquare.children[i]
+                if c is ActionIcon {
+                    let icon = c as! ActionIcon
+                    if icon.notForAuto {
+                        continue
+                    }
+                    icon.selected = false
+                    spellIcons.append(icon)
+                }
             }
         }
-        let spellIcon = spellIcons.one()
+        let sed = seed().toFloat()
+        var spellIcon = attackIcon
+        if sed < _curUnit.getSensitive() && spellIcons.count > 0 {
+            spellIcon = spellIcons.one()
+        } else {
+            if sed < 25 {
+                spellIcon = defendIcon
+            } else {
+                spellIcon = attackIcon
+            }
+        }
         spellIcon.selected = true
         let spell = spellIcon._spell!
         spell.findTarget()
@@ -380,7 +410,9 @@ class Battle: SKSpriteNode {
                 index = i
             }
         }
-        _roundUnits.append(units[index])
+        if units[index] != _curUnit {
+            _roundUnits.append(units[index])
+        }
         units.remove(at: index)
         orderUnit(units: units)
     }
@@ -463,7 +495,7 @@ class Battle: SKSpriteNode {
         //        img.y = -cellSize * 3.75
         //        _infoSquare.addChild(img)
         let width = Device.getDeviceSize().width
-        let gap = cellSize * 1.125
+        let gap = cellSize * 0.875
         let startX = -width / 2 + cellSize * 0.875
         let y = -cellSize * 3.625
         
@@ -494,6 +526,7 @@ class Battle: SKSpriteNode {
             itemAction.image = iconTexture.getNode(4, 3)
             itemAction.actionName = "道具"
             itemAction._spell = UseItem()
+            itemAction.notForAuto = true
             _infoSquare.addChild(itemAction)
             
             let summonAction = ActionIcon()
@@ -502,6 +535,7 @@ class Battle: SKSpriteNode {
             summonAction.image = iconTexture.getNode(2, 3)
             summonAction.actionName = "召唤"
             summonAction._spell = Summon()
+            summonAction.notForAuto = true
             _infoSquare.addChild(summonAction)
             
             let withdrawAction = ActionIcon()
@@ -510,6 +544,7 @@ class Battle: SKSpriteNode {
             withdrawAction.image = iconTexture.getNode(3, 3)
             withdrawAction.actionName = "召回"
             withdrawAction._spell = Withdraw()
+            withdrawAction.notForAuto = true
             _infoSquare.addChild(withdrawAction)
             
             spellGapStart = 6
@@ -521,6 +556,7 @@ class Battle: SKSpriteNode {
             _cancelAction.actionName = "取消"
             _cancelAction._spell = Cancel()
             _cancelAction.isHidden = true
+            _cancelAction.notForAuto = true
             addChild(_cancelAction)
         }
         var i:CGFloat = 0
@@ -540,20 +576,20 @@ class Battle: SKSpriteNode {
             return true
         }
         if _playerPart.count < 1 {
-            battleFailed()
+            FailedResult()
             return true
         }
         if _enemyPart.count < 1 {
-            battleDefeat()
+            VictoryResult()
             return true
         }
         return false
     }
-    func battleDefeat() {
+    func VictoryResult() {
         end()
         victoryAction()
     }
-    func battleFailed() {
+    func FailedResult() {
         end()
         failedAction()
     }
@@ -573,7 +609,9 @@ class Battle: SKSpriteNode {
     var failedAction = {}
     private var _unitIconBox = SKSpriteNode()
     var _cancelAction = ActionIcon()
+    var _autoAction = ActionIcon()
     private var cancelTouch = false
+//    private var isAuto = false
     private var _speedLine:CGFloat = 0
     //    var _targets = Array<BattleUnit>()
 }

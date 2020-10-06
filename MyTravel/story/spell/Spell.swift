@@ -9,6 +9,12 @@
 
 import SpriteKit
 class Spell:NSObject,Showable,Castable {
+    var quality: Int {
+        get {
+            return _quality
+        }
+    }
+    
     var castSelf: Bool = false
     
     var autoCast: Bool = false

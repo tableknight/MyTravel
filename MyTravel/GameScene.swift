@@ -43,6 +43,38 @@ class GameScene: SKScene {
         stage.setRole(role)
         addChild(stage)
         
+        var armor = Armor(Armor.Sword)
+        armor.create(level: 10)
+        c.addItem(armor)
+        
+        armor = Armor(Armor.Amulet)
+        armor.create(level: 10)
+        c.addItem(armor)
+        
+        armor = Armor(Armor.Shield)
+        armor.create(level: 10)
+        c.addItem(armor)
+        
+        armor = Armor(Armor.Ring)
+        armor.create(level: 10)
+        c.addItem(armor)
+        
+        armor = Armor(Armor.Ring)
+        armor.create(level: 10)
+        c.addItem(armor)
+        
+        armor = Armor(Armor.Ring)
+        armor.create(level: 10)
+        c.addItem(armor)
+        
+        armor = Armor(Armor.MagicMark)
+        armor.create(level: 10)
+        c.addItem(armor)
+        
+        armor = Armor(Armor.SoulStone)
+        armor.create(level: 10)
+        c.addItem(armor)
+        
         var p = Item(Item.Potion)
         p._count = 5
         c.addItem(p)

@@ -22,6 +22,16 @@ class MinionsPanel: Panel {
         for n in _minionBox.children {
             if n.contains(tp!) {
                 let rt = n as! RoleThumb
+                if rt.selected {
+                    closeAnimate {
+                        self.removeFromParent()
+                        let rp = RolePanel()
+                        rp._index = rt._index
+                        rp.create(unit: rt._unit)
+                        rp.show()
+                    }
+                    return
+                }
                 if nil != rt._unit {
                     if _clickedNode != nil {
                         _clickedNode.selected = false
@@ -33,22 +43,27 @@ class MinionsPanel: Panel {
             }
         }
         if _closeButton.contains(tp!) {
-            let t = TimeInterval(Value.ui_animate_time)
-            let left = SKAction.move(by: CGVector(dx: -_panelWidth * 0.5, dy: 0), duration: t)
-            let right = SKAction.move(by: CGVector(dx: _panelWidth * 0.5, dy: 0), duration: t)
-            for i in 0..._minionBox.children.count - 1 {
-                if i < 5 {
-                    _minionBox.children[i].run(left)
-                } else {
-                    _minionBox.children[i].run(right)
-                }
-            }
-            let top = SKAction.move(by: CGVector(dx: 0, dy: _panelHeight / 2), duration: t)
-            _prevButton.run(top)
-            _label.run(top)
-            _closeButton.run(top) {
+            closeAnimate {
                 self.close()
             }
+        }
+    }
+    private func closeAnimate(completion: @escaping () -> Void) {
+        let t = TimeInterval(Value.ui_animate_time)
+        let left = SKAction.move(by: CGVector(dx: -_panelWidth * 0.5, dy: 0), duration: t)
+        let right = SKAction.move(by: CGVector(dx: _panelWidth * 0.5, dy: 0), duration: t)
+        for i in 0..._minionBox.children.count - 1 {
+            if i < 5 {
+                _minionBox.children[i].run(left)
+            } else {
+                _minionBox.children[i].run(right)
+            }
+        }
+        let top = SKAction.move(by: CGVector(dx: 0, dy: _panelHeight / 2), duration: t)
+        _prevButton.run(top)
+        _label.run(top)
+        _closeButton.run(top) {
+            completion()
         }
     }
     override func create() {
@@ -88,7 +103,7 @@ class MinionsPanel: Panel {
             } else {
                 t.create(unit: nil)
             }
-            
+            t._index = i
             t.x = startX + i.toFloat() * gapX
             self._minionBox.addChild(t)
             t.alpha = 0

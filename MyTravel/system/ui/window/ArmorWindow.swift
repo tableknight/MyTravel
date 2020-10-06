@@ -75,12 +75,22 @@ class ArmorWindow: Window {
             }
         }
         
+        let spellText = Label()
+        spellText.fontSize = cellSize / 3.6
+        if !armor._spellText.isEmpty {
+            spellText.text = "[\(armor._spellText)]"
+            spellText.fontColor = QualityColor.getColor(armor._quality)
+            height += cellSize / 2
+            spellText.zPosition = z
+            addChild(spellText)
+        }
+        
         let des = Label()
         des.fontSize = cellSize / 3.6
         if !armor._description.isEmpty {
             des.text = armor._description
             des.fontColor = QualityColor.GOOD
-            height += cellSize / 2
+            height += cellSize / 3
             des.zPosition = z
             addChild(des)
         } else if armor._type == Armor.MagicMark || armor._type == Armor.Instrument {
@@ -101,11 +111,15 @@ class ArmorWindow: Window {
         
         name.position.x = -width * 0.5 + cellSize * 0.25
         name.position.y = (height - cellSize - name.fontSize) * 0.5
+        var lastY = name.y - cellSize / 6
         
-        spd.x = name.x
-        spd.y = name.y - cellSize / 3
+        if armor._attackSpeed > 0 {
+            spd.x = name.x
+            spd.y = name.y - cellSize / 2.5
+            lastY = name.y - cellSize / 2
+        }
         
-        var lastY = name.y - cellSize / 2
+        
         
         if attrs.count > 0 {
             for a in attrs {
@@ -113,16 +127,25 @@ class ArmorWindow: Window {
                 a.y = lastY - (attrGap + cellSize / 3)
                 lastY = a.y
             }
+            lastY -= cellSize / 6
+            height += cellSize / 6
+        }
+        height += cellSize / 6
+        if !spellText.text.isEmpty {
+            height += cellSize / 6
+            spellText.x = spellText.x
+            spellText.y = lastY - cellSize / 3
+            lastY = spellText.y
         }
         if !des.text.isEmpty {
             des.x = name.x
-            des.y = lastY - cellSize / 2
+            des.y = lastY - cellSize / 3
             lastY = des.y
         }
         
         if armor._price > 0 {
             price.x = name.x
-            price.y = lastY - cellSize / 2
+            price.y = lastY - cellSize / 3
         }
         
         _backgroundNode = createBackground(width: self.width, height: self.height)

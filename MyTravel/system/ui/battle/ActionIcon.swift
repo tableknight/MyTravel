@@ -20,6 +20,7 @@ class ActionIcon: Icon {
         node.lineWidth = 0
         node.fillColor = UIColor.white
         addChild(node)
+        _innerBGNode = node
 //        self.alpha = 0.75
     }
     required init?(coder aDecoder: NSCoder) {
@@ -64,11 +65,13 @@ class ActionIcon: Icon {
         set {
             _selected = newValue
             if newValue {
+                _innerBGNode.fillColor = QualityColor.GOOD
 //                self.alpha = 1
-                _backgroundNode.lineWidth = 1
+//                _backgroundNode.lineWidth = 1
             } else {
+                _innerBGNode.fillColor = UIColor.white
 //                self.alpha = 0.75
-                _backgroundNode.lineWidth = 0
+//                _backgroundNode.lineWidth = 0
             }
         }
         get {
@@ -94,5 +97,7 @@ class ActionIcon: Icon {
     private var _name = Label()
     private var _imageUnit:SKSpriteNode!
     var _spell:Spell!
+    private var _innerBGNode = SKShapeNode()
+    var notForAuto = false
 }
 

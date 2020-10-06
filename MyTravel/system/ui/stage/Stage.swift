@@ -30,14 +30,14 @@ class Stage: SKSpriteNode {
             }
             return
         }
-        if _armorButton.contains(tp!) {
-            hideUI {
-                let p = ArmorPanel()
-                p.create()
-                self.showPanel(p)
-            }
-            return
-        }
+//        if _armorButton.contains(tp!) {
+//            hideUI {
+//                let p = ArmorPanel()
+//                p.create()
+//                self.showPanel(p)
+//            }
+//            return
+//        }
         if _itemButton.contains(tp!) {
             hideUI {
                 let p = ItemPanel()

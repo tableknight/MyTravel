@@ -61,13 +61,18 @@ class Character: Unit {
         }
         return nil
     }
-    func addItem(_ item: Item, count:Int = 1) {
+    func addItem(_ item: Stackable, count:Int = 1) {
         if item.stackable {
+            let newItem = item as! Item
             var exist = false
             for i in _items {
-                if i._type == item._type {
+                if i is Armor {
+                    continue
+                }
+                let listItem = i as! Item
+                if listItem._type == newItem._type {
                     //                    i._count += item._count
-                    i._count += count
+                    listItem._count += count
                     exist = true
                     break
                 }
@@ -79,21 +84,67 @@ class Character: Unit {
             _items.insert(item, at: 0)
         }
     }
-    func removeItem(_ item:Item, _ count:Int = 1) {
+    func removeItem(_ searchItem:Stackable, _ count:Int = 1) {
         for idx in 0..._items.count - 1 {
-            let i = _items[idx]
-            if i._type == item._type {
-                i._count -= count
-                if i._count < 1 {
-                    _items.remove(at: idx)
+            if searchItem is Item {
+                if _items[idx] is Item {
+                    let targetItem = searchItem as! Item
+                    let i = _items[idx] as! Item
+                    if i._type == targetItem._type {
+                        i._count -= count
+                        if i._count < 1 {
+                            _items.remove(at: idx)
+                        }
+                        break
+                    }
                 }
-                break
+            } else {
+                if _items[idx] is Armor {
+                    let targetArmor = searchItem as! Armor
+                    let i = _items[idx] as! Armor
+                    if targetArmor == i {
+                        _items.remove(at: idx)
+                        break
+                    }
+                }
             }
         }
     }
+    func removeSpell(id:Int) {
+        var index = _spellsInuse.firstIndex(of: id)
+        if nil != index {
+            _spellsInuse.remove(at: index!)
+            return
+        }
+        index = _spells.firstIndex(of: id)
+        if nil != index {
+            _spells.remove(at: index!)
+            return
+        }
+        for m in _minions {
+            index = m._spellsInuse.firstIndex(of: id)
+            if nil != index {
+                m._spellsInuse.remove(at: index!)
+                return
+            }
+        }
+    }
+    func hasSpell(id:Int) -> Bool {
+        var spells = _spells + _spellsInuse
+        for m in _minions {
+            spells += m._spellsInuse
+        }
+        for s in spells {
+            if s == id {
+                return true
+            }
+        }
+        
+        return false
+    }
     var _fields = Array<Field>()
     var _selectedField:Field!
-    var _items = Array<Item>()
+    var _items = Array<Stackable>()
     var _armors = Array<Armor>()
     var _minions = Array<Creature>()
     var _minionCount = 3
@@ -104,4 +155,6 @@ class Character: Unit {
     var _shield:Armor!
     var _magicMark:Armor!
     var _soulStone:Armor!
+    
+    var autoAction = false
 }

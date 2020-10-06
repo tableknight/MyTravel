@@ -15,6 +15,9 @@ class ValueUnit: ActionUnit {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    func getSensitive() -> CGFloat {
+        return _unit._extra.sensitive
+    }
     func getSpeed() -> CGFloat {
         return _unit._extended.speed + _valueUnit._extended.speed
     }

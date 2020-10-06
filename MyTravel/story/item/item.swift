@@ -7,7 +7,13 @@
 //
 
 import SpriteKit
-class Item:NSObject, Codable, Showable, Castable {
+class Item:NSObject, Codable, Showable, Castable, Stackable {
+    var quality: Int {
+        get {
+            return _quality
+        }
+    }
+    
     var autoCast: Bool {
         get {
             if [Item.TownScroll, Item.GodTownScroll, Item.PsychicScroll, Item.DeathTownScroll].contains(_type) {

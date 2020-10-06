@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-class ItemSelectPanel: ItemPanel {
+class ItemSelectPanel: PureItemPanel {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touchPoint = touches.first?.location(in: self)
         if _closeButton.contains(touchPoint!) {
@@ -37,6 +37,20 @@ class ItemSelectPanel: ItemPanel {
         _confirmButton.y = _closeButton.y
         _confirmButton.text = "选择"
         addChild(_confirmButton)
+        _discardButton.removeFromParent()
+        _equipButton.removeFromParent()
+    }
+    override func getItems() -> Array<Item> {
+        var items = Array<Item>()
+        for i in Game.curChar!._items {
+            if i is Item {
+                let item = i as! Item
+                if item.castable {
+                    items.append(item)
+                }
+            }
+        }
+        return items
     }
     var confirmAction = {}
     private var _confirmButton = Button()
